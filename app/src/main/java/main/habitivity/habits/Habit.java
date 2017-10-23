@@ -10,6 +10,7 @@ public class Habit {
     private String id;
     private String title;
     private Date startDate;
+    private String Reason;
     private List<Integer> daysOfTheWeekToComplete = new ArrayList<>();
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
@@ -75,6 +76,11 @@ public class Habit {
         
     }
 
+    public String getReason() {
+        return Reason;
+    }
 
- 
+    public void setReason(String reason) {
+        Reason = reason;
+    }
 }
