@@ -18,11 +18,11 @@ public class AddHabitEvent {
 
     }
 
-    private Habit getHabitUpdatedWithCompletion(Habit habit) {
+    private Habit getHabitUpdatedWithEvent(Habit habit) {
         return habit;
     }
 
-    private HabitEvent generateCompletion() {
+    private HabitEvent generateHabitEvent() {
         return new HabitEvent(new Date());
     }
 }

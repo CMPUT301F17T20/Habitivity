@@ -46,20 +46,11 @@ public class AddHabitEventTests {
 
         clock = mock(IClock.class);
         habitRepository = mock(HabitRepository.class);
-        //completeHabit = new HabitEvent(habitRepository, clock);
+        completeHabit = new AddHabitEvent(habitRepository, clock);
     }
 
     @Test
-    public void test_complete_ifHabitDoesNotExist_thenNoRepositoryUpdatesOccurs() {
-        when(habitRepository.getHabit("Habit-ID")).thenReturn(null);
-
-        completeHabit.complete("Habit-ID");
-
-        //verify(habitRepository, never()).updateHabit(any(Habit.class));
-    }
-
-    @Test
-    public void test_complete_ifHabitExists_thenUpdateIsCalledWithCompletionAdded() {
+    public void test_ifHabitExists_thenUpdateIsCalledWithCompletionAdded() {
         when(habitRepository.getHabit("Habit-ID")).thenReturn(habitWithoutCompletion);
         when(clock.getCurrentDate()).thenReturn(new Date(1));
 

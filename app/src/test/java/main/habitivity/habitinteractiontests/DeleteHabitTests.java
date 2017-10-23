@@ -21,7 +21,7 @@ public class DeleteHabitTests {
     }
 
     @Test
-    public void test_delete_callsRemoveHabitInRepository() {
+    public void test_delete_calls() {
         String habitIdToDelete = "habitId";
         deleteHabit.delete(habitIdToDelete);
 
