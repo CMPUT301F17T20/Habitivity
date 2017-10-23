@@ -1,4 +1,4 @@
-package main.habitivity.habitinteractiontests;
+package main.habitivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
