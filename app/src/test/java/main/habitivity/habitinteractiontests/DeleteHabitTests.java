@@ -3,8 +3,6 @@ package main.habitivity.habitinteractiontests;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.antonious.habittracker.habitstorage.IHabitRepository;
-import ca.antonious.habittracker.interactions.DeleteHabit;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.interactions.DeleteHabit;
 
