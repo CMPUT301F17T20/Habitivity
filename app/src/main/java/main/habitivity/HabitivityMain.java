@@ -1,9 +1,7 @@
 package main.habitivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -76,7 +74,7 @@ public class HabitivityMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.add_habit) {
-            Intent intent = new Intent(this, AddHabit.class);
+            Intent intent = new Intent(this, AddHabitActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.add_event) {

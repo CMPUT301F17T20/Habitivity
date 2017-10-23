@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddHabit"
+            android:name=".AddHabitActivity"
             android:label="@string/title_activity_add_habit"
             android:parentActivityName=".HabitivityMain"
             android:theme="@style/AppTheme.NoActionBar">

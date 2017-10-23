@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class AddHabit extends AppCompatActivity {
+public class AddHabitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
