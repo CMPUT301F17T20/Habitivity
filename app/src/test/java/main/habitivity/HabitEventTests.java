@@ -37,6 +37,7 @@ public class HabitEventTests {
         habitEvent.setId(id);
         habitEvent.setCompletionDate(completionDateReplacement);
         habitEvent.setComment(comment);
+        habitEvent.setPhoto(photograph);
     }
 
     @Test
