@@ -55,6 +55,21 @@ public class Habit {
     }
 
     /**
+     * Gets the habit event with the corresponding Id
+     * @param[in] completionId
+     * @return habit event with the corresponding id
+     */
+    public HabitEvent getHabitEvent(String completionId) {
+        for (HabitEvent habitEvent: this.getCompletedEvents()) {
+            if (completionId.equals(habitEvent.getId())) {
+                return habitEvent;
+            }
+        }
+
+        return null;
+    }
+
+    /**
     * Gets the title of the Habit
     *
     * @return title - title of the Habit
