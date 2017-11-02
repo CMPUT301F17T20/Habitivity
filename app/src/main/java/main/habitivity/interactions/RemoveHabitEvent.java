@@ -2,11 +2,12 @@ package main.habitivity.interactions;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.IHabitRepository;
 
 public class RemoveHabitEvent {
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
 
-    public RemoveHabitEvent(HabitRepository habitRepository) {
+    public RemoveHabitEvent(IHabitRepository habitRepository) {
         this.habitRepository = habitRepository;
     }
 

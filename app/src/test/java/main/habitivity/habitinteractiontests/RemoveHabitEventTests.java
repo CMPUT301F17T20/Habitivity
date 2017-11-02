@@ -11,12 +11,13 @@ import java.util.Date;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.IHabitRepository;
 import main.habitivity.interactions.RemoveHabitEvent;
 
 import static org.mockito.Mockito.*;
 
 public class RemoveHabitEventTests {
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
     private RemoveHabitEvent removeCompletion;
 
     private Habit habitWithoutCompletion;
@@ -40,7 +41,7 @@ public class RemoveHabitEventTests {
         habitWithCompletion.setDaysOfTheWeekToComplete(Arrays.asList(Calendar.SUNDAY));
         habitWithCompletion.setCompletedEvents(Arrays.asList(habitCompletion));
 
-        habitRepository = mock(HabitRepository.class);
+        habitRepository = mock(IHabitRepository.class);
         removeCompletion = new RemoveHabitEvent(habitRepository);
     }
 

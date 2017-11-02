@@ -11,6 +11,7 @@ import java.util.Date;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.IHabitRepository;
 import main.habitivity.interactions.AddHabitEvent;
 import main.habitivity.interactions.IClock;
 
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 public class AddHabitEventTests {
     private IClock clock;
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
     private AddHabitEvent completeHabit;
 
     private Habit habitWithoutCompletion;
@@ -45,7 +46,7 @@ public class AddHabitEventTests {
         habitWithCompletion.setCompletedEvents(Arrays.asList(habitCompletion));
 
         clock = mock(IClock.class);
-        habitRepository = mock(HabitRepository.class);
+        habitRepository = mock(IHabitRepository.class);
         completeHabit = new AddHabitEvent(habitRepository, clock);
     }
 

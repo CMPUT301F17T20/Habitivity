@@ -27,7 +27,7 @@ public class HabitEvent {
     /**
     * Sets the id of the HabitEvent
     *
-    * @param [in] id - id of the HabitEvent
+    * @param[in] id - id of the HabitEvent
     */
     public void setId(String id) {
     }
@@ -44,7 +44,7 @@ public class HabitEvent {
     /**
     * Sets the comment of the HabitEvent
     *
-    * @param [in] comment - comment of the HabitEvent
+    * @param[in] comment - comment of the HabitEvent
     */
     public void setComment(String comment) {
     }
@@ -61,7 +61,7 @@ public class HabitEvent {
     /**
     * Sets the completion date of the HabitEvent (i.e the date the habit was completed and became a "HabitEvent")
     *
-    * @param [in] completionDate - date that HabitEvent was created
+    * @param[in] completionDate - date that HabitEvent was created
     */
     public void setCompletionDate(Date completionDate) {
     }
@@ -78,7 +78,7 @@ public class HabitEvent {
     /**
     * Sets the photo associated with the HabitEvent
     *
-    * @param [in] photograph - photo associated with the HabitEvent
+    * @param[in] photograph - photo associated with the HabitEvent
     */
     public void setPhoto(Image photograph) {
     }

@@ -37,7 +37,7 @@ public class HabitRepository{
 
     /**
     * Gets the habit of the with the corresponding id
-    * @param [in] - id of habit
+    * @param[in] - id of habit
     * @return habit with the corresponding id
     */
     public Habit getHabit(String id) {
@@ -47,7 +47,7 @@ public class HabitRepository{
     /**
      * Update the habit stored in our local disk/server 
      *
-     * @param [in] - the habit to update in our local disk/server
+     * @param[in] - the habit to update in our local disk/server
      *
      * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
@@ -58,7 +58,7 @@ public class HabitRepository{
     /**
      * Add the habit to our local disk/server
      *
-     * @param [in] - the habit to add in our local disk/server
+     * @param[in] - the habit to add in our local disk/server
      *
      * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
@@ -69,7 +69,7 @@ public class HabitRepository{
     /**
      * Remove the habit of the corresponding id from our local disk/server
      *
-     * @param [in] - id of the habit to remove
+     * @param[in] - id of the habit to remove
      *
      * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES

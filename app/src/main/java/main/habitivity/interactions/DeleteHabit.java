@@ -1,14 +1,16 @@
 package main.habitivity.interactions;
 
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.IHabitRepository;
 
 public class DeleteHabit {
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
 
-    public DeleteHabit(HabitRepository habitRepository) {
+    public DeleteHabit(IHabitRepository habitRepository) {
         this.habitRepository = habitRepository;
     }
 
     public void delete(String habitId) {
+        habitRepository.removeHabit(habitId);
     }
 }

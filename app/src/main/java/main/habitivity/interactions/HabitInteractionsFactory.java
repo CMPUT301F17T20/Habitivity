@@ -1,12 +1,13 @@
 package main.habitivity.interactions;
 
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.IHabitRepository;
 
 public class HabitInteractionsFactory {
     private IClock clock;
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
 
-    public HabitInteractionsFactory(HabitRepository habitRepository, IClock clock) {
+    public HabitInteractionsFactory(IHabitRepository habitRepository, IClock clock) {
         this.habitRepository = habitRepository;
         this.clock = clock;
     }

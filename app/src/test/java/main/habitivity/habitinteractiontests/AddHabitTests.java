@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.habits.IHabitRepository;
 import main.habitivity.interactions.AddHabit;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
@@ -18,12 +19,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class AddHabitTests {
-    private HabitRepository habitRepository;
+    private IHabitRepository habitRepository;
     private AddHabit addHabit;
 
     @Before
     public void set_up() {
-        habitRepository = mock(HabitRepository.class);
+        habitRepository = mock(IHabitRepository.class);
         addHabit = new AddHabit(habitRepository);
     }
 

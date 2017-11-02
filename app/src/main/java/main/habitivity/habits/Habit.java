@@ -30,7 +30,7 @@ public class Habit {
     /**
     * Sets the id of the Habit
     *
-    * @param [in] id - id of the Habit
+    * @param[in] id - id of the Habit
     */
     public void setId(String id) {
     }
@@ -48,7 +48,7 @@ public class Habit {
     /**
     * Sets the habitType of the Habit
     *
-    * @param [in] habitType - habitType of the Habit
+    * @param[in] habitType - habitType of the Habit
     */
     public void setHabitType(String habitType) {
 
@@ -66,7 +66,7 @@ public class Habit {
     /**
     * Sets the title of the Habit
     *
-    * @param [in] title - title of the Habit
+    * @param[in] title - title of the Habit
     */
     public void setTitle(String title) {
     }
@@ -78,7 +78,7 @@ public class Habit {
     /**
     * Sets the startDate of the Habit
     *
-    * @param [in] startDate - startDate of the Habit
+    * @param[in] startDate - startDate of the Habit
     */
     public void setStartDate(Date startDate) {
     }
@@ -99,7 +99,7 @@ public class Habit {
     * i.e if we schedule the habit to be completed on mondays and wednesday then
     * the array will contain [1,3]. Days of the week are represented by integers.
     *
-    * @param [in] daysToComplete - list of integers contains the days of the week we want to complete the habit
+    * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
     */
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
     }
@@ -117,7 +117,7 @@ public class Habit {
     * Sets the list of habits that are completed (i.e they're now habit events). 
     * I.e replace our old list of habit events with our new one
     *
-    * @param [in] completions - list of habit events
+    * @param[in] completions - list of habit events
     */
     public void setCompletedEvents(List<? extends HabitEvent> completions) {
 
@@ -126,7 +126,7 @@ public class Habit {
     /**
     * Sets the list of habits that are completed (i.e they're now habit events). 
     *
-    * @param [in] completions - list of habit events
+    * @param[in] completions - list of habit events
     */
     public void addCompletedEvent(HabitEvent habitCompletion){
 
@@ -135,7 +135,7 @@ public class Habit {
     /**
     * Add the completed habitEvent to our list of habitEvents 
     *
-    * @param [in] habitEvent - event to add to our list of completed HabitEvents
+    * @param[in] habitEvent - event to add to our list of completed HabitEvents
     */
     public void addHabitEvent(HabitEvent habitEvent){
         
@@ -144,7 +144,7 @@ public class Habit {
     /**
     * Remove the habitEvent to our list of habitEvents 
     *
-    * @param [in] habitEvent - event to remove from our list of completed HabitEvents
+    * @param[in] habitEvent - event to remove from our list of completed HabitEvents
     */
     public void deleteHabitEvent(HabitEvent habitEvent){
         
@@ -162,7 +162,7 @@ public class Habit {
     /**
     * Sets the reason for the habit
     *
-    * @param [in] reason - reason for the habit
+    * @param[in] reason - reason for the habit
     */
     public void setReason(String reason) {
         Reason = reason;
