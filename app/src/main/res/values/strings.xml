@@ -7,6 +7,12 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_habit">Add Habit</string>
     <string name="title_activity_add_event">Add Event</string>
-
+    <string name="mon_switch">Mon</string>
+    <string name="tues_switch">Tues</string>
+    <string name="weds_switch">Weds</string>
+    <string name="thurs_switch">Thurs</string>
+    <string name="fri_switch">Fri</string>
+    <string name="sat_switch">Sat</string>
+    <string name="sun_switch">Sun</string>
 
 </resources>

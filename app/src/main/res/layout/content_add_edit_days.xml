@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Days_Switch_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/Switchs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/Sun"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sun_switch"
+            android:textOff="@string/sun_switch"
+            android:textOn="@string/sun_switch" />
+
+        <ToggleButton
+            android:id="@+id/Mon"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mon_switch" />
+
+        <ToggleButton
+            android:id="@+id/Tues"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tues_switch" />
+
+        <ToggleButton
+            android:id="@+id/Wed"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/weds_switch" />
+
+        <ToggleButton
+            android:id="@+id/Thurs"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/thurs_switch" />
+
+        <ToggleButton
+            android:id="@+id/Fri"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fri_switch" />
+
+        <ToggleButton
+            android:id="@+id/Sat"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sat_switch" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
