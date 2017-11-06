@@ -19,11 +19,18 @@ public class TodayHabitRepository /**Instead Extend HabitRepository placing habi
              * if a habit is for this day of the week add it to today's Habits
              */
             Habit habit = habits.get(i);
-            if ( habit.checkDay(weekDay.get(Calendar.DAY_OF_WEEK)) ) {
+            if ( habit.checkDay(weekDay.get(Calendar.DAY_OF_WEEK) ) && ( habit.getStartDate().compareTo(weekDay.getTime()) >= 0 ) ) {
                 Today.add(habit);
             }
         }
     }
 
+    public List<Habit> getHabits() {
+        return Today;
+    }
+
+
+
     /** Send changes to habits in todayHabitRepository to the main Habit Repository to update **/
+
 }
