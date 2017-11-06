@@ -91,6 +91,8 @@ public class HabitRepository{
      * This was originally intended for the observer class. DON'T IMPLEMENT this since we
      * might need to change that part
      */
+    private int getHabitCount() {return this.getSortedHabits().size(); }
+
     private void notifyChange() {
     }
 
