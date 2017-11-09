@@ -22,12 +22,14 @@ import main.habitivity.services.WhichHabitService;
 public class HabitRepository{
     private LocalHabitService habitService;
     private Map<String, Habit> habits;
+    private Map<String, HabitEvent> habitEvents;
 
     private Set<IObserver<List<Habit>>> observers = new HashSet<>();
 
     public HabitRepository(LocalHabitService habitService) {
         this.habitService = habitService;
         this.habits = new HashMap<>();
+        this.habitEvents = new HashMap<>();
     }
 
     /**
@@ -39,6 +41,8 @@ public class HabitRepository{
         return new ArrayList<Habit>();
     }
 
+    public List<HabitEvent> getHabitEvents() {return new ArrayList<HabitEvent>();}
+
     /**
     * Gets the habit of the with the corresponding id
     * @param[in] - id of habit
@@ -46,6 +50,36 @@ public class HabitRepository{
     */
     public Habit getHabit(String id) {
         return new Habit();
+    }
+
+    /**
+     * Update the habitEvent in our local disk/server
+     *
+     * @param[in] - the habit to update in our local disk/server
+     */
+    public void updateHabitEvent(HabitEvent habitEvent){
+        habitService.updateHabitEvent(habitEvent);
+        habitEvents.put(habitEvent.getId(), habitEvent);
+    }
+
+    /**
+     * Add the habitEvent in our local disk/server
+     *
+     * @param[in] - the habit to update in our local disk/server
+     */
+    public void addHabitEvent(HabitEvent habitEvent){
+        habitService.addHabitEvent(habitEvent);
+        habitEvents.put(habitEvent.getId(), habitEvent);
+    }
+
+    /**
+     * Remove the habitEvent in our local disk/server
+     *
+     * @param[in] - the habit to update in our local disk/server
+     */
+    public void removeHabitEvent(String id){
+        habitService.deleteHabitEvent(id);
+        habitEvents.remove(id);
     }
 
     /**
@@ -60,7 +94,6 @@ public class HabitRepository{
 
         habitService.updateHabit(habit);
         habits.put(habit.getId(), habit);
-        notifyChange();
     }
 
     /**
@@ -75,7 +108,6 @@ public class HabitRepository{
 
         habitService.addHabit(habit);
         habits.put(habit.getId(), habit);
-        notifyChange();
     }
 
     /**
