@@ -1,6 +1,7 @@
 package main.habitivity.habits;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Habit {
     private List<Integer> daysOfTheWeekToComplete = new ArrayList<>();
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
+    private Date lastComplete = null;
 
     public Habit() {
     }
@@ -119,6 +121,19 @@ public class Habit {
     *
     * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
     */
+
+    public Boolean checkDay(int day){
+        /** Enter 1-7 value of weekday, return true if in DaysofTheWeekToComplete
+         *  !!! Replace with Boolean array to make this a simple return.
+         * **/
+        for (int i = 0; i < daysOfTheWeekToComplete.size(); i++) {
+            if (daysOfTheWeekToComplete.get(i) == day){
+                return true;
+            }
+        }
+        return false;
+
+    }
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
         this.daysOfTheWeekToComplete = daysToComplete;
     }
@@ -185,5 +200,13 @@ public class Habit {
     */
     public void setReason(String reason) {
         Reason = reason;
+    }
+
+    public Date getLastComplete() {
+        return lastComplete;
+    }
+
+    public void setLastComplete(Date lastComplete) {
+        this.lastComplete = lastComplete;
     }
 }

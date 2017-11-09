@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Days_Switch_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/Switchs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/Sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/check"
+            android:text="@string/sun_switch"
+            android:textOff="@string/sun_switch"
+            android:textOn="@string/sun_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/mon_switch"
+            android:textOff="@string/mon_switch"
+            android:textOn="@string/mon_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Tues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/tues_switch"
+            android:textOff="@string/tues_switch"
+            android:textOn="@string/tues_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/weds_switch"
+            android:textOff="@string/weds_switch"
+            android:textOn="@string/weds_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Thurs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/thurs_switch"
+            android:textOff="@string/thurs_switch"
+            android:textOn="@string/thurs_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/fri_switch"
+            android:textOff="@string/fri_switch"
+            android:textOn="@string/fri_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+        <ToggleButton
+            android:id="@+id/Sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check"
+            android:layout_weight="1"
+            android:text="@string/sat_switch"
+            android:textOff="@string/sat_switch"
+            android:textOn="@string/sat_switch"
+            android:textSize="11sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="266dp" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

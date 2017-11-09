@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/HabitName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <TextView
+            android:id="@+id/habitReason"
+            android:layout_width="234dp"
+            android:layout_height="28dp"
+            android:layout_gravity="start"
+            android:layout_margin="8dp"
+            tools:layout_editor_absoluteX="27dp"
+            tools:layout_editor_absoluteY="31dp" />
+
+        <TextView
+            android:id="@+id/HabitStarted"
+            android:layout_width="234dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="8dp"
+            tools:layout_editor_absoluteX="27dp"
+            tools:layout_editor_absoluteY="31dp" />
+
+        <ToggleButton
+            android:id="@+id/Complete_state"
+            android:layout_width="132dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/check"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textOff="@string/comp_false"
+            android:textOn="@string/comp_true"
+            tools:layout_editor_absoluteX="262dp"
+            tools:layout_editor_absoluteY="-3dp" />
+
+        <Button
+            android:id="@+id/viewHabit"
+            android:layout_width="132dp"
+            android:layout_height="32dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/check"
+            android:text="@string/viewHabit"
+            android:textAllCaps="false"
+            tools:layout_editor_absoluteX="247dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
