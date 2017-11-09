@@ -33,6 +33,7 @@ public class Habit {
     * @param[in] id - id of the Habit
     */
     public void setId(String id) {
+        this.id = id;
     }
 
 
@@ -51,7 +52,7 @@ public class Habit {
     * @param[in] habitType - habitType of the Habit
     */
     public void setHabitType(String habitType) {
-
+        this.habitType = habitType;
     }
 
     /**
@@ -84,6 +85,7 @@ public class Habit {
     * @param[in] title - title of the Habit
     */
     public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getStartDate() {
@@ -96,6 +98,7 @@ public class Habit {
     * @param[in] startDate - startDate of the Habit
     */
     public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     /**
@@ -117,6 +120,7 @@ public class Habit {
     * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
     */
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
+        this.daysOfTheWeekToComplete = daysToComplete;
     }
     
     /**
@@ -135,7 +139,7 @@ public class Habit {
     * @param[in] completions - list of habit events
     */
     public void setCompletedEvents(List<? extends HabitEvent> completions) {
-
+        this.completions = completions;
     }
 
     /**
