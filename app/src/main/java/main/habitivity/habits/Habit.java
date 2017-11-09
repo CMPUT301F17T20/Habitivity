@@ -158,30 +158,23 @@ public class Habit {
     }
 
     /**
-    * Sets the list of habits that are completed (i.e they're now habit events). 
-    *
-    * @param[in] completions - list of habit events
-    */
-    public void addCompletedEvent(HabitEvent habitCompletion){
-
-    }
-
-    /**
     * Add the completed habitEvent to our list of habitEvents 
     *
     * @param[in] habitEvent - event to add to our list of completed HabitEvents
     */
     public void addHabitEvent(HabitEvent habitEvent){
-        
+        this.completions.add(habitEvent);
     }
 
     /**
-    * Remove the habitEvent to our list of habitEvents 
+    * Remove the habitEvent from our list of habitEvents 
     *
     * @param[in] habitEvent - event to remove from our list of completed HabitEvents
     */
     public void deleteHabitEvent(HabitEvent habitEvent){
-        
+        // This may not remove the HabitEvent correctly in all cases.
+        // For full coverage we can remove manually by habitEvent.id, though this will be less efficient.
+        this.completions.remove(habitEvent);
     }
 
     /**
