@@ -12,6 +12,7 @@ import java.util.Set;
 
 import main.habitivity.observables.IObservable;
 import main.habitivity.observables.IObserver;
+import main.habitivity.services.LocalHabitService;
 import main.habitivity.services.WhichHabitService;
 
 /*
@@ -19,12 +20,14 @@ import main.habitivity.services.WhichHabitService;
  * of habits.
  */
 public class HabitRepository{
-    private WhichHabitService habitService;
+    private LocalHabitService habitService;
     private Map<String, Habit> habits;
 
     private Set<IObserver<List<Habit>>> observers = new HashSet<>();
 
-    public HabitRepository(WhichHabitService habitService) {
+    public HabitRepository(LocalHabitService habitService) {
+        this.habitService = habitService;
+        this.habits = new HashMap<>();
     }
 
     /**
@@ -54,6 +57,10 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void updateHabit(Habit habit) {
+
+        habitService.updateHabit(habit);
+        habits.put(habit.getId(), habit);
+        notifyChange();
     }
 
     /**
@@ -65,6 +72,10 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void addHabit(Habit habit) {
+
+        habitService.addHabit(habit);
+        habits.put(habit.getId(), habit);
+        notifyChange();
     }
 
     /**
@@ -76,6 +87,9 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void removeHabit(String id) {
+
+        habitService.deleteHabit(id);
+        habits.remove(id);
 
     }
 

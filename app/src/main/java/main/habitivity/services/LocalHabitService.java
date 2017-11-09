@@ -102,7 +102,7 @@ public class LocalHabitService implements IHabitService {
     }
 
     private Map<String, Habit> loadHabits() {
-        String serializedHabits = fileHandler.loadFileAsString("testSaveFileForHabits");
+        String serializedHabits = fileHandler.loadFileAsString("testSaveFileForHabits.txt");
 
         if (serializedHabits.isEmpty() || serializedHabits == null) {
             return new HashMap<>();
@@ -112,7 +112,7 @@ public class LocalHabitService implements IHabitService {
     }
 
     private Map<String, HabitEvent> loadHabitEvents() {
-        String serializedHabitEvents = fileHandler.loadFileAsString("testSaveFileForHabitEvents");
+        String serializedHabitEvents = fileHandler.loadFileAsString("testSaveFileForHabitEvents.txt");
 
         if (serializedHabitEvents.isEmpty() || serializedHabitEvents == null) {
             return new HashMap<>();
@@ -123,12 +123,12 @@ public class LocalHabitService implements IHabitService {
 
     private void saveHabitEvents(Map<String, HabitEvent> habitEventMap) {
         String serializedHabitEvents = getGson().toJson(habitEventMap);
-        fileHandler.saveStringToFile("testSaveFileForHabitEvents", serializedHabitEvents);
+        fileHandler.saveStringToFile("testSaveFileForHabitEvents.txt", serializedHabitEvents);
     }
 
     private void saveHabits(Map<String, Habit> habitMap) {
         String serializedHabits = getGson().toJson(habitMap);
-        fileHandler.saveStringToFile("testSaveFileForHabits", serializedHabits);
+        fileHandler.saveStringToFile("testSaveFileForHabits.txt", serializedHabits);
     }
 
     private Gson getGson() {
