@@ -44,9 +44,17 @@
             android:name=".HabitsProvider"
             android:authorities="${applicationId}.provider"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false" />
 
-        <activity android:name=".TodaysHabits"></activity>
+        <activity android:name=".TodaysHabits" />
+        <activity
+            android:name=".FollowRequest"
+            android:label="@string/title_activity_follow_request"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
