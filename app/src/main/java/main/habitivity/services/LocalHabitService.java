@@ -1,5 +1,8 @@
 package main.habitivity.services;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,28 +29,41 @@ public class LocalHabitService implements IHabitService {
     }
 
     @Override
-    public List<HabitEvent> getHabitEvent(){
-        return null;
+    public List<HabitEvent> getHabitEvents(){
+        return new ArrayList<>(loadHabitEvents().values());
     }
 
     @Override
     public void addHabitEvent(HabitEvent habitEvent){
+        Map<String, HabitEvent> habitEvents = loadHabitEvents();
+
+        if (!habitEvents.containsKey(habitEvent.getId())) {
+            habitEvents.put(habitEvent.getId(), habitEvent);
+            saveHabitEvents(habitEvents);
+        }
 
     }
 
     @Override
     public void deleteHabitEvent(String id){
+        Map<String, HabitEvent> habitEvents = loadHabitEvents();
 
-    }
-
-    public void updateHabitEvent(HabitEvent habitEvent){
-
+        if (habitEvents.containsKey(id)) {
+            habitEvents.remove(id);
+            saveHabitEvents(habitEvents);
+        }
     }
 
     @Override
-    public List<Habit> getHabit() {
-        return null;
+    public void updateHabitEvent(HabitEvent habitEvent){
+        Map<String, HabitEvent> habitEvents = loadHabitEvents();
+
+        if (habitEvents.containsKey(habitEvent.getId())) {
+            habitEvents.put(habitEvent.getId(), habitEvent);
+            saveHabitEvents(habitEvents);
+        }
     }
+
 
     @Override
     public List<Habit> getHabits() {
@@ -85,7 +101,6 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
-
     private Map<String, Habit> loadHabits() {
         String serializedHabits = fileHandler.loadFileAsString("testSaveFileForHabits");
 
@@ -94,6 +109,21 @@ public class LocalHabitService implements IHabitService {
         } else {
             return getGson().fromJson(serializedHabits, new TypeToken<Map<String, Habit>>() {}.getType());
         }
+    }
+
+    private Map<String, HabitEvent> loadHabitEvents() {
+        String serializedHabitEvents = fileHandler.loadFileAsString("testSaveFileForHabitEvents");
+
+        if (serializedHabitEvents.isEmpty() || serializedHabitEvents == null) {
+            return new HashMap<>();
+        } else {
+            return getGson().fromJson(serializedHabitEvents, new TypeToken<Map<String, HabitEvent>>() {}.getType());
+        }
+    }
+
+    private void saveHabitEvents(Map<String, HabitEvent> habitEventMap) {
+        String serializedHabitEvents = getGson().toJson(habitEventMap);
+        fileHandler.saveStringToFile("testSaveFileForHabitEvents", serializedHabitEvents);
     }
 
     private void saveHabits(Map<String, Habit> habitMap) {

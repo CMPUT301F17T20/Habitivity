@@ -10,15 +10,13 @@ import main.habitivity.habits.HabitEvent;
  */
 
 public interface IHabitService {
-    List<Habit> getHabit();
-
     List<Habit> getHabits();
 
     void addHabit(Habit habit);
     void deleteHabit(String id);
     void updateHabit(Habit habit);
 
-    List<HabitEvent> getHabitEvent();
+    List<HabitEvent> getHabitEvents();
 
     void addHabitEvent(HabitEvent habitEvent);
     void deleteHabitEvent(String id);
