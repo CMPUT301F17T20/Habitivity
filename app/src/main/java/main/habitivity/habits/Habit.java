@@ -15,6 +15,7 @@ public class Habit {
     private List<Integer> daysOfTheWeekToComplete = new ArrayList<>();
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
+    private Date lastComplete = null;
 
     public Habit() {
     }
@@ -195,5 +196,13 @@ public class Habit {
     */
     public void setReason(String reason) {
         Reason = reason;
+    }
+
+    public Date getLastComplete() {
+        return lastComplete;
+    }
+
+    public void setLastComplete(Date lastComplete) {
+        this.lastComplete = lastComplete;
     }
 }

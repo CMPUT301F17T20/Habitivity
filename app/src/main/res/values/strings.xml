@@ -14,5 +14,9 @@
     <string name="fri_switch">Fri</string>
     <string name="sat_switch">Sat</string>
     <string name="sun_switch">Sun</string>
-
+    <string name="comp_false">Complete Event</string>
+    <string name="comp_true">Completed (View)</string>
+    <string name="eventPic">eventPic</string>
+    <string name="Map">map</string>
+    <string name="viewHabit">View Habit</string>
 </resources>
