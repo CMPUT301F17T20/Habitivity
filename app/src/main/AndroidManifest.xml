@@ -39,12 +39,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="main.habitivity.HabitivityMain" />
         </activity>
+
         <provider
-            android:name="main.habitivity.HabitsProvider"
+            android:name=".HabitsProvider"
             android:authorities="${applicationId}.provider"
             android:enabled="true"
-            android:exported="false" >
-        </provider>
+            android:exported="false"></provider>
+
+        <activity android:name=".TodaysHabits"></activity>
     </application>
 
 </manifest>

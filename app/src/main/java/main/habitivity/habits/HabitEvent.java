@@ -30,6 +30,7 @@ public class HabitEvent {
     * @param[in] id - id of the HabitEvent
     */
     public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -47,6 +48,7 @@ public class HabitEvent {
     * @param[in] comment - comment of the HabitEvent
     */
     public void setComment(String comment) {
+        this.comment = comment;
     }
 
     /**
@@ -64,6 +66,7 @@ public class HabitEvent {
     * @param[in] completionDate - date that HabitEvent was created
     */
     public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
 
     /**
@@ -81,6 +84,7 @@ public class HabitEvent {
     * @param[in] photograph - photo associated with the HabitEvent
     */
     public void setPhoto(Image photograph) {
+        this.photograph = photograph;
     }
 
 }

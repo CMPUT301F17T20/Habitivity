@@ -1,6 +1,7 @@
 package main.habitivity.habits;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -91,6 +92,26 @@ public class HabitRepository{
      * This was originally intended for the observer class. DON'T IMPLEMENT this since we
      * might need to change that part
      */
+
+    /**get an ArrayList of only the habits for today**/
+    public List<Habit> getTodaysHabits() {
+        List<Habit> Today = new ArrayList<>();
+        Calendar weekDay = Calendar.getInstance(); //is this correct
+
+        for (int i=0; i < habits.size(); i++) {
+            /**
+             * if a habit is for this day of the week add it to today's Habits
+             */
+            Habit habit = habits.get(i);
+            if ( habit.checkDay(weekDay.get(Calendar.DAY_OF_WEEK) ) && ( habit.getStartDate().compareTo(weekDay.getTime()) >= 0 ) ) {
+                Today.add(habit);
+            }
+        }
+        return Today;
+    }
+
+    private int getHabitCount() {return this.getSortedHabits().size(); }
+
     private void notifyChange() {
     }
 
