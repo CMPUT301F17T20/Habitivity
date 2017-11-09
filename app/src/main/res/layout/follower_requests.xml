@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/changa_one"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        tools:text="SampleUser wants to follow:" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/allowbutton"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|start"
+            android:layout_margin="8dp"
+
+            android:fontFamily="@font/changa_one"
+            android:text="@string/allow"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/denybutton"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|end"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/changa_one"
+            android:text="@string/deny"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="208dp" />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

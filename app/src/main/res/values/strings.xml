@@ -27,4 +27,6 @@
     <string name="follow">Follow</string>
     <string name="pending">Pending Approval</string>
     <string name="isFollower">is Following You</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 </resources>
