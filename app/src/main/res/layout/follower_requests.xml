@@ -6,41 +6,47 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/changa_one"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        tools:text="SampleUser wants to follow:" />
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="75dp"
+        android:background="@drawable/side_nav_bar">
+
+        <TextView
+            android:id="@+id/requestUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            tools:text="SampleUser wants to follow:" />
 
         <Button
             android:id="@+id/allowbutton"
             android:layout_width="178dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|start"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom|start"
             android:layout_margin="8dp"
 
-            android:fontFamily="@font/changa_one"
             android:text="@string/allow"
-            android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/denybutton"
             android:layout_width="178dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|end"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom|end"
             android:layout_margin="8dp"
-            android:fontFamily="@font/changa_one"
             android:text="@string/deny"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="208dp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="33dp" />
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

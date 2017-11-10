@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/side_nav_bar">
+
+        <TextView
+            android:id="@+id/follower"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:text="SampleUser :" />
+
+        <TextView
+            android:id="@+id/isFollowing"
+            android:layout_width="186dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|top"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/isFollower"
+
+            android:textAlignment="viewEnd"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/yellow"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="190dp" />
+
+        <Button
+            android:id="@+id/denyButton"
+            android:layout_width="178dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="8dp"
+            android:text="@string/deny"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="33dp" />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
