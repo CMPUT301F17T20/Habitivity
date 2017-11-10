@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@drawable/side_nav_bar">
+
+        <TextView
+            android:id="@+id/requestUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            tools:text="SampleUser wants to follow:" />
+
+        <Button
+            android:id="@+id/allowbutton"
+            android:layout_width="178dp"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="8dp"
+
+            android:text="@string/allow"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/denybutton"
+            android:layout_width="178dp"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:text="@string/deny"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="33dp" />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

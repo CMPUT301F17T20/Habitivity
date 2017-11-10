@@ -19,4 +19,14 @@
     <string name="eventPic">eventPic</string>
     <string name="Map">map</string>
     <string name="viewHabit">View Habit</string>
+    <string name="title_activity_follow_request">FollowRequest</string>
+    <string name="pendingFollows">Pending Follows:</string>
+    <string name="requests">Follower Requests:</string>
+    <string name="followers">Followers:</string>
+    <string name="find">Find a User</string>
+    <string name="follow">Follow</string>
+    <string name="pending">Pending Approval</string>
+    <string name="isFollower">Following You</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 </resources>
