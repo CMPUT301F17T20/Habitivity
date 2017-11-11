@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="main.habitivity.HabitEvents">
+    tools:context="main.habitivity.AddHabitActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_habit_events" />
+    <include
+        layout="@layout/content_habit_events"
+        android:layout_height="wrap_content"
+
+        tools:layout_editor_absoluteY="-26dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -31,3 +35,4 @@
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>
+
