@@ -13,27 +13,49 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import main.habitivity.habits.HabitRepository;
-import main.habitivity.services.WhichHabitService;
 
 public class ElasticsearchController {
     private static final String indexString = "CMPUT301F17T20";
     private static JestDroidClient client;
 
-    public static class SaveHabitRepository extends AsyncTask<HabitRepository, Void, Void> {
+    public static class CreateHabitRepository extends AsyncTask<HabitRepository, Void, Void> {
 
         @Override
-        protected Void doInBackground(HabitRepository... repo) {
+        protected Void doInBackground(HabitRepository... repos) {
             verifySettings();
 
-            Index index = new Index.Builder(repo).index(indexString).type("HabitRepository").build();
+            for(HabitRepository repo : repos) {
+                Index index = new Index.Builder(repo).index(indexString).type("HabitRepository").build();
 
-            try {
-                DocumentResult execute = client.execute(index);
-            }
-            catch (Exception e) {
-                Log.i("Error", "The application failed to build and send the repository");
-            }
+                try {
+                    DocumentResult execute = client.execute(index);
 
+                    if (execute.isSucceeded()) {
+                        repo.setID(execute.getId());
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the repository");
+                }
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateHabitRepository extends AsyncTask<HabitRepository, Void, Void> {
+
+        @Override
+        protected Void doInBackground(HabitRepository... repos) {
+            verifySettings();
+
+            for(HabitRepository repo : repos) {
+                Index index = new Index.Builder(repo).index(indexString).type("HabitRepository").id(repo.getID()).build();
+
+                try {
+                    DocumentResult execute = client.execute(index);
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the repository");
+                }
+            }
             return null;
         }
     }
@@ -43,7 +65,7 @@ public class ElasticsearchController {
         protected HabitRepository doInBackground(String... search_parameters) {
             verifySettings();
 
-            HabitRepository repo = new HabitRepository(new WhichHabitService());
+            HabitRepository repo = null;
 
             String query = "";
 

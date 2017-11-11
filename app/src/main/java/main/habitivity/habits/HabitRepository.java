@@ -23,6 +23,24 @@ public class HabitRepository{
     private LocalHabitService habitService;
     private Map<String, Habit> habits;
     private Map<String, HabitEvent> habitEvents;
+    private String userID;
+    private String ID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     private Set<IObserver<List<Habit>>> observers = new HashSet<>();
 
