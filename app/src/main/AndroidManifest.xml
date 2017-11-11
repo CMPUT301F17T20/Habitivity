@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="main.habitivity">
 
+    <uses-sdk android:minSdkVersion="9" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk android:minSdkVersion="9"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -51,11 +55,20 @@
         <activity
             android:name=".FollowRequest"
             android:label="@string/title_activity_follow_request"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".LoginUser"
+            android:label="@string/title_activity_login_user"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HabitEvents"
+            android:label="@string/title_activity_habit_events"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

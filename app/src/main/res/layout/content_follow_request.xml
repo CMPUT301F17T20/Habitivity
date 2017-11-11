@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/brown1"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="main.habitivity.FollowRequest"
@@ -18,6 +19,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/pendingList"
+        app:layout_constraintTop_toBottomOf="@+id/multiAutoCompleteSearch"
         tools:layout_editor_absoluteY="7dp" />
 
     <android.support.v7.widget.RecyclerView
@@ -42,7 +44,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/requestsList"
-        tools:layout_editor_absoluteY="219dp" />
+        tools:layout_editor_absoluteY="254dp" />
 
     <TextView
         android:id="@+id/followers"
@@ -61,16 +63,43 @@
         android:layout_height="161dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followers"
-        tools:listitem="@layout/followers"></android.support.v7.widget.RecyclerView>
+        tools:listitem="@layout/followers">
+
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/requestsList"
         android:layout_width="384dp"
         android:layout_height="174dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followerRequests"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/follower_requests">
 
     </android.support.v7.widget.RecyclerView>
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteSearch"
+        android:layout_width="232dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/background_light"
+        android:fontFamily="sans-serif-smallcaps"
+        android:hint="Username"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="131dp"
+        android:layout_height="50dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/follow"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/multiAutoCompleteSearch"
+        tools:layout_editor_absoluteX="237dp" />
 
 </android.support.constraint.ConstraintLayout>

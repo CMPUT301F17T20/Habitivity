@@ -29,4 +29,7 @@
     <string name="isFollower">Following You</string>
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
+    <string name="title_activity_login_user">LoginUser</string>
+    <string name="NewUser">New User</string>
+    <string name="title_activity_habit_events">HabitEvents</string>
 </resources>
