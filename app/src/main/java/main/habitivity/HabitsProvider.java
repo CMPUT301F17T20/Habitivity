@@ -3,9 +3,7 @@ package main.habitivity;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 
 import android.database.Cursor;
@@ -13,7 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class HabitsProvider extends ContentProvider {
+public abstract class HabitsProvider extends ContentProvider {
 
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
@@ -33,61 +31,67 @@ public class HabitsProvider extends ContentProvider {
     static final int HABITS_ID = 2;
 
     static final UriMatcher uriMatcher;
-    static{
+
+    static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(PROVIDER_NAME, "habits", HABITS);
         uriMatcher.addURI(PROVIDER_NAME, "habits/#", HABITS_ID);
     }
 
+    //Cause build errors. Whoever put this in can fix it later
+
     // Implements ContentProvider.query()
-    public Cursor query(
-            Uri uri,
-            String[] projection,
-            String selection,
-            String[] selectionArgs,
-            String sortOrder) {
+//    public Cursor query(
+//            Uri uri,
+//            String[] projection,
+//            String selection,
+//            String[] selectionArgs,
+//            String sortOrder) {
 
         /*
          * Choose the table to query and a sort order based on the code returned for the incoming
          * URI. Here, too, only the statements for table 3 are shown.
          */
-        switch (UriMatcher.match(uri)) {
 
-
-            // If the incoming URI was for all of table3
-            case 1:
-
-                if (TextUtils.isEmpty(sortOrder)) sortOrder = "_ID ASC";
-                break;
-
-            // If the incoming URI was for a single row
-            case 2:
-
-                /*
-                 * Because this URI was for a single row, the _ID value part is
-                 * present. Get the last path segment from the URI; this is the _ID value.
-                 * Then, append the value to the WHERE clause for the query
-                 */
-                selection = selection + "_ID = " + uri.getLastPathSegment();
-                break;
-
-            default:
-                /**
-                 *
-                 * ToDo: implement error handling.
-                 *
-                 */
-        }
+    //this caused an error. idk who put this in but it's not used
+//        switch (UriMatcher.match(uri)) {
+//
+//
+//            // If the incoming URI was for all of table3
+//            case 1:
+//
+//                if (TextUtils.isEmpty(sortOrder)) sortOrder = "_ID ASC";
+//                break;
+//
+//            // If the incoming URI was for a single row
+//            case 2:
+//
+//                /*
+//                 * Because this URI was for a single row, the _ID value part is
+//                 * present. Get the last path segment from the URI; this is the _ID value.
+//                 * Then, append the value to the WHERE clause for the query
+//                 */
+//                selection = selection + "_ID = " + uri.getLastPathSegment();
+//                break;
+//
+//            default:
+//                /**
+//                 *
+//                 * ToDo: implement error handling.
+//                 *
+//                 */
+//        }
+//  }
 
         /**
          *
          * ToDo: implement code to actually execute the query
          *
          */
-    }
 
     // Implements the provider's insert method
-    public Cursor insert(Uri uri, ContentValues values) {
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
 
         /**
          *
@@ -106,5 +110,6 @@ public class HabitsProvider extends ContentProvider {
          *
          */
 
+        return uri;
     }
 }
