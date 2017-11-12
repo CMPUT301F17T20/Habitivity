@@ -4,6 +4,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="main.habitivity.EventDetails">
+    android:orientation="vertical">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/eventLocation"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/eventCompleted">
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="194dp"
+            android:layout_height="21dp"
+            android:layout_gravity="start|top"
+            android:layout_margin="8dp"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            tools:text="Location Data" />
+
+        <Button
+            android:id="@+id/addlocation"
+            android:layout_width="171dp"
+            android:layout_height="35dp"
+            android:layout_gravity="top|end"
+            android:fontFamily="sans-serif"
+            android:text="@string/locationadd"
+            android:textAllCaps="false"
+            android:textColor="@android:color/background_dark"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="213dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="367dp"
+        android:layout_height="237dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="userImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventEditDelete"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/eventCompleted"
+        android:layout_width="176dp"
+        android:layout_height="22dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EventComment"
+        tools:text="Completed:  ex11/22/33" />
+
+    <TextView
+        android:id="@+id/EventComment"
+        android:layout_width="242dp"
+        android:layout_height="22dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userImage"
+        tools:text="Comment: Example Comment 17 20" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/eventEditDelete"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include">
+
+        <TextView
+            android:id="@+id/habitEvent"
+            android:layout_width="265dp"
+            android:layout_height="31dp"
+            android:layout_gravity="start|top"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            tools:text="ExampleHabit 20Chars Event" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="54dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="8sp"
+            tools:layout_editor_absoluteX="331dp"
+            tools:text="Delete logo" />
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="54dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|top"
+            android:layout_marginEnd="60dp"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="8sp"
+            tools:layout_editor_absoluteX="259dp"
+            tools:text="EDIT LOGO" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="385dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/viewHabit"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
