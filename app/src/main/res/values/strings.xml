@@ -35,4 +35,5 @@
     <string name="search">Search</string>
     <string name="hint">keywords</string>
     <string name="habithint">Event filter</string>
+    <string name="addEvent">Add Event</string>
 </resources>
