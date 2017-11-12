@@ -128,11 +128,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/delete2"
+            android:id="@+id/save"
             android:layout_width="113dp"
             android:layout_height="51dp"
             android:layout_gravity="top|end"
-            android:text="@string/title_activity_add_habit"
+            android:text="@string/save"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="14sp"
             tools:layout_editor_absoluteX="271dp" />
@@ -151,3 +151,4 @@
     </android.support.design.widget.CoordinatorLayout>
 
 </android.support.constraint.ConstraintLayout>
+

@@ -43,4 +43,9 @@
     <string name="comp_v1">Completed:</string>
     <string name="save">save</string>
     <string name="editlocation">Edit Location</string>
+    <string name="Reason">Reason for Habit:</string>
+    <string name="start">Start:</string>
+    <string name="habitName">Habit title</string>
+    <string name="daysofWeek">Days of the Week:</string>
+    <string name="colour">Colour?</string>
 </resources>
