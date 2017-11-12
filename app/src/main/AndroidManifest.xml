@@ -71,7 +71,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HabitDetails" />
         <activity android:name=".EventDetails" />
-        <activity android:name=".EditEvent"></activity>
+        <activity android:name=".EditEvent" />
+        <activity android:name=".EditHabit"></activity>
     </application>
 
 </manifest>
