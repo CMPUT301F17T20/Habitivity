@@ -67,7 +67,7 @@
             android:layout_height="45dp"
             android:layout_gravity="top|end"
             android:fontFamily="sans-serif"
-            android:text="@string/locationadd"
+            android:text="@string/editlocation"
             android:textAllCaps="false"
             android:textColor="@android:color/background_dark"
             android:textSize="12sp"
@@ -115,7 +115,7 @@
             android:layout_width="113dp"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:text="@string/addEvent"
+            android:text="@string/save"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="14sp"
             tools:layout_editor_absoluteX="271dp" />
@@ -129,7 +129,7 @@
             android:textSize="18sp"
             android:textStyle="italic"
             tools:layout_editor_absoluteY="16dp"
-            tools:text="ExampleHabit 20Chars Event:" />
+            tools:text="ExampleHabit 20Chars Event" />
 
     </android.support.design.widget.CoordinatorLayout>
 
