@@ -51,6 +51,7 @@
     <include
         android:id="@+id/include3"
         layout="@layout/content_add_edit_days"
+<<<<<<< HEAD
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -109,6 +110,14 @@
     <EditText
         android:id="@+id/addComment"
         android:layout_width="match_parent"
+=======
+        layout_height="wrap_content"
+        layout_width="match_parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+>>>>>>> parent of 9224774... Merge branch 'master' of https://github.com/CMPUT301F17T20/Habitivity
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

@@ -70,9 +70,13 @@
             android:label="@string/title_activity_habit_events"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HabitDetails" />
+<<<<<<< HEAD
         <activity android:name=".EventDetails" />
         <activity android:name=".EditEvent" />
         <activity android:name=".EditHabit"></activity>
+=======
+        <activity android:name=".EventDetails"></activity>
+>>>>>>> parent of 9224774... Merge branch 'master' of https://github.com/CMPUT301F17T20/Habitivity
     </application>
 
 </manifest>
