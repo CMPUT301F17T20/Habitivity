@@ -38,7 +38,6 @@
     <string name="addEvent">Add Event</string>
     <string name="locationadd">Add Location</string>
 <<<<<<< HEAD
-<<<<<<< HEAD
     <string name="comment">Comment</string>
     <string name="userImage">userImage</string>
     <string name="selectday">Select Date</string>
@@ -50,8 +49,6 @@
     <string name="habitName">Habit title</string>
     <string name="daysofWeek">Days of the Week:</string>
     <string name="colour">Colour?</string>
-=======
->>>>>>> parent of 9224774... Merge branch 'master' of https://github.com/CMPUT301F17T20/Habitivity
 =======
 >>>>>>> parent of 9224774... Merge branch 'master' of https://github.com/CMPUT301F17T20/Habitivity
 </resources>
