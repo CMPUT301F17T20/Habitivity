@@ -70,7 +70,8 @@
             android:label="@string/title_activity_habit_events"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HabitDetails" />
-        <activity android:name=".EventDetails"></activity>
+        <activity android:name=".EventDetails" />
+        <activity android:name=".EditEvent"></activity>
     </application>
 
 </manifest>
