@@ -34,4 +34,5 @@
     <string name="title_activity_habit_events">HabitEvents</string>
     <string name="search">Search</string>
     <string name="hint">keywords</string>
+    <string name="habithint">Event filter</string>
 </resources>

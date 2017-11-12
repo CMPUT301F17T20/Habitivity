@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/searchTerm"
+        android:layout_width="231dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/habithint"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/settingsButton2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settingsButton2"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/check"
+        android:text="@string/search"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTerm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/searchTerm"
+        app:layout_constraintTop_toTopOf="@+id/searchTerm" />
+</android.support.constraint.ConstraintLayout>

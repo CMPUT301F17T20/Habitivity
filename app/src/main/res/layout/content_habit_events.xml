@@ -22,10 +22,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="458dp"
+        android:layout_height="452dp"
         android:layout_gravity="bottom|start"
         android:layout_margin="8dp"
-        tools:layout_editor_absoluteY="101dp"
+        tools:layout_editor_absoluteY="107dp"
         tools:listitem="@layout/event_list" />
 
 </android.support.design.widget.CoordinatorLayout>
