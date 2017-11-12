@@ -37,4 +37,10 @@
     <string name="habithint">Event filter</string>
     <string name="addEvent">Add Event</string>
     <string name="locationadd">Add Location</string>
+    <string name="comment">Comment</string>
+    <string name="userImage">userImage</string>
+    <string name="selectday">Select Date</string>
+    <string name="comp_v1">Completed:</string>
+    <string name="save">save</string>
+    <string name="editlocation">Edit Location</string>
 </resources>
