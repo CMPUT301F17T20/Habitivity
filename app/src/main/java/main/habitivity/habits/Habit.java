@@ -153,7 +153,7 @@ public class Habit {
     *
     * @param[in] completions - list of habit events
     */
-    public void setCompletedEvents(List<? extends HabitEvent> completions) {
+    public void setCompletedEvents(List<HabitEvent> completions) {
         this.completions = completions; /**forced type for my build, delete if necessary obviously  (ListHabitEvent) **/
     }
 
