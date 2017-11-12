@@ -98,6 +98,76 @@ public class ElasticsearchController {
         }
     }
 
+    public static class CreateUserList extends AsyncTask<UserList, Void, Void> {
+
+        @Override
+        protected Void doInBackground(UserList... users) {
+            verifySettings();
+
+            for(UserList user : users) {
+                Index index = new Index.Builder(user).index(indexString).type("UserList").build();
+
+                try {
+                    DocumentResult execute = client.execute(index);
+
+                    if (execute.isSucceeded()) {
+                        user.setID(execute.getId());
+                    }
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the user list");
+                }
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUserList extends AsyncTask<UserList, Void, Void> {
+
+        @Override
+        protected Void doInBackground(UserList... users) {
+            verifySettings();
+
+            for(UserList user : users) {
+                Index index = new Index.Builder(user).index(indexString).type("UserList").id(user.getID()).build();
+
+                try {
+                    DocumentResult execute = client.execute(index);
+                } catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the user list");
+                }
+            }
+            return null;
+        }
+    }
+
+    public static class GetUserList extends AsyncTask<Void, Void, UserList> {
+        @Override
+        protected UserList doInBackground(Void... params) {
+            verifySettings();
+
+            UserList users = null;
+            String query = "";
+
+            Search search = new Search.Builder(query)
+                    .addIndex(indexString).addType("UserList").build();
+            try {
+
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    users = result.getSourceAsObject(UserList.class);
+                }
+                else {
+                    Log.i("Error", "the search query failed to find the user list");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return users;
+        }
+    }
+
     private static void verifySettings() {
         if (client == null) {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
