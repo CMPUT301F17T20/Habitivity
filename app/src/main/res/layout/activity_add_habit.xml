@@ -25,7 +25,9 @@
     <include
         layout="@layout/content_add_edit_days"
         layout_height="wrap_content"
-        layout_width="match_parent" />
+        layout_width="match_parent"
+        android:layout_height="571dp"
+        tools:layout_editor_absoluteY="-4dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
