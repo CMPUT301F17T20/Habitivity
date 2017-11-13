@@ -3,8 +3,10 @@ package main.habitivity;
 import android.app.Application;
 
 import main.habitivity.controllers.AddHabitController;
+import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.controllers.HabitDetailsController;
 import main.habitivity.controllers.HabitListController;
+import main.habitivity.controllers.UpdateHabitController;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
 import main.habitivity.interactions.Clock;
@@ -49,6 +51,14 @@ public class HabitApplication extends Application {
 
     public HabitListController getHabitListController() {
         return new HabitListController(getHabitInteractionsFactory());
+    }
+
+    public UpdateHabitController getUpdateHabitController(){
+        return new UpdateHabitController(getHabitInteractionsFactory());
+    }
+
+    public AddHabitEventController getAddHabitEventsController(){
+        return new AddHabitEventController(getHabitInteractionsFactory());
     }
 //
 //    public TodaysHabitsController getTodaysHabitsController() {

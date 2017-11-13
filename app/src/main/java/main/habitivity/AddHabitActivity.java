@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,9 +35,19 @@ public class AddHabitActivity extends BaseActivity {
     private Date compDate;
     private Calendar cal = Calendar.getInstance();
     private EditText title;
-    private Date startingDate;
+    private Date startingDate = new Date();
     private AddHabitController addHabitController;
     private EditText reason;
+    private List<Integer> dayOfTheWeek = new ArrayList<Integer>();
+
+    //should move these toggles into a separate class which will handle them. But this will do for now
+    private ToggleButton monday;
+    private ToggleButton tuesday;
+    private ToggleButton wednesday;
+    private ToggleButton thursday;
+    private ToggleButton friday;
+    private ToggleButton saturday;
+    private ToggleButton sunday;
 
     private DatePickerDialog.OnDateSetListener addDateSetListen;
     @Override
@@ -49,6 +61,14 @@ public class AddHabitActivity extends BaseActivity {
 
         addDate = (Button) findViewById(R.id.chooseDate);
         viewDate = (TextView) findViewById(R.id.dateChoice);
+
+        sunday = (ToggleButton) findViewById(R.id.Sun);
+        monday = (ToggleButton) findViewById(R.id.Mon);
+        tuesday = (ToggleButton) findViewById(R.id.Tues);
+        wednesday = (ToggleButton) findViewById(R.id.Wed);
+        thursday = (ToggleButton) findViewById(R.id.Thurs);
+        friday = (ToggleButton) findViewById(R.id.Fri);
+        saturday = (ToggleButton) findViewById(R.id.Sat);
 
         int yr = cal.get(Calendar.YEAR);
         int mth = cal.get(Calendar.MONTH);
@@ -85,6 +105,70 @@ public class AddHabitActivity extends BaseActivity {
                 viewDate.setText(showDate);
             }
         };
+
+        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer seven = new Integer(7);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(seven);}
+                else{dayOfTheWeek.remove(seven);}
+            }
+        });
+        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer one = new Integer(1);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(one);}
+                else{dayOfTheWeek.remove(one);}
+            }
+        });
+        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer two = new Integer(2);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(two);}
+                else{dayOfTheWeek.remove(two);}
+            }
+        });
+        wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer three = new Integer(3);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(three);}
+                else{dayOfTheWeek.remove(three);}
+            }
+        });
+        thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer four = new Integer(4);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(four);}
+                else{dayOfTheWeek.remove(four);}
+            }
+        });
+        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer five = new Integer(5);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(five);}
+                else{dayOfTheWeek.remove(five);}
+            }
+        });
+        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer six = new Integer(6);
+                if(buttonView.isChecked()){
+                    dayOfTheWeek.add(six);}
+                else{dayOfTheWeek.remove(six);}
+            }
+        });
     }
 
     private void resolveDependencies() {
@@ -96,13 +180,12 @@ public class AddHabitActivity extends BaseActivity {
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
+
         //faking out the data for now
-        List<Integer> testList = new ArrayList<Integer>();
-        testList.add(1);
         AddHabitRequest addHabitRequest = new AddHabitRequest();
         addHabitRequest.setId(title.getText().toString());
         addHabitRequest.setStartDate(startingDate);
-        addHabitRequest.setDaysOfTheWeek(testList);
+        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
 
         addHabitController.addHabit(addHabitRequest);
         startActivity(intent);

@@ -9,6 +9,7 @@
     tools:showIn="@layout/app_bar_habitivity_main">
 
     <TextView
+        android:id="@+id/User"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"

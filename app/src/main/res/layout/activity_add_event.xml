@@ -115,6 +115,7 @@
             android:layout_width="113dp"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
+            android:onClick="onAdd"
             android:text="@string/addEvent"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="14sp"

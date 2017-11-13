@@ -12,9 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import main.habitivity.profiles.CurrentUser;
 
 public class HabitivityMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,10 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        userName = (TextView) findViewById(R.id.User);
+        String welcomeUser = "Welcome User: " + CurrentUser.getInstance().getCurrentUser();
+        userName.setText(welcomeUser);
     }
 
     @Override
@@ -78,7 +86,7 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         } else if (id == R.id.add_event) {
-            Intent intent = new Intent(getApplicationContext(), AddEvent.class);
+            Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {

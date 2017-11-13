@@ -11,9 +11,12 @@ import main.habitivity.observables.IObservable;
 public interface IHabitRepository {
     Habit getHabit(String id);
     List<Habit> getHabits();
+    List<HabitEvent> getHabitEvents();
 
     void removeHabit(String id);
     void addHabit(Habit habit);
     void updateHabit(Habit habit);
+
+    void addHabitEvent(HabitEvent habitEvent);
 
 }
