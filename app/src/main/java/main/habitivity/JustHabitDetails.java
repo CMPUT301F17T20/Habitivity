@@ -40,25 +40,25 @@ public class JustHabitDetails extends BaseActivity {
        String daysToOccur = "Occurs on: ";
 
        for (Integer day: curHabit.getDaysOfTheWeekToComplete()){
-           if(day==1){
+           if(day==2){
                daysToOccur = daysToOccur + "Monday, ";
            }
-           else if(day==2){
+           else if(day==3){
                daysToOccur = daysToOccur + "Tuesday, ";
            }
-           else if(day==3){
+           else if(day==4){
                daysToOccur = daysToOccur + "Wednesday, ";
            }
-           else if(day==4){
+           else if(day==5){
                daysToOccur = daysToOccur + "Thursday, ";
            }
-           else if(day==5){
+           else if(day==6){
                daysToOccur = daysToOccur + "Friday, ";
            }
-           else if(day==6){
+           else if(day==7){
                daysToOccur = daysToOccur + "Saturday, ";
            }
-           else if(day==7){
+           else if(day==1){
                daysToOccur = daysToOccur + "Sunday, ";
            }
         }
