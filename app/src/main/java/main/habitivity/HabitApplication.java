@@ -21,10 +21,10 @@ import main.habitivity.services.LocalHabitService;
  * need to care about is what dependency they need.
  */
 public class HabitApplication extends Application {
-    private IHabitRepository habitRepository;
+    private HabitRepository habitRepository;
     private HabitInteractionsFactory habitInteractionsFactory;
 
-    public IHabitRepository getHabitRepository() {
+    public HabitRepository getHabitRepository() {
         ensureHabitRepository();
         return habitRepository;
     }

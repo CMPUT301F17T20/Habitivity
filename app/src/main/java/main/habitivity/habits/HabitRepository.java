@@ -55,7 +55,7 @@ public class HabitRepository implements IHabitRepository{
     * 
     * @return list of sorted habits
     */
-    public List<Habit> getHabits() {
+    public ArrayList<Habit> getHabits() {
         ensureHabits();
         return getSortedHabits();
     }
@@ -172,9 +172,9 @@ public class HabitRepository implements IHabitRepository{
      *
      * @return a list of sorted habits 
      */
-    private List<Habit> getSortedHabits() {
+    private ArrayList<Habit> getSortedHabits() {
 
-       List<Habit> sortedHabits = new ArrayList<>(habits.values());
+       ArrayList<Habit> sortedHabits = new ArrayList<>(habits.values());
 //        Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
 
         return sortedHabits;
