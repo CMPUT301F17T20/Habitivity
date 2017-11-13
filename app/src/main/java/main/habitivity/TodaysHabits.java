@@ -1,7 +1,6 @@
 package main.habitivity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,33 +10,69 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
-import main.habitivity.controllers.AddHabitController;
-import main.habitivity.controllers.AddHabitRequest;
 
+/**
+ * This activity displays the habits scheduled for the current day
+ *
+ * @author Seth Bergen
+ * @version 1.0
+ * @see BaseActivity
+ * @see Habit
+ * @since 1.0
+ */
 public class TodaysHabits extends BaseActivity {
 
     private HabitListAdapter adapter;
     private ArrayList<Habit> habitList;
+    private ArrayList<Habit> habitListToday;
     private HabitRepository repository;
 
+    /**
+     * Fetch habits from HabitRepository, filter for today's habits.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_habits);
         resolveDependencies();
         habitList = repository.getHabits();
+        habitListToday = new ArrayList<Habit>();
+
+        // Test code while waiting on HabitRepository.getHabits()
         Habit h1 = new Habit();
         h1.setTitle("HABIT_001");
+        h1.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {1,2,3,4,5,6,7}));
         Habit h2 = new Habit();
         h2.setTitle("HABIT_002");
+        h2.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {1,2}));
+        Habit h3 = new Habit();
+        h3.setTitle("HABIT_003");
+        h3.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {5,6}));
         habitList.add(h1);
         habitList.add(h2);
+        habitList.add(h3);
+        // /Test code
 
-        adapter = new HabitListAdapter(this, R.layout.list_item_habit_today, habitList);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        int today = calendar.get(Calendar.DAY_OF_WEEK);
+
+        for (Habit habit : habitList){
+            if (habit.checkDay(today)){
+                habitListToday.add(habit);
+            }
+        }
+
+        adapter = new HabitListAdapter(this, R.layout.list_item_habit_today, habitListToday);
         ListView habitListDisplay = (ListView) findViewById(R.id.todays_habits);
 
         habitListDisplay.setAdapter(adapter);
@@ -98,7 +133,7 @@ public class TodaysHabits extends BaseActivity {
                 convertView.setTag(habitView);
             }
             mainHabitView = (HabitView) convertView.getTag();
-            mainHabitView.habitDetails.setText(habitList.get(position).toString());
+            mainHabitView.habitDetails.setText(habitListToday.get(position).toString());
 
             return convertView;
         }
