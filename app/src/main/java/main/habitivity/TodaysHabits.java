@@ -47,26 +47,16 @@ public class TodaysHabits extends BaseActivity {
         habitList = repository.getHabits();
         habitListToday = new ArrayList<Habit>();
 
-        // Test code while waiting on HabitRepository.getHabits()
-        Habit h1 = new Habit();
-        h1.setTitle("HABIT_001");
-        h1.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {1,2,3,4,5,6,7}));
-        Habit h2 = new Habit();
-        h2.setTitle("HABIT_002");
-        h2.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {1,2}));
-        Habit h3 = new Habit();
-        h3.setTitle("HABIT_003");
-        h3.setDaysOfTheWeekToComplete(Arrays.asList(new Integer[] {5,6}));
-        habitList.add(h1);
-        habitList.add(h2);
-        habitList.add(h3);
-        // /Test code
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         int today = calendar.get(Calendar.DAY_OF_WEEK);
 
         for (Habit habit : habitList){
+            System.out.println(habit.getTitle()+"   Today is: "+today);
+            for(Integer i : habit.getDaysOfTheWeekToComplete()){
+                System.out.print(i);
+            }
+            System.out.println();
             if (habit.checkDay(today)){
                 habitListToday.add(habit);
             }

@@ -76,31 +76,31 @@ public class EditHabit extends BaseActivity {
         reason.setText(curHabit.getReason());
         for (Integer day: curHabit.getDaysOfTheWeekToComplete()){
             if(day==1){
-                monday.setChecked(true);
+                sunday.setChecked(true);
                 dayOfTheWeek.add(new Integer(1));
             }
             else if(day==2){
-                tuesday.setChecked(true);
+                monday.setChecked(true);
                 dayOfTheWeek.add(new Integer(2));
             }
             else if(day==3){
-                wednesday.setChecked(true);
+                tuesday.setChecked(true);
                 dayOfTheWeek.add(new Integer(3));
             }
             else if(day==4){
-                thursday.setChecked(true);
+                wednesday.setChecked(true);
                 dayOfTheWeek.add(new Integer(4));
             }
             else if(day==5){
-                friday.setChecked(true);
+                thursday.setChecked(true);
                 dayOfTheWeek.add(new Integer(5));
             }
             else if(day==6){
-                saturday.setChecked(true);
+                friday.setChecked(true);
                 dayOfTheWeek.add(new Integer(6));
             }
             else if(day==7){
-                sunday.setChecked(true);
+                saturday.setChecked(true);
                 dayOfTheWeek.add(new Integer(7));
             }
         }
@@ -143,7 +143,7 @@ public class EditHabit extends BaseActivity {
             }
         };
 
-        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer seven = new Integer(7);
@@ -152,7 +152,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(seven);}
             }
         });
-        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer one = new Integer(1);
@@ -161,7 +161,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(one);}
             }
         });
-        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer two = new Integer(2);
@@ -170,7 +170,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(two);}
             }
         });
-        wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer three = new Integer(3);
@@ -179,7 +179,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(three);}
             }
         });
-        thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer four = new Integer(4);
@@ -188,7 +188,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(four);}
             }
         });
-        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer five = new Integer(5);
@@ -197,7 +197,7 @@ public class EditHabit extends BaseActivity {
                 else{dayOfTheWeek.remove(five);}
             }
         });
-        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer six = new Integer(6);
