@@ -9,10 +9,12 @@ public class HabitEvent {
     private String id;
     private Date completionDate;
     private String comment;
-    private Image photograph;
+    private Bitmap photograph;
 
     public HabitEvent(Date completionDate) {
-
+        /* This path is going to need testing. I couldn't find the assumed source file online so I
+        had to take a blind guess.*/
+        photograph = BitmapFactory.decodeFile("main\\res\\drawable\\habit_event_default.png");
     }
 
     /**
@@ -74,7 +76,7 @@ public class HabitEvent {
     *
     * @return photograph - photo associated with the HabitEvent
     */
-    public Image getPhoto() {
+    public Bitmap getPhoto() {
         return this.photograph;
     }
 
@@ -83,8 +85,17 @@ public class HabitEvent {
     *
     * @param[in] photograph - photo associated with the HabitEvent
     */
-    public void setPhoto(Image photograph) {
+    public void setPhoto(Bitmap photograph) {
         this.photograph = photograph;
+    }
+    
+    /**
+    * Sets the photo associated with the HabitEvent
+    *
+    * @param[in] path - a path to a photo associated with the HabitEvent
+    */
+    public void setPhoto(String path) {
+        this.photograph = BitmapFactory.decodeFile(path);
     }
 
 }
