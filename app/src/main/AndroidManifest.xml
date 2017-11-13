@@ -73,9 +73,13 @@
         <activity android:name=".EventDetails" />
         <activity android:name=".EditEvent" />
         <activity android:name=".EditHabit" />
-        <activity android:name=".HabitListActivity" />
+        <activity
+            android:name=".HabitListActivity"
+            android:label="All Habits"/>
         <activity android:name=".JustHabitDetails" />
-        <activity android:name=".HabitHistoryActivity"></activity>
+        <activity
+            android:name=".HabitHistoryActivity"
+            android:label="Habit History"></activity>
     </application>
 
 </manifest>

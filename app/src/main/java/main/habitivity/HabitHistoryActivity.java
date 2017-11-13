@@ -25,6 +25,7 @@ public class HabitHistoryActivity extends BaseActivity {
         setContentView(R.layout.activity_habit_history);
 
         resolveDependencies();
+        listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter<HabitEvent>(this, android.R.layout.simple_list_item_1, android.R.id.text1, habitListController.getHabitEvents() );
         listView.setAdapter(adapter);
     }
