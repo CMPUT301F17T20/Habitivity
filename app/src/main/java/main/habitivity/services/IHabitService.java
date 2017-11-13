@@ -6,9 +6,8 @@ import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 
 /**
- * Created by Shally on 2017-11-09.
+ * Interface for the habitServices (Provide encapsulation)
  */
-
 public interface IHabitService {
     List<Habit> getHabits();
 

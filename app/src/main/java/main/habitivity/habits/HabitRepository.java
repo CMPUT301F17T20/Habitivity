@@ -26,10 +26,18 @@ public class HabitRepository implements IHabitRepository{
     private String userID;
     private String ID;
 
+    /**
+     * Get the userId of the currently logged in user
+     * @return userId of logged in user
+     */
     public String getUserID() {
         return userID;
     }
 
+    /**
+     * Sets the userId of the currently logged in user
+     * @return userId to change user to
+     */
     public void setUserID(String userID) {
         this.userID = userID;
     }
@@ -41,8 +49,6 @@ public class HabitRepository implements IHabitRepository{
     public void setID(String ID) {
         this.ID = ID;
     }
-
-    private Set<IObserver<List<Habit>>> observers = new HashSet<>();
 
     public HabitRepository(LocalHabitService habitService) {
         this.habitService = habitService;
@@ -60,6 +66,10 @@ public class HabitRepository implements IHabitRepository{
         return getSortedHabits();
     }
 
+    /**
+     * Get a list of habit events
+     * @return list of habit events
+     */
     public List<HabitEvent> getHabitEvents() {
         ensureHabitEvents();
         List<HabitEvent> events = new ArrayList<>(habitEvents.values());
@@ -108,6 +118,9 @@ public class HabitRepository implements IHabitRepository{
         habitEvents.remove(id);
     }
 
+    /**
+     * Grabs habits that are saved locally
+     */
     private void ensureHabits() {
         if (habits.isEmpty()) {
             for (Habit habit: habitService.getHabits()) {
@@ -116,6 +129,9 @@ public class HabitRepository implements IHabitRepository{
         }
     }
 
+    /**
+     * Grabs all the habitEvent that are saved locally
+     */
     private void ensureHabitEvents() {
         if (habitEvents.isEmpty()) {
             for (HabitEvent habitEvent: habitService.getHabitEvents()) {
@@ -176,11 +192,17 @@ public class HabitRepository implements IHabitRepository{
     private ArrayList<Habit> getSortedHabits() {
 
        ArrayList<Habit> sortedHabits = new ArrayList<>(habits.values());
-//        Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
+       //TODO LATER
+       //Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
 
         return sortedHabits;
     }
 
+    /**
+     * Helper function to compare habits and sort them
+     *
+     * TODO LATER
+     */
     private static Comparator<Habit> reverseChronologicalHabitComparator  = new Comparator<Habit>() {
         @Override
         public int compare(Habit lhs, Habit rhs) {
@@ -188,12 +210,11 @@ public class HabitRepository implements IHabitRepository{
         }
     };
 
-    /**
-     * This was originally intended for the observer class. DON'T IMPLEMENT this since we
-     * might need to change that part
-     */
 
-    /**get an ArrayList of only the habits for today**/
+    /**
+     * get an ArrayList of only the habits for today
+     * @return arraylist of todays habits
+     */
     public List<Habit> getTodaysHabits() {
         List<Habit> Today = new ArrayList<>();
         Calendar weekDay = Calendar.getInstance(); //is this correct
@@ -210,9 +231,11 @@ public class HabitRepository implements IHabitRepository{
         return Today;
     }
 
+    /**
+     * Gets the number of habits in our habit repo
+     * @return number of habits stored
+     */
     private int getHabitCount() {return this.getSortedHabits().size(); }
 
-    private void notifyChange() {
-    }
 
 }

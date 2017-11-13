@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * Habit Model Class
+ */
 public class Habit {
     private String id;
     private String title;
@@ -90,6 +92,10 @@ public class Habit {
         this.title = title;
     }
 
+    /**
+     * gets the start date of the habit
+     * @return - start date of the habit
+     */
     public Date getStartDate() {
         return startDate;
     }
@@ -115,13 +121,10 @@ public class Habit {
     }
 
     /**
-    * Sets the days of the week where we want to complete the habit
-    * i.e if we schedule the habit to be completed on mondays and wednesday then
-    * the array will contain [1,3]. Days of the week are represented by integers.
-    *
-    * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
-    */
-
+     * Checks the days of week to complete
+     * @param day
+     * @return
+     */
     public Boolean checkDay(int day){
         /** Enter 1-7 value of weekday, return true if in DaysofTheWeekToComplete
          *  !!! Replace with Boolean array to make this a simple return.
@@ -134,6 +137,14 @@ public class Habit {
         return false;
 
     }
+
+    /**
+     * Sets the days of the week where we want to complete the habit
+     * i.e if we schedule the habit to be completed on mondays and wednesday then
+     * the array will contain [1,3]. Days of the week are represented by integers.
+     *
+     * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
+     */
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
         this.daysOfTheWeekToComplete = daysToComplete;
     }
@@ -203,6 +214,10 @@ public class Habit {
         return lastComplete;
     }
 
+    /**
+     * Set the date of the last completed event
+     * @param lastComplete data of last completed event
+     */
     public void setLastComplete(Date lastComplete) {
         this.lastComplete = lastComplete;
     }

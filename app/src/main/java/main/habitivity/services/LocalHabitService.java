@@ -29,11 +29,18 @@ public class LocalHabitService implements IHabitService {
     }
 
     @Override
+    /**
+     * Gets a list of habit events
+     */
     public List<HabitEvent> getHabitEvents(){
+
         return new ArrayList<>(loadHabitEvents().values());
     }
 
     @Override
+    /**
+     * Saves habit events to a file
+     */
     public void addHabitEvent(HabitEvent habitEvent){
         Map<String, HabitEvent> habitEvents = loadHabitEvents();
 
@@ -44,6 +51,10 @@ public class LocalHabitService implements IHabitService {
 
     }
 
+    /**
+     * Deletes the habit event and removes it from our locally stored file
+     * @param id of habit event to remove
+     */
     @Override
     public void deleteHabitEvent(String id){
         Map<String, HabitEvent> habitEvents = loadHabitEvents();
@@ -54,6 +65,10 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
+    /**
+     * Update the habitEvent in our locally stored file
+     * @param habitEvent to update
+     */
     @Override
     public void updateHabitEvent(HabitEvent habitEvent){
         Map<String, HabitEvent> habitEvents = loadHabitEvents();
@@ -65,11 +80,20 @@ public class LocalHabitService implements IHabitService {
     }
 
 
+    /**
+     * Gets a list of habits from our locally stored file
+     * @return a list of habits
+     */
     @Override
     public List<Habit> getHabits() {
+
         return new ArrayList<>(loadHabits().values());
     }
 
+    /**
+     * Saves habit events to a file
+     * @param habit to save locally
+     */
     @Override
     public void addHabit(Habit habit) {
         Map<String, Habit> habits = loadHabits();
@@ -80,6 +104,10 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
+    /**
+     * Delete a habit from our locally stored file and from the habit repo
+     * @param id of habit to delete
+     */
     @Override
     public void deleteHabit(String id) {
         Map<String, Habit> habits = loadHabits();
@@ -91,6 +119,10 @@ public class LocalHabitService implements IHabitService {
 
     }
 
+    /**
+     * Update the habit in our file and habit repo
+     * @param habit to update
+     */
     @Override
     public void updateHabit(Habit habit) {
         Map<String, Habit> habits = loadHabits();
@@ -101,6 +133,10 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
+    /**
+     * Loads the map of habits stored in our local file
+     * @return map of habits
+     */
     private Map<String, Habit> loadHabits() {
         String serializedHabits = fileHandler.loadFileAsString("testSaveFileForHabits.txt");
 
@@ -111,6 +147,10 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
+    /**
+     * Loads the map of habitEvents stored in our local file
+     * @return map of habitEvents
+     */
     private Map<String, HabitEvent> loadHabitEvents() {
         String serializedHabitEvents = fileHandler.loadFileAsString("testSaveFileForHabitEvents.txt");
 
@@ -121,16 +161,28 @@ public class LocalHabitService implements IHabitService {
         }
     }
 
+    /**
+     * Saves habitEvents to our local file
+     * @param habitEventMap map of habitEvents to save
+     */
     private void saveHabitEvents(Map<String, HabitEvent> habitEventMap) {
         String serializedHabitEvents = getGson().toJson(habitEventMap);
         fileHandler.saveStringToFile("testSaveFileForHabitEvents.txt", serializedHabitEvents);
     }
 
+    /**
+     * Saves habits to our local file
+     * @param habitMap map of habits to save
+     */
     private void saveHabits(Map<String, Habit> habitMap) {
         String serializedHabits = getGson().toJson(habitMap);
         fileHandler.saveStringToFile("testSaveFileForHabits.txt", serializedHabits);
     }
 
+    /**
+     * Gets gson version of a string
+     * @return
+     */
     private Gson getGson() {
         return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
     }

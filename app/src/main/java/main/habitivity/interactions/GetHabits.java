@@ -6,10 +6,10 @@ import java.util.List;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.IHabitRepository;
 
-/**
- * Created by Shally on 2017-11-12.
- */
 
+/**
+ * Interaction class to get habits in our habit repo
+ */
 public class GetHabits {
     private IHabitRepository habitRepository;
 
@@ -17,6 +17,10 @@ public class GetHabits {
         this.habitRepository = habitRepository;
     }
 
+    /**
+     * Gets a list of habits from our habit repo
+     * @return a list of habits from our habit repo
+     */
     public List<Habit> getListOfHabits() {
         return habitRepository.getHabits();
     }

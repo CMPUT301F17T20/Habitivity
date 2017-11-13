@@ -5,6 +5,9 @@ import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
 
+/**
+ * Interaction class to remove habit events
+ */
 public class RemoveHabitEvent {
     private IHabitRepository habitRepository;
 
@@ -12,25 +15,12 @@ public class RemoveHabitEvent {
         this.habitRepository = habitRepository;
     }
 
+    /**
+     * remove the habitEvent from our habit repo
+     * @param habitEventId of habitEvent to remove
+     */
     public void remove(String habitEventId){
         habitRepository.removeHabitEvent(habitEventId);
     }
 
-    public void remove(String habitId, String completionId) {
-        Habit habit = habitRepository.getHabit(habitId);
-
-        if (habit != null) {
-            removeEventFromHabit(habit, completionId);
-        }
-    }
-
-    private void removeEventFromHabit(Habit habit, String completionId) {
-        HabitEvent habitCompletion = habit.getHabitEvent(completionId);
-
-        if (habitCompletion != null) {
-            habit.getCompletedEvents().remove(habitCompletion);
-            habitRepository.updateHabit(habit);
-        }
-
-    }
 }

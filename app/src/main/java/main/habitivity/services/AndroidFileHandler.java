@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /**
- * Handle saving locally to app
+ * Handles saving locally to app
  */
 public class AndroidFileHandler{
     private Context context;
@@ -14,6 +14,11 @@ public class AndroidFileHandler{
         this.context = context;
     }
 
+    /**
+     * Loading a file as a stirng
+     * @param filename
+     * @return the files contents as a string
+     */
     public String loadFileAsString(String filename) {
         FileInputStream inputStream;
 
@@ -29,6 +34,11 @@ public class AndroidFileHandler{
         }
     }
 
+    /**
+     * Saving a string to a file
+     * @param filename name of file to be saved to
+     * @param contents contents of the string to put in the file
+     */
     public void saveStringToFile(String filename, String contents) {
         FileOutputStream outputStream;
 
@@ -41,6 +51,11 @@ public class AndroidFileHandler{
         }
     }
 
+    /**
+     * Converts a stream to a string
+     * @param is stream
+     * @return string version of the stream
+     */
     private String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";

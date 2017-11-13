@@ -7,6 +7,9 @@ import android.media.Image;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Habit Event Model Class
+ */
 public class HabitEvent {
     private String id;
     private Date completionDate;

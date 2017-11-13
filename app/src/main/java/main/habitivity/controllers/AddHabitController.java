@@ -2,6 +2,9 @@ package main.habitivity.controllers;
 
 import main.habitivity.interactions.HabitInteractionsFactory;
 
+/**
+ * Controls adding a habit
+ */
 public class AddHabitController {
     private HabitInteractionsFactory habitInteractionsFactory;
 

@@ -7,6 +7,9 @@ import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
 
+/**
+ * Interaction class that helps add habitEvents to our repo
+ */
 public class AddHabitEvent {
     private IClock clock;
     private IHabitRepository habitRepository;
@@ -16,6 +19,10 @@ public class AddHabitEvent {
         this.clock = clock;
     }
 
+    /**
+     * complete the habit. I.e it becomes a habit event
+     * @param id of habit
+     */
     public void complete(String id) {
         Habit habit = habitRepository.getHabit(id);
 
@@ -24,6 +31,11 @@ public class AddHabitEvent {
         }
     }
 
+    /**
+     * Add a habit event
+     * @param id  of habit event
+     * @param comment of habit event
+     */
     public void add(String id, String comment){
         HabitEvent habitEvent = generateHabitEvent();
         habitEvent.setComment(comment);
@@ -32,12 +44,22 @@ public class AddHabitEvent {
         habitRepository.addHabitEvent(habitEvent);
     }
 
+    /**
+     * Get the habit with the updated event
+     * @param habit
+     * @return updated habit
+     */
     private Habit getHabitUpdatedWithEvent(Habit habit) {
         habit.getCompletedEvents().add(generateHabitEvent());
         return habit;
     }
 
+    /**
+     * Generate a new habitEvent
+     * @return a new habitEvent
+     */
     private HabitEvent generateHabitEvent() {
+
         return new HabitEvent(clock.getCurrentDate());
     }
 }
