@@ -31,13 +31,13 @@ public class RemoveHabitEventTests {
         habitWithoutCompletion.setStartDate(new Date(1));
         habitWithoutCompletion.setDaysOfTheWeekToComplete(Arrays.asList(Calendar.SUNDAY));
 
-        HabitEvent habitCompletion = new HabitEvent(new Date(1));
+        HabitEvent habitCompletion = new HabitEvent(new Date());
         habitCompletion.setId("Completion-ID");
 
         habitWithCompletion = new Habit();
         habitWithCompletion.setId("Habit-ID");
         habitWithCompletion.setTitle("AwesomeHabit");
-        habitWithCompletion.setStartDate(new Date(1));
+        habitWithCompletion.setStartDate(new Date());
         habitWithCompletion.setDaysOfTheWeekToComplete(Arrays.asList(Calendar.SUNDAY));
         habitWithCompletion.setCompletedEvents(Arrays.asList(habitCompletion));
 
@@ -48,7 +48,7 @@ public class RemoveHabitEventTests {
     @Test
     public void test_remove_ifHabitDoesNotExist_thenNoRepositoryUpdatesOccur() {
         when(habitRepository.getHabit("Habit-ID")).thenReturn(null);
-        removeCompletion.remove("Habit-ID", "Completion-ID");
+        removeCompletion.remove("Habit-ID");
 
         verify(habitRepository, never()).updateHabit(Mockito.any(Habit.class));
     }
@@ -56,7 +56,7 @@ public class RemoveHabitEventTests {
     @Test
     public void test_remove_ifHabitExistsButCompletionDoesNot_thenNoRepositoryUpdatesOccur() {
         when(habitRepository.getHabit("Habit-ID")).thenReturn(habitWithoutCompletion);
-        removeCompletion.remove("Habit-ID", "Completion-ID");
+        removeCompletion.remove("Habit-ID");
 
         verify(habitRepository, never()).updateHabit(Mockito.any(Habit.class));
     }
