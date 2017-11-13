@@ -9,15 +9,15 @@
         <item
             android:id="@+id/add_event"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/title_activity_add_event" />
+            android:title="Habit History" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="More" />
+            android:title="All Habits" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="More" />
+            android:title="Today's Habit" />
     </group>
 
     <item android:title="Following">

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,16 +16,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import main.habitivity.controllers.AddHabitController;
+import main.habitivity.controllers.AddHabitRequest;
 
 
-public class AddHabitActivity extends AppCompatActivity {
+public class AddHabitActivity extends BaseActivity {
 
     private Button addDate;
     private TextView viewDate;
     private Date compDate;
     private Calendar cal = Calendar.getInstance();
+    private TextInputEditText title;
+    private Date startingDate;
+    private AddHabitController addHabitController;
+    private EditText reason;
 
     private DatePickerDialog.OnDateSetListener addDateSetListen;
     @Override
@@ -33,7 +43,8 @@ public class AddHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_habit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //resolveDependencies();
 
         addDate = (Button) findViewById(R.id.chooseDate);
         viewDate = (TextView) findViewById(R.id.dateChoice);
@@ -67,44 +78,31 @@ public class AddHabitActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 cal.set(year, month, day);
                 compDate = cal.getTime();
+                startingDate = compDate;
                 month = month + 1;
                 String showDate = month + "/" + day + "/" + year;
                 viewDate.setText(showDate);
             }
-        }
+        };
+    }
 
-        /**
-         *
-         *
-         * ToDo: implementation of data transfer between the client and server.
-         *
-         *
-         */
+    private void resolveDependencies() {
+        HabitApplication app = getHabitApplication();
+        addHabitController = app.getAddHabitController();
+    }
 
-        /**
-         * ToDo: Add actual implementation of data inputs.
-         * Below was only a placeholder.
-         */
+    public void onAdd(View view) {
+        title = (TextInputEditText) findViewById(R.id.habitInput);
+        reason = (EditText) findViewById(R.id.addComment);
+        //faking out the data for now
+        List<Integer> testList = new ArrayList<Integer>();
+        testList.add(1);
+        AddHabitRequest addHabitRequest = new AddHabitRequest();
+        addHabitRequest.setName(title.toString());
+        addHabitRequest.setStartDate(startingDate);
+        addHabitRequest.setDaysOfTheWeek(testList);
 
-        /*
-        ContentValues values = new ContentValues();
-        values.put(HabitsProvider.NAME,
-                ((EditText)findViewById(R.id.habit_name)).getText().toString());
-
-        values.put(HabitsProvider.INFOCOLUMNPLACEHOLDER2,
-                ((EditText)findViewById(R.id.habit_info2)).getText().toString());
-
-        values.put(HabitsProvider.INFOCOLUMNPLACEHOLDER3,
-                ((EditText)findViewById(R.id.habit_info3)).getText().toString());
-
-        values.put(HabitsProvider.INFOCOLUMNPLACEHOLDER4,
-                ((EditText)findViewById(R.id.habit_info4)).getText().toString());
-
-        Uri uri = getContentResolver().insert(
-                HabitsProvider.CONTENT_URI, values);
-
-        Toast.makeText(getBaseContext(),
-                uri.toString(), Toast.LENGTH_LONG).show();*/
+        addHabitController.addHabit(addHabitRequest);
     }
 
 }

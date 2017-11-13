@@ -8,7 +8,7 @@ import main.habitivity.observables.IObservable;
  * IHabitRepository provides access to habits in memory and abstracts away
  * the type of persistence used to store them
  */
-public interface IHabitRepository extends IObservable<List<Habit>> {
+public interface IHabitRepository {
     Habit getHabit(String id);
     List<Habit> getHabits();
 

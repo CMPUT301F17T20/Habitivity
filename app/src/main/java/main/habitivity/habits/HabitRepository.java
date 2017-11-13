@@ -19,7 +19,7 @@ import main.habitivity.services.WhichHabitService;
  * This class implements IHabitRepository and provides an in memory store
  * of habits.
  */
-public class HabitRepository{
+public class HabitRepository implements IHabitRepository{
     private LocalHabitService habitService;
     private Map<String, Habit> habits;
     private Map<String, HabitEvent> habitEvents;
@@ -100,6 +100,14 @@ public class HabitRepository{
         habitEvents.remove(id);
     }
 
+    private void ensureHabits() {
+        if (habits.isEmpty()) {
+            for (Habit habit: habitService.getHabits()) {
+                habits.put(habit.getId(), habit);
+            }
+        }
+    }
+
     /**
      * Update the habit stored in our local disk/server 
      *
@@ -109,7 +117,7 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void updateHabit(Habit habit) {
-
+        ensureHabits();
         habitService.updateHabit(habit);
         habits.put(habit.getId(), habit);
     }
@@ -123,6 +131,7 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void addHabit(Habit habit) {
+        ensureHabits();
 
         habitService.addHabit(habit);
         habits.put(habit.getId(), habit);
@@ -137,7 +146,7 @@ public class HabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void removeHabit(String id) {
-
+        ensureHabits();
         habitService.deleteHabit(id);
         habits.remove(id);
 
