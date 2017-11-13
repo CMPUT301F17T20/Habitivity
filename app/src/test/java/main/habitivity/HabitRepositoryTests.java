@@ -4,7 +4,11 @@ package main.habitivity;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.services.AndroidFileHandler;
 import main.habitivity.services.LocalHabitService;
@@ -36,5 +40,18 @@ public class HabitRepositoryTests extends ActivityInstrumentationTestCase2 {
         repo.removeHabit(habit.getId());
 
         assertTrue(repo.getHabits().isEmpty());
+
+        //test for sorted habit events
+        HabitEvent e1 = new HabitEvent(new Date());
+        HabitEvent e2 = new HabitEvent(new Date());
+        HabitEvent e3 = new HabitEvent(new Date());
+
+        repo.addHabitEvent(e1);
+        repo.addHabitEvent(e3);
+        repo.addHabitEvent(e2);
+
+        ArrayList<HabitEvent> list = repo.getSortedEvents();
+
+        assertEquals(list.get(0), e3);
     }
 }

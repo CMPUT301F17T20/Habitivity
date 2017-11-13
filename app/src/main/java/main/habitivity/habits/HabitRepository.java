@@ -196,6 +196,14 @@ public class HabitRepository implements IHabitRepository{
         return sortedHabits;
     }
 
+    public ArrayList<HabitEvent> getSortedEvents() {
+        ArrayList<HabitEvent> sortedEvents = new ArrayList<>(habitEvents.values());
+
+        Collections.sort(sortedEvents, reverseChronologicalEventComparator);
+
+        return sortedEvents;
+    }
+
     /**
      * Helper function to compare habits and sort them
      *
@@ -205,6 +213,13 @@ public class HabitRepository implements IHabitRepository{
         @Override
         public int compare(Habit lhs, Habit rhs) {
             return rhs.getStartDate().compareTo(lhs.getStartDate());
+        }
+    };
+
+    private static Comparator<HabitEvent> reverseChronologicalEventComparator  = new Comparator<HabitEvent>() {
+        @Override
+        public int compare(HabitEvent lhs, HabitEvent rhs) {
+            return rhs.getCompletionDate().compareTo(lhs.getCompletionDate());
         }
     };
 
