@@ -8,17 +8,17 @@ import java.util.List;
  * create a new habit
  */
 public class AddHabitRequest {
-    private String name;
+    private String id;
     private String reason;
     private Date startDate;
     private List<Integer> daysOfTheWeek;
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getReason() {

@@ -202,4 +202,13 @@ public class Habit {
     public void setLastComplete(Date lastComplete) {
         this.lastComplete = lastComplete;
     }
+
+    @Override
+    /**
+     * ArrayAdapter calls to string on the object and displays it on the textview. Override to display what we want
+     */
+    public String toString(){
+        return "Title: " + this.getTitle();
+
+    }
 }

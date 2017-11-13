@@ -14,15 +14,15 @@ public class AddHabitController implements IController<IAddHabitView> {
     }
 
     public void addHabit(AddHabitRequest addHabitRequest) {
-        habitInteractionsFactory.addHabit().add(addHabitRequest.getName(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek());
-        dispatchOnHabitAdded();
+        habitInteractionsFactory.addHabit().add(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek());
+        //dispatchOnHabitAdded();
     }
 
-    private void dispatchOnHabitAdded() {
-        if (addHabitView != null) {
-            addHabitView.onHabitAdded();
-        }
-    }
+//    private void dispatchOnHabitAdded() {
+//        if (addHabitView != null) {
+//            addHabitView.onHabitAdded();
+//        }
+//    }
 
     @Override
     public void attachView(IAddHabitView view) {

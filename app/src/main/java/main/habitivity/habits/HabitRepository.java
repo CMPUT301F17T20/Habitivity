@@ -56,7 +56,8 @@ public class HabitRepository implements IHabitRepository{
     * @return list of sorted habits
     */
     public List<Habit> getHabits() {
-        return new ArrayList<Habit>();
+        ensureHabits();
+        return getSortedHabits();
     }
 
     public List<HabitEvent> getHabitEvents() {return new ArrayList<HabitEvent>();}

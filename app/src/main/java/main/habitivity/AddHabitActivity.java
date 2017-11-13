@@ -2,6 +2,7 @@ package main.habitivity;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -44,7 +45,7 @@ public class AddHabitActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //resolveDependencies();
+        resolveDependencies();
 
         addDate = (Button) findViewById(R.id.chooseDate);
         viewDate = (TextView) findViewById(R.id.dateChoice);
@@ -92,17 +93,19 @@ public class AddHabitActivity extends BaseActivity {
     }
 
     public void onAdd(View view) {
+        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         title = (TextInputEditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
         //faking out the data for now
         List<Integer> testList = new ArrayList<Integer>();
         testList.add(1);
         AddHabitRequest addHabitRequest = new AddHabitRequest();
-        addHabitRequest.setName(title.toString());
+        addHabitRequest.setId(title.toString());
         addHabitRequest.setStartDate(startingDate);
         addHabitRequest.setDaysOfTheWeek(testList);
 
         addHabitController.addHabit(addHabitRequest);
+        startActivity(intent);
     }
 
 }

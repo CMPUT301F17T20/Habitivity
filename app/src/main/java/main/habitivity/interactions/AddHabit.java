@@ -14,9 +14,9 @@ public class AddHabit {
         this.habitRepository = habitRepository;
     }
 
-    public void add(String title, Date startDate, List<Integer> days) {
+    public void add(String id, Date startDate, List<Integer> days) {
         Habit habit = new Habit();
-        habit.setTitle(title);
+        habit.setId(id);
         habit.setStartDate(startDate);
         habit.setDaysOfTheWeekToComplete(days);
 
