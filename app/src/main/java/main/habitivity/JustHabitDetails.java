@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
+import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
 
@@ -17,16 +18,18 @@ public class JustHabitDetails extends BaseActivity {
     private TextView startDate;
     private Habit curHabit;
     private TextView dayToOccur;
+    private HabitListController habitListController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_just_habit_details);
+        resolveDependencies();
 
 
        curHabit = HabitSingletonContainer.getInstance().getHabit();
        reason = (TextView) findViewById(R.id.reason);
-       String stringToShow = "Reason: " + curHabit.getId();
+       String stringToShow = "Reason: " + curHabit.getReason();
        reason.setText(stringToShow);
 
        habitName = (TextView) findViewById(R.id.habitName);
@@ -68,9 +71,24 @@ public class JustHabitDetails extends BaseActivity {
 
     }
 
+    private void resolveDependencies() {
+        HabitApplication app = getHabitApplication();
+        habitListController = app.getHabitListController();
+    }
 
     public void onAdd(View view) {
         Intent intent = new Intent(getApplicationContext(), AddEvent.class);
+        startActivity(intent);
+    }
+
+    public void onEdit(View view) {
+        Intent intent = new Intent(getApplicationContext(), EditHabit.class);
+        startActivity(intent);
+    }
+
+    public void onDelete(View view) {
+        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        habitListController.removeHabit(curHabit);
         startActivity(intent);
     }
 }

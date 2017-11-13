@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context="main.habitivity.JustHabitDetails">
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="onAdd"
-        android:text="@string/addEvent"
-        android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/eventEditDelete"
@@ -73,18 +60,45 @@
             app:srcCompat="?android:attr/textSelectHandle"
             tools:layout_editor_absoluteY="89dp" />
 
+
     </android.support.design.widget.CoordinatorLayout>
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="fill_parent"
-            android:layout_height="245dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent">
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onAdd"
+        android:text="@string/addEvent"
+        android:textColor="@android:color/holo_green_dark"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventEditDelete"/>
 
-        </ScrollView>
+    <Button
+        android:id="@+id/editHabit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onEdit"
+        android:text="Edit Habit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
 
-    </android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/deleteHabit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onDelete"
+        android:text="Delete Habit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editHabit" />
+
+
+</android.support.constraint.ConstraintLayout>
 

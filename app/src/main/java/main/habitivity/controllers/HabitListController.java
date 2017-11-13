@@ -22,6 +22,10 @@ public class HabitListController {
         return habitInteractionsFactory.getHabits().getListOfHabits();
     }
 
+    public void removeHabit(Habit habit){
+        habitInteractionsFactory.deleteHabit().delete(habit.getId());
+    }
+
     public List<HabitEvent> getHabitEvents() {
         return habitInteractionsFactory.getHabitEvents().getListOfHabitEvents();
     }
