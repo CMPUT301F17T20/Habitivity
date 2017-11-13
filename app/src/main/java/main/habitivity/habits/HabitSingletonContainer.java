@@ -4,12 +4,12 @@ package main.habitivity.habits;
  * Created by Shally on 2017-11-13.
  */
 
-public class HabitIDContainer {
-    private static final HabitIDContainer ourInstance = new HabitIDContainer();
+public class HabitSingletonContainer {
+    private static final HabitSingletonContainer ourInstance = new HabitSingletonContainer();
 
     private Habit currentHabit = new Habit();
 
-    public static HabitIDContainer getInstance() {
+    public static HabitSingletonContainer getInstance() {
         return ourInstance;
     }
 
@@ -21,6 +21,6 @@ public class HabitIDContainer {
         return this.currentHabit;
     }
 
-    private HabitIDContainer() {
+    private HabitSingletonContainer() {
     }
 }

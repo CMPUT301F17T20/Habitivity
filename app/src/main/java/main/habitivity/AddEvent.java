@@ -2,9 +2,6 @@ package main.habitivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +9,7 @@ import android.widget.TextView;
 
 import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.habits.Habit;
-import main.habitivity.habits.HabitIDContainer;
+import main.habitivity.habits.HabitSingletonContainer;
 
 public class AddEvent extends BaseActivity {
 
@@ -34,7 +31,7 @@ public class AddEvent extends BaseActivity {
 
         resolveDependencies();
 
-        curHabit = HabitIDContainer.getInstance().getHabit();
+        curHabit = HabitSingletonContainer.getInstance().getHabit();
         eventTitle = (TextView) findViewById(R.id.habitEvent);
         eventTitle.setText(curHabit.getTitle());
 
