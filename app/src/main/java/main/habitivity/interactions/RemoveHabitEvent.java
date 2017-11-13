@@ -12,6 +12,10 @@ public class RemoveHabitEvent {
         this.habitRepository = habitRepository;
     }
 
+    public void remove(String habitEventId){
+        habitRepository.removeHabitEvent(habitEventId);
+    }
+
     public void remove(String habitId, String completionId) {
         Habit habit = habitRepository.getHabit(habitId);
 

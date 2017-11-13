@@ -195,6 +195,10 @@ public class Habit {
         Reason = reason;
     }
 
+    /**
+     * Get last completed event
+     * @return last completed event
+     */
     public Date getLastComplete() {
         return lastComplete;
     }

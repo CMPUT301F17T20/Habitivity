@@ -28,6 +28,10 @@ public class HabitInteractionsFactory {
         return new UpdateHabit(habitRepository);
     }
 
+    public UpdateHabitEvent updateHabitEvent(){
+        return new UpdateHabitEvent(habitRepository);
+    }
+
     public GetHabits getHabits(){
         return new GetHabits(habitRepository);
     }

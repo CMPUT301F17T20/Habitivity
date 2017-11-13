@@ -61,6 +61,7 @@ public class HabitRepository implements IHabitRepository{
     }
 
     public List<HabitEvent> getHabitEvents() {
+        ensureHabitEvents();
         List<HabitEvent> events = new ArrayList<>(habitEvents.values());
         return events;
     }

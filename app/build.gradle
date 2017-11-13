@@ -58,7 +58,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'org.camunda.bpm.extension.mockito:camunda-bpm-mockito:3.1.0'
+    //compile 'org.camunda.bpm.extension.mockito:camunda-bpm-mockito:3.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'

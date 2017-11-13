@@ -26,8 +26,7 @@
         <activity
             android:name=".HabitivityMain"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".AddHabitActivity"
             android:label="@string/title_activity_add_habit"
@@ -71,16 +70,16 @@
             android:label="@string/title_activity_habit_events"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HabitDetails" />
-        <activity android:name=".EventDetails" />
         <activity android:name=".EditEvent" />
         <activity android:name=".EditHabit" />
         <activity
             android:name=".HabitListActivity"
-            android:label="All Habits"/>
+            android:label="All Habits" />
         <activity android:name=".JustHabitDetails" />
         <activity
             android:name=".HabitHistoryActivity"
-            android:label="Habit History"></activity>
+            android:label="Habit History" />
+        <activity android:name=".HabitEventDetailsActivity"></activity>
     </application>
 
 </manifest>

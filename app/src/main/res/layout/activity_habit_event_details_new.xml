@@ -81,10 +81,9 @@
         android:layout_height="237dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:contentDescription="@string/userImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventEditDelete"
         app:srcCompat="@drawable/ic_menu_camera" />
@@ -109,32 +108,36 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="4dp">
 
         <Button
-            android:id="@+id/delete"
-            android:layout_width="54dp"
-            android:layout_height="48dp"
+            android:id="@+id/delete2"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:text="Delete Event"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="8sp"
-            tools:layout_editor_absoluteX="331dp" />
+            android:onClick="onEdit"
+            android:text="Confirm Edits"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="289dp" />
 
         <Button
-            android:id="@+id/edit"
-            android:layout_width="54dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end|top"
-            android:layout_marginEnd="60dp"
-            android:text="Confirm Edit"
+            android:id="@+id/delete3"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:onClick="onDelete"
+            android:text="Delete Habit"
             android:textColor="@android:color/holo_green_dark"
-            android:textSize="8sp"
-            tools:layout_editor_absoluteX="259dp" />
+            android:textSize="14sp"
+            app:layout_anchor="@+id/habitEvent"
+            app:layout_anchorGravity="right|center" />
 
         <TextView
             android:id="@+id/habitEvent"
-            android:layout_width="249dp"
+            android:layout_width="183dp"
             android:layout_height="33dp"
             android:layout_gravity="start|top"
             android:layout_margin="8dp"

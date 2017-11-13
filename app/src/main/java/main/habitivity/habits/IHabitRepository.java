@@ -17,6 +17,9 @@ public interface IHabitRepository {
     void addHabit(Habit habit);
     void updateHabit(Habit habit);
 
+    void updateHabitEvent(HabitEvent habitEvent);
+    void removeHabitEvent(String id);
+
     void addHabitEvent(HabitEvent habitEvent);
 
 }

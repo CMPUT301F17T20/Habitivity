@@ -3,12 +3,9 @@ package main.habitivity.controllers;
 
 import java.util.List;
 
-import main.habitivity.controllers.IController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
-import main.habitivity.habits.HabitRepository;
 import main.habitivity.interactions.HabitInteractionsFactory;
-import main.habitivity.views.IAddHabitView;
 
 public class HabitListController {
     private HabitInteractionsFactory habitInteractionsFactory;
@@ -24,6 +21,10 @@ public class HabitListController {
 
     public void removeHabit(Habit habit){
         habitInteractionsFactory.deleteHabit().delete(habit.getId());
+    }
+
+    public void removeHabitEvent(HabitEvent habitEvent){
+        habitInteractionsFactory.removeHabitEvent().remove(habitEvent.getId());
     }
 
     public List<HabitEvent> getHabitEvents() {

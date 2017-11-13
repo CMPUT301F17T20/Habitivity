@@ -27,6 +27,8 @@ public class HabitSingletonContainer {
         return this.currentHabit;
     }
 
+    public HabitEvent getHabitEvent(){return this.currentHabitEvent;}
+
     private HabitSingletonContainer() {
     }
 }

@@ -4,15 +4,12 @@ import android.app.Application;
 
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitEventController;
-import main.habitivity.controllers.HabitDetailsController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.UpdateHabitController;
 import main.habitivity.habits.HabitRepository;
-import main.habitivity.habits.IHabitRepository;
 import main.habitivity.interactions.Clock;
 import main.habitivity.interactions.HabitInteractionsFactory;
 import main.habitivity.services.AndroidFileHandler;
-import main.habitivity.services.IHabitService;
 import main.habitivity.services.LocalHabitService;
 
 
@@ -65,9 +62,6 @@ public class HabitApplication extends Application {
 //        return new TodaysHabitsController(getHabitRepository(), getHabitInteractionsFactory());
 //    }
 
-    public HabitDetailsController getHabitDetailsController(String habitId) {
-        return new HabitDetailsController(getHabitRepository(), getHabitInteractionsFactory(), habitId);
-    }
 
     public AddHabitController getAddHabitController() {
         return new AddHabitController(getHabitInteractionsFactory());
