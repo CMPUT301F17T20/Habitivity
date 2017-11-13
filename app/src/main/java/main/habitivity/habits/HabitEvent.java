@@ -1,5 +1,7 @@
 package main.habitivity.habits;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 
 import java.util.Date;
