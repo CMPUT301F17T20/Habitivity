@@ -17,6 +17,7 @@ public class AddHabit {
     public void add(String id, Date startDate, List<Integer> days) {
         Habit habit = new Habit();
         habit.setId(id);
+        habit.setTitle(id);
         habit.setStartDate(startDate);
         habit.setDaysOfTheWeekToComplete(days);
 

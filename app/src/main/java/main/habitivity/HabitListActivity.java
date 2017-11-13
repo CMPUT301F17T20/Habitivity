@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
@@ -30,9 +33,9 @@ public class HabitListActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), HabitDetails.class);
+               // Intent intent = new Intent(getApplicationContext(), HabitDetails.class);
                 //set our currentSelectedRecord to the record we tapped on
-                startActivity(intent);
+                //startActivity(intent);
             }
         });
 
