@@ -78,7 +78,7 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
             startActivity(intent);
 
         } else if (id == R.id.add_event) {
-            Intent intent = new Intent(getApplicationContext(), AddEvent.class);
+            Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {

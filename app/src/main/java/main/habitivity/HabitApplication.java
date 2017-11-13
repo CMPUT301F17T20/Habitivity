@@ -3,6 +3,7 @@ package main.habitivity;
 import android.app.Application;
 
 import main.habitivity.controllers.AddHabitController;
+import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.controllers.HabitDetailsController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.HabitRepository;
@@ -49,6 +50,10 @@ public class HabitApplication extends Application {
 
     public HabitListController getHabitListController() {
         return new HabitListController(getHabitInteractionsFactory());
+    }
+
+    public AddHabitEventController getAddHabitEventsController(){
+        return new AddHabitEventController(getHabitInteractionsFactory());
     }
 //
 //    public TodaysHabitsController getTodaysHabitsController() {

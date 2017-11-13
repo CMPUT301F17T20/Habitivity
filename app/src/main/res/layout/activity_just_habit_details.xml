@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="main.habitivity.JustHabitDetails">
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onAdd"
+        android:text="@string/addEvent"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/eventEditDelete"
+        android:layout_width="match_parent"
+        android:layout_height="164dp">
+
+        <TextView
+            android:id="@+id/habitName"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_margin="8dp"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            tools:text="ExampleHabit 20Chars" />
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="85dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="e.i. Start: 11/22/33" />
+
+        <TextView
+            android:id="@+id/reason"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="50dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="Reason; Here's one reason that I have." />
+
+        <TextView
+            android:id="@+id/days"
+            android:layout_width="198dp"
+            android:layout_height="49dp"
+            android:layout_gravity="bottom|end"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="Days: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday" />
+
+        <ImageView
+            android:id="@+id/graph"
+            android:layout_width="182dp"
+            android:layout_height="111dp"
+            android:layout_gravity="start|bottom"
+            android:contentDescription="graphic"
+            app:srcCompat="?android:attr/textSelectHandle"
+            tools:layout_editor_absoluteY="89dp" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="fill_parent"
+            android:layout_height="245dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+

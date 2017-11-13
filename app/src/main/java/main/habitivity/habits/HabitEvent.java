@@ -100,4 +100,13 @@ public class HabitEvent {
         this.photograph = BitmapFactory.decodeFile(path);
     }
 
+    @Override
+    /**
+     * ArrayAdapter calls to string on the object and displays it on the textview. Override to display what we want
+     */
+    public String toString(){
+        return "Id: " + this.getId() + "|    Comment: " + this.getComment();
+
+    }
+
 }

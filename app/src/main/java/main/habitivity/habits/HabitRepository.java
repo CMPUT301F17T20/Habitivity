@@ -60,7 +60,10 @@ public class HabitRepository implements IHabitRepository{
         return getSortedHabits();
     }
 
-    public List<HabitEvent> getHabitEvents() {return new ArrayList<HabitEvent>();}
+    public List<HabitEvent> getHabitEvents() {
+        List<HabitEvent> events = new ArrayList<>(habitEvents.values());
+        return events;
+    }
 
     /**
     * Gets the habit of the with the corresponding id
@@ -77,6 +80,7 @@ public class HabitRepository implements IHabitRepository{
      * @param[in] - the habit to update in our local disk/server
      */
     public void updateHabitEvent(HabitEvent habitEvent){
+        ensureHabitEvents();
         habitService.updateHabitEvent(habitEvent);
         habitEvents.put(habitEvent.getId(), habitEvent);
     }
@@ -87,6 +91,7 @@ public class HabitRepository implements IHabitRepository{
      * @param[in] - the habit to update in our local disk/server
      */
     public void addHabitEvent(HabitEvent habitEvent){
+        ensureHabitEvents();
         habitService.addHabitEvent(habitEvent);
         habitEvents.put(habitEvent.getId(), habitEvent);
     }
@@ -97,6 +102,7 @@ public class HabitRepository implements IHabitRepository{
      * @param[in] - the habit to update in our local disk/server
      */
     public void removeHabitEvent(String id){
+        ensureHabitEvents();
         habitService.deleteHabitEvent(id);
         habitEvents.remove(id);
     }
@@ -105,6 +111,14 @@ public class HabitRepository implements IHabitRepository{
         if (habits.isEmpty()) {
             for (Habit habit: habitService.getHabits()) {
                 habits.put(habit.getId(), habit);
+            }
+        }
+    }
+
+    private void ensureHabitEvents() {
+        if (habitEvents.isEmpty()) {
+            for (HabitEvent habitEvent: habitService.getHabitEvents()) {
+                habitEvents.put(habitEvent.getId(), habitEvent);
             }
         }
     }

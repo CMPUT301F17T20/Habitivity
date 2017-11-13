@@ -27,6 +27,10 @@ public class HabitInteractionsFactory {
     public GetHabits getHabits(){
         return new GetHabits(habitRepository);
     }
+
+    public GetHabitEvents getHabitEvents(){
+        return new GetHabitEvents(habitRepository);
+    }
     public DeleteHabit deleteHabit() {
         return new DeleteHabit(habitRepository);
     }

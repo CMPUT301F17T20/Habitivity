@@ -24,6 +24,14 @@ public class AddHabitEvent {
         }
     }
 
+    public void add(String id, String comment){
+        HabitEvent habitEvent = generateHabitEvent();
+        habitEvent.setComment(comment);
+        habitEvent.setId(id);
+
+        habitRepository.addHabitEvent(habitEvent);
+    }
+
     private Habit getHabitUpdatedWithEvent(Habit habit) {
         habit.getCompletedEvents().add(generateHabitEvent());
         return habit;
