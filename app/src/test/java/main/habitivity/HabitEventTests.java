@@ -1,5 +1,6 @@
 package main.habitivity;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import org.junit.Before;
@@ -11,9 +12,6 @@ import java.util.Date;
 
 import main.habitivity.habits.HabitEvent;
 
-/**
- * Created by sbergen on 10/23/17.
- */
 
 public class HabitEventTests {
 
@@ -21,7 +19,7 @@ public class HabitEventTests {
     private Date completionDateInitial;
     private Date completionDateReplacement;
     private String comment;
-    private Image photograph;
+    private Bitmap photograph;
 
     private HabitEvent habitEvent;
 
@@ -31,7 +29,7 @@ public class HabitEventTests {
         completionDateInitial = new Date();
         completionDateReplacement = new Date();
         comment = "This is a habit event";
-        photograph = mock(Image.class);
+        photograph = mock(Bitmap.class);
         habitEvent = new HabitEvent(completionDateInitial);
 
         habitEvent.setId(id);
