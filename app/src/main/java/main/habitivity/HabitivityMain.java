@@ -74,11 +74,11 @@ public class HabitivityMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.add_habit) {
-            Intent intent = new Intent(this, AddHabitActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddHabitActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.add_event) {
-            Intent intent = new Intent(this, AddEvent.class);
+            Intent intent = new Intent(getApplicationContext(), AddEvent.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
