@@ -32,7 +32,7 @@ public class AddHabitActivity extends BaseActivity {
     private TextView viewDate;
     private Date compDate;
     private Calendar cal = Calendar.getInstance();
-    private TextInputEditText title;
+    private EditText title;
     private Date startingDate;
     private AddHabitController addHabitController;
     private EditText reason;
@@ -94,13 +94,13 @@ public class AddHabitActivity extends BaseActivity {
 
     public void onAdd(View view) {
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
-        title = (TextInputEditText) findViewById(R.id.habitInput);
+        title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
         //faking out the data for now
         List<Integer> testList = new ArrayList<Integer>();
         testList.add(1);
         AddHabitRequest addHabitRequest = new AddHabitRequest();
-        addHabitRequest.setId(title.toString());
+        addHabitRequest.setId(title.getText().toString());
         addHabitRequest.setStartDate(startingDate);
         addHabitRequest.setDaysOfTheWeek(testList);
 

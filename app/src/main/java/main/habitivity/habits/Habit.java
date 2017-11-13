@@ -208,7 +208,7 @@ public class Habit {
      * ArrayAdapter calls to string on the object and displays it on the textview. Override to display what we want
      */
     public String toString(){
-        return "Title: " + this.getTitle();
+        return "Title: " + this.getTitle() + "| Id: " + this.getId();
 
     }
 }

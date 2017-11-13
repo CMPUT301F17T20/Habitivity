@@ -159,8 +159,19 @@ public class HabitRepository implements IHabitRepository{
      * @return a list of sorted habits 
      */
     private List<Habit> getSortedHabits() {
-        return new ArrayList<Habit>();
+
+       List<Habit> sortedHabits = new ArrayList<>(habits.values());
+//        Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
+
+        return sortedHabits;
     }
+
+    private static Comparator<Habit> reverseChronologicalHabitComparator  = new Comparator<Habit>() {
+        @Override
+        public int compare(Habit lhs, Habit rhs) {
+            return rhs.getStartDate().compareTo(lhs.getStartDate());
+        }
+    };
 
     /**
      * This was originally intended for the observer class. DON'T IMPLEMENT this since we
