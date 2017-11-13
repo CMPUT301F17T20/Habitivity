@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import main.habitivity.observables.IObservable;
-import main.habitivity.observables.IObserver;
 import main.habitivity.services.LocalHabitService;
 import main.habitivity.services.WhichHabitService;
 
