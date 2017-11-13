@@ -8,6 +8,7 @@ android {
     }
     defaultConfig {
         applicationId "main.habitivity"
+        vectorDrawables.useSupportLibrary = true
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -17,6 +18,10 @@ android {
         resValue "string", "your_authorities", applicationId + '.provider'
         resValue "string", "account_type", applicationId + '.syncadapter.type'
         buildConfigField "String", "ACCOUNT_TYPE", "applicationId + '.syncadapter.type'"
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     packagingOptions {

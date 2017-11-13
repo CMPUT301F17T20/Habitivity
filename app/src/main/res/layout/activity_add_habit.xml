@@ -31,8 +31,6 @@
         android:text="@string/daysofWeek"
         android:textSize="14sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/include3"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addComment" />
 
     <TextView
@@ -57,7 +55,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysofWeek"
         tools:layout_editor_absoluteY="250dp" />
 
     <android.support.design.widget.CoordinatorLayout
