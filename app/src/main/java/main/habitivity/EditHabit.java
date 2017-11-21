@@ -3,7 +3,9 @@
  */
 package main.habitivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -51,6 +53,9 @@ public class EditHabit extends BaseActivity {
     private ToggleButton saturday;
     private ToggleButton sunday;
 
+    private Button habitType;
+    public static String habitTypeString = new String();
+
     private DatePickerDialog.OnDateSetListener addDateSetListen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +77,64 @@ public class EditHabit extends BaseActivity {
         friday = (ToggleButton) findViewById(R.id.Fri);
         saturday = (ToggleButton) findViewById(R.id.Sat);
 
+        habitType = (Button) findViewById(R.id.colorButton);
+
+        habitType.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence colors[] = new CharSequence[] {"red", "green", "blue", "black"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditHabit.this);
+                builder.setTitle("Pick a color to represent the habit type");
+                builder.setItems(colors, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(colors[which] == "red") {
+                            habitType.setBackgroundColor(Color.RED);
+                            habitTypeString = "red";
+
+                        }
+                        else if(colors[which] == "green") {
+                            habitType.setBackgroundColor(Color.GREEN);
+                            habitTypeString = "green";
+                        }
+                        else if(colors[which] == "blue") {
+                            habitType.setBackgroundColor(Color.BLUE);
+                            habitTypeString = "blue";
+                        }
+                        else if(colors[which] == "black") {
+                            habitType.setBackgroundColor(Color.BLACK);
+                            habitTypeString = "black";
+                        }
+                    }
+                });
+                AlertDialog habitTypeChangedAlert = builder.create();
+                habitTypeChangedAlert.show();
+            }
+        });
+
         //add the original values,
         title = (EditText) findViewById(R.id.habitInput);
         title.setText(curHabit.getTitle());
         reason = (EditText) findViewById(R.id.addComment);
         reason.setText(curHabit.getReason());
+        habitTypeString = curHabit.getHabitType();
+
+        if(habitTypeString == "red"){
+            habitType.setBackgroundColor(Color.RED);
+        }
+        else if(habitTypeString == "green"){
+            habitType.setBackgroundColor(Color.GREEN);
+        }
+        else if(habitTypeString == "black"){
+            habitType.setBackgroundColor(Color.BLACK);
+        }
+        else if(habitTypeString == "blue"){
+            habitType.setBackgroundColor(Color.BLUE);
+        }
+
         for (Integer day: curHabit.getDaysOfTheWeekToComplete()){
             if(day==1){
                 sunday.setChecked(true);
@@ -223,6 +281,7 @@ public class EditHabit extends BaseActivity {
 
         AddHabitRequest addHabitRequest = new AddHabitRequest();
         addHabitRequest.setId(title.getText().toString());
+        addHabitRequest.setHabitType(habitTypeString);
         addHabitRequest.setStartDate(startingDate);
         addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
         addHabitRequest.setReason(reason.getText().toString());

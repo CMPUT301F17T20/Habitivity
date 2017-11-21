@@ -123,8 +123,8 @@ public class AddHabitActivity extends BaseActivity {
                         }
                     }
                 });
-                AlertDialog alert11 = builder.create();
-                alert11.show();
+                AlertDialog habitTypeChangedAlert = builder.create();
+                habitTypeChangedAlert.show();
             }
         });
 
