@@ -14,6 +14,7 @@ public class AddHabitRequest {
     private String id;
     private String reason;
     private Date startDate;
+    private String habitType;
     private List<Integer> daysOfTheWeek;
 
     /**
@@ -23,6 +24,18 @@ public class AddHabitRequest {
     public String getId() {
         return id;
     }
+
+    /**
+     * Sets the habit type
+     * @param type - type to set the habit to
+     */
+    public void setHabitType(String type){ this.habitType = type;}
+
+    /**
+     * Returns the habit type
+     * @return
+     */
+    public String getHabitType(){ return this.habitType;}
 
     /**
      * Sets the id of the habit

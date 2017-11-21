@@ -20,6 +20,6 @@ public class AddHabitController {
      * @param addHabitRequest
      */
     public void addHabit(AddHabitRequest addHabitRequest) {
-        habitInteractionsFactory.addHabit().add(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek());
+        habitInteractionsFactory.addHabit().add(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek(), addHabitRequest.getHabitType());
     }
 }

@@ -3,11 +3,14 @@
  */
 package main.habitivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -29,6 +32,7 @@ import java.util.List;
 
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitRequest;
+import main.habitivity.interactions.AddHabit;
 
 
 public class AddHabitActivity extends BaseActivity {
@@ -42,6 +46,9 @@ public class AddHabitActivity extends BaseActivity {
     private AddHabitController addHabitController;
     private EditText reason;
     private List<Integer> dayOfTheWeek = new ArrayList<Integer>();
+
+    private Button habitType;
+    public static String habitTypeString = new String();
 
     //should move these toggles into a separate class which will handle them. But this will do for now
     private ToggleButton monday;
@@ -73,12 +80,53 @@ public class AddHabitActivity extends BaseActivity {
         friday = (ToggleButton) findViewById(R.id.Fri);
         saturday = (ToggleButton) findViewById(R.id.Sat);
 
+        habitType = (Button) findViewById(R.id.colorButton);
+        //default habit color type
+        habitType.setBackgroundColor(Color.BLACK);
+
         int yr = cal.get(Calendar.YEAR);
         int mth = cal.get(Calendar.MONTH);
         int dy = cal.get(Calendar.DAY_OF_MONTH);
         mth = mth + 1;
         String showDate = mth + "/" + dy + "/" + yr;
         viewDate.setText(showDate);
+
+
+        habitType.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                final CharSequence colors[] = new CharSequence[] {"red", "green", "blue", "black"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddHabitActivity.this);
+                builder.setTitle("Pick a color to represent the habit type");
+                builder.setItems(colors, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(colors[which] == "red") {
+                            habitType.setBackgroundColor(Color.RED);
+                            habitTypeString = "red";
+
+                        }
+                        else if(colors[which] == "green") {
+                            habitType.setBackgroundColor(Color.GREEN);
+                            habitTypeString = "green";
+                        }
+                        else if(colors[which] == "blue") {
+                            habitType.setBackgroundColor(Color.BLUE);
+                            habitTypeString = "blue";
+                        }
+                        else if(colors[which] == "black") {
+                            habitType.setBackgroundColor(Color.BLACK);
+                            habitTypeString = "black";
+                        }
+                    }
+                });
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+            }
+        });
 
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +234,7 @@ public class AddHabitActivity extends BaseActivity {
 
         //faking out the data for now
         AddHabitRequest addHabitRequest = new AddHabitRequest();
+        addHabitRequest.setHabitType(habitTypeString);
         addHabitRequest.setId(title.getText().toString());
         addHabitRequest.setStartDate(startingDate);
         addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);

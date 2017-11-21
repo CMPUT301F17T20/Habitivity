@@ -27,8 +27,9 @@ public class AddHabit {
      * @param startDate of habit
      * @param days of habit
      */
-    public void add(String id, Date startDate, List<Integer> days) {
+    public void add(String id, Date startDate, List<Integer> days, String habitType) {
         Habit habit = new Habit();
+        habit.setHabitType(habitType);
         habit.setId(id);
         habit.setTitle(id);
         habit.setStartDate(startDate);
