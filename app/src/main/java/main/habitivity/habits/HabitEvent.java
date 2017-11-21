@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.media.Image;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,8 +21,9 @@ public class HabitEvent {
     private String id;
     private Date completionDate;
     private String comment;
-    private Bitmap photograph;
+    private transient Bitmap photograph;
     private Location location;
+    private String thumbnail;
 
     public HabitEvent(Date completionDate) {
         /* This path is going to need testing. I couldn't find the assumed source file online so I
@@ -102,6 +105,14 @@ public class HabitEvent {
     * @return photograph - photo associated with the HabitEvent
     */
     public Bitmap getPhoto() {
+        if (this.photograph == null && thumbnail == null) {
+            //image isn't set. //implement later
+        } else {
+            if (thumbnail != null) {
+                byte[] decodeString = Base64.decode(thumbnail, Base64.DEFAULT);
+                this.photograph = BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
+            }
+        }
         return this.photograph;
     }
 
@@ -111,7 +122,23 @@ public class HabitEvent {
     * @param[in] photograph - photo associated with the HabitEvent
     */
     public void setPhoto(Bitmap photograph) {
-        this.photograph = photograph;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        if (photograph == null) {
+            this.photograph = null;
+            this.thumbnail = null;
+            return;
+        }
+        if (photograph.getByteCount() >= 65536) {
+            //throw an exception todo later (create an exception class)
+        }
+        else {
+            this.photograph = photograph;
+            this.photograph.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            this.thumbnail = Base64.encodeToString(bytes, Base64.DEFAULT);
+        }
     }
     
     /**
@@ -120,7 +147,18 @@ public class HabitEvent {
     * @param[in] path - a path to a photo associated with the HabitEvent
     */
     public void setPhoto(String path) {
+
         this.photograph = BitmapFactory.decodeFile(path);
+    }
+
+
+    public static Bitmap compressBitmap(Bitmap bitmap) {
+        return Bitmap.createScaledBitmap(bitmap, 127, 127, true);
+
+    }
+
+    public static Bitmap decompressBitmap(Bitmap scaledBitmap) {
+        return Bitmap.createScaledBitmap(scaledBitmap, 256, 256, true);
     }
 
     @Override
