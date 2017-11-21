@@ -19,10 +19,12 @@ public class UpdateHabitController {
 
     /**
      * Updates a habit
-     * @param addHabitRequest - habit to update
+     * @param updateHabitRequest - habit to update
      */
-    public void updateHabit(AddHabitRequest addHabitRequest) {
-        habitInteractionsFactory.updateHabit().update(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getReason(), addHabitRequest.getDaysOfTheWeek());
+    public void updateHabit(UpdateHabitRequest updateHabitRequest) {
+        habitInteractionsFactory.updateHabit().update(updateHabitRequest.getId(), updateHabitRequest.getOldId(),
+                updateHabitRequest.getStartDate(), updateHabitRequest.getReason(),
+                updateHabitRequest.getDaysOfTheWeek(), updateHabitRequest.getHabitType());
     }
 
     /**

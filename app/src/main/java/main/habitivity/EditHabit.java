@@ -28,6 +28,7 @@ import java.util.List;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitRequest;
 import main.habitivity.controllers.UpdateHabitController;
+import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
 
@@ -43,6 +44,7 @@ public class EditHabit extends BaseActivity {
     private EditText reason;
     private List<Integer> dayOfTheWeek = new ArrayList<Integer>();
     private Habit curHabit = HabitSingletonContainer.getInstance().getHabit();
+    private String oldId;
 
     //should move these toggles into a separate class which will handle them. But this will do for now
     private ToggleButton monday;
@@ -117,6 +119,7 @@ public class EditHabit extends BaseActivity {
 
         //add the original values,
         title = (EditText) findViewById(R.id.habitInput);
+        oldId = curHabit.getTitle();
         title.setText(curHabit.getTitle());
         reason = (EditText) findViewById(R.id.addComment);
         reason.setText(curHabit.getReason());
@@ -279,14 +282,15 @@ public class EditHabit extends BaseActivity {
         title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
 
-        AddHabitRequest addHabitRequest = new AddHabitRequest();
-        addHabitRequest.setId(title.getText().toString());
-        addHabitRequest.setHabitType(habitTypeString);
-        addHabitRequest.setStartDate(startingDate);
-        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
-        addHabitRequest.setReason(reason.getText().toString());
+        UpdateHabitRequest updateHabitRequest = new UpdateHabitRequest();
+        updateHabitRequest.setOldId(this.oldId);
+        updateHabitRequest.setId(title.getText().toString());
+        updateHabitRequest.setHabitType(habitTypeString);
+        updateHabitRequest.setStartDate(startingDate);
+        updateHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
+        updateHabitRequest.setReason(reason.getText().toString());
 
-        updateHabitController.updateHabit(addHabitRequest);
+        updateHabitController.updateHabit(updateHabitRequest);
         startActivity(intent);
     }
 }

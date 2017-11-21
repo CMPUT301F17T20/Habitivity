@@ -26,13 +26,18 @@ public class UpdateHabit {
      * @param reason of habit to update
      * @param days of habit to update
      */
-    public void update(String id, Date startDate, String reason, List<Integer> days) {
+    public void update(String id, String oldId, Date startDate, String reason, List<Integer> days, String habitType) {
         Habit habit = new Habit();
         habit.setId(id);
         habit.setTitle(id);
         habit.setStartDate(startDate);
         habit.setReason(reason);
         habit.setDaysOfTheWeekToComplete(days);
+        habit.setHabitType(habitType);
+
+        if(id != oldId){
+            habitRepository.removeHabit(oldId);
+        }
 
         habitRepository.updateHabit(habit);
     }

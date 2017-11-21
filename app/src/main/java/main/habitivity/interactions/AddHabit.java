@@ -30,6 +30,7 @@ public class AddHabit {
     public void add(String id, Date startDate, List<Integer> days, String habitType) {
         Habit habit = new Habit();
         habit.setHabitType(habitType);
+        //need a way to unqiuely identify a habit. TODO i have an idea but implment later
         habit.setId(id);
         habit.setTitle(id);
         habit.setStartDate(startDate);
