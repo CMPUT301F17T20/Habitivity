@@ -5,15 +5,20 @@ package main.habitivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,6 +29,7 @@ import main.habitivity.habits.HabitSingletonContainer;
 
 public class HabitEventDetailsActivity extends BaseActivity {
 
+    private static final int SELECTED_PICTURE = 0;
     private DatePickerDialog.OnDateSetListener addDateSetListen;
     private Button addDate;
     private TextView viewDate;
@@ -33,6 +39,11 @@ public class HabitEventDetailsActivity extends BaseActivity {
     private HabitEvent curHabitEvent;
     private Calendar cal = Calendar.getInstance();
     private Date compDate = new Date();
+
+    private static final int CAMERA_REQUEST = 1888;
+    private ImageView userImage;
+    private Bitmap bitmap;
+
     private UpdateHabitController updateHabitController;
     private HabitListController habitListController;
 
@@ -51,10 +62,11 @@ public class HabitEventDetailsActivity extends BaseActivity {
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
         completionDate = (TextView) findViewById(R.id.dateChoice);
         comment = (TextView) findViewById(R.id.addComment);
+        userImage = (ImageView) findViewById(R.id.userImage);
 
         curHabitEvent = HabitSingletonContainer.getInstance().getHabitEvent();
 
-        String commentString = "Comment: " + curHabitEvent.getComment();
+        String commentString = curHabitEvent.getComment();
         comment.setText(commentString);
         habitEventTitle.setText(curHabitEvent.getId());
 
@@ -62,6 +74,10 @@ public class HabitEventDetailsActivity extends BaseActivity {
         viewDate = (TextView) findViewById(R.id.dateChoice);
 
         viewDate.setText(curHabitEvent.getCompletionDate().toString());
+
+        if(curHabitEvent.getPhoto() != null){
+            userImage.setImageBitmap(curHabitEvent.getPhoto());
+        }
 
         Calendar setDate = toCalendar(curHabitEvent.getCompletionDate());
         int yr = setDate.get(Calendar.YEAR);
@@ -102,6 +118,46 @@ public class HabitEventDetailsActivity extends BaseActivity {
                 viewDate.setText(showDate);
             }
         };
+
+        Button photoButton = (Button) this.findViewById(R.id.addPhoto);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra( android.provider.MediaStore.EXTRA_SIZE_LIMIT, "65000");
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            userImage.setImageBitmap(photo);
+        }
+        if (requestCode == SELECTED_PICTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri photouri = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photouri);
+                setImage(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void pickPhoto(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECTED_PICTURE);
+    }
+
+    private void setImage(Bitmap photo) {
+        userImage.setImageBitmap(photo);
     }
 
     private void resolveDependencies() {
@@ -120,6 +176,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
         habitEvent.setId(habitEventTitle.getText().toString());
         habitEvent.setCompletionDate(this.compDate);
         habitEvent.setComment(comment.getText().toString());
+
 
         updateHabitController.updateHabitEvent(habitEvent);
         HabitSingletonContainer.getInstance().setHabitEvent(habitEvent);

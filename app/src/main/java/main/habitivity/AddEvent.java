@@ -5,11 +5,16 @@ package main.habitivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +25,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,6 +36,8 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,7 +51,9 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
+    private static final int SELECTED_PICTURE = 0;
     private TextView eventTitle;
+    private Bitmap bitmap = null;
     private Calendar cal = Calendar.getInstance();
     private EditText comment;
     private Habit curHabit;
@@ -53,6 +63,8 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     private Date startingDate = new Date();
     private Button addDate;
     private TextView viewDate;
+    private static final int CAMERA_REQUEST = 1888; 
+    private ImageView userImage;
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -87,12 +99,21 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
 
         return this.location;
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        userImage = (ImageView) findViewById(R.id.userImage);
 
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -167,6 +188,48 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             }
         });
 
+
+        Button photoButton = (Button) this.findViewById(R.id.addPhoto);
+            photoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    cameraIntent.putExtra( android.provider.MediaStore.EXTRA_SIZE_LIMIT, "65000");
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+                }
+            });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            bitmap = photo;
+            userImage.setImageBitmap(photo);
+        }
+        if (requestCode == SELECTED_PICTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri photouri = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photouri);
+                setImage(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void pickPhoto(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECTED_PICTURE);
+    }
+
+    private void setImage(Bitmap photo) {
+        userImage.setImageBitmap(photo);
     }
 
     private void resolveDependencies() {
@@ -175,10 +238,10 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     }
 
     public void onAdd(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         comment = (EditText) findViewById(R.id.addComment);
 
-        addHabitEventController.addHabitEvent(eventTitle.getText().toString(), comment.getText().toString(), location, compDate);
+        addHabitEventController.addHabitEvent(eventTitle.getText().toString(), comment.getText().toString(), location, compDate, bitmap);
 
         startActivity(intent);
     }

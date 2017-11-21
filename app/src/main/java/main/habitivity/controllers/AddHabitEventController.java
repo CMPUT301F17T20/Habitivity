@@ -4,6 +4,7 @@
 
 package main.habitivity.controllers;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Date;
@@ -28,9 +29,10 @@ public class AddHabitEventController {
      * @param title - title of habitevent
      * @param comment - comment of habitevent
      * @param location - location of habitevent
+     * @param image - the image of the habit event (optional) null otherwise
      */
-    public void addHabitEvent(String title, String comment, Location location, Date compDate) {
-        habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate);
+    public void addHabitEvent(String title, String comment, Location location, Date compDate, Bitmap image) {
+        habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate, image);
     }
 
 }

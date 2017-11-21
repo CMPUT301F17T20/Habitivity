@@ -4,6 +4,7 @@
 
 package main.habitivity.interactions;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Date;
@@ -43,11 +44,12 @@ public class AddHabitEvent {
      * @param comment of habit event
      * @param location of habit event
      */
-    public void add(String id, String comment, Location location, Date completionDate){
+    public void add(String id, String comment, Location location, Date completionDate, Bitmap image){
         HabitEvent habitEvent = generateHabitEvent();
         habitEvent.setComment(comment);
         habitEvent.setLocation(location);
         habitEvent.setId(id);
+        habitEvent.setPhoto(image);
         habitEvent.setCompletionDate(completionDate);
 
         habitRepository.addHabitEvent(habitEvent);

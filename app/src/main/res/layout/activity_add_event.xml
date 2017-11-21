@@ -62,19 +62,6 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <ImageButton
-        android:id="@+id/userImage"
-        android:layout_width="367dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/userImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventEditDelete"
-        app:srcCompat="@drawable/ic_menu_camera" />
-
     <EditText
         android:id="@+id/addComment"
         android:layout_width="match_parent"
@@ -86,7 +73,7 @@
         android:inputType="text|textPersonName"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+        app:layout_constraintTop_toBottomOf="@+id/photobox" />
 
 
     <Button
@@ -123,5 +110,55 @@
             tools:text="ExampleHabit 20Chars Event:" />
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/photobox"
+        android:layout_width="368dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/eventEditDelete"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="54dp">
+
+        <Button
+            android:id="@+id/addPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Take Photo"
+            app:layout_constraintBottom_toTopOf="@+id/choosePhoto"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_marginLeft="4dp" />
+
+        <Button
+            android:id="@+id/choosePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:onClick="pickPhoto"
+            android:text="Choose photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="219dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/choosePhoto"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            app:srcCompat="@drawable/ic_menu_camera" />
+
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

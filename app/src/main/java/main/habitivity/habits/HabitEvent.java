@@ -106,6 +106,7 @@ public class HabitEvent {
     */
     public Bitmap getPhoto() {
         if (this.photograph == null && thumbnail == null) {
+            return null;
             //image isn't set. //implement later
         } else {
             if (thumbnail != null) {
