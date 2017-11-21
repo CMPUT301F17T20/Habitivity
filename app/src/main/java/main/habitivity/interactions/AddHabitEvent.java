@@ -43,11 +43,12 @@ public class AddHabitEvent {
      * @param comment of habit event
      * @param location of habit event
      */
-    public void add(String id, String comment, Location location){
+    public void add(String id, String comment, Location location, Date completionDate){
         HabitEvent habitEvent = generateHabitEvent();
         habitEvent.setComment(comment);
         habitEvent.setLocation(location);
         habitEvent.setId(id);
+        habitEvent.setCompletionDate(completionDate);
 
         habitRepository.addHabitEvent(habitEvent);
     }

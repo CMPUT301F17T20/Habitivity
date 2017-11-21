@@ -3,12 +3,18 @@
  */
 package main.habitivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import main.habitivity.controllers.HabitListController;
@@ -18,12 +24,23 @@ import main.habitivity.habits.HabitSingletonContainer;
 
 public class HabitEventDetailsActivity extends BaseActivity {
 
+    private DatePickerDialog.OnDateSetListener addDateSetListen;
+    private Button addDate;
+    private TextView viewDate;
     private TextView habitEventTitle;
     private TextView completionDate;
     private TextView comment;
     private HabitEvent curHabitEvent;
+    private Calendar cal = Calendar.getInstance();
+    private Date compDate = new Date();
     private UpdateHabitController updateHabitController;
     private HabitListController habitListController;
+
+    public static Calendar toCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +57,51 @@ public class HabitEventDetailsActivity extends BaseActivity {
         String commentString = "Comment: " + curHabitEvent.getComment();
         comment.setText(commentString);
         habitEventTitle.setText(curHabitEvent.getId());
+
+        addDate = (Button) findViewById(R.id.chooseDate);
+        viewDate = (TextView) findViewById(R.id.dateChoice);
+
+        viewDate.setText(curHabitEvent.getCompletionDate().toString());
+
+        Calendar setDate = toCalendar(curHabitEvent.getCompletionDate());
+        int yr = setDate.get(Calendar.YEAR);
+        int mth = setDate.get(Calendar.MONTH);
+        int dy = setDate.get(Calendar.DAY_OF_MONTH);
+
+        mth = mth + 1;
+        String showDate = mth + "/" + dy + "/" + yr;
+        viewDate.setText(showDate);
+
+        addDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int yr = cal.get(Calendar.YEAR);
+                int mth = cal.get(Calendar.MONTH);
+                int dy = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dia = new DatePickerDialog(
+                        HabitEventDetailsActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        addDateSetListen,
+                        yr, mth, dy);
+                dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dia.show();
+            }
+        });
+
+        addDateSetListen = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                cal.set(year, month, day);
+                int yr = cal.get(Calendar.YEAR);
+                int mth = cal.get(Calendar.MONTH);
+                int dy = cal.get(Calendar.DAY_OF_MONTH);
+                compDate = cal.getTime();
+                month = month + 1;
+                String showDate = month + "/" + day + "/" + year;
+                viewDate.setText(showDate);
+            }
+        };
     }
 
     private void resolveDependencies() {
@@ -56,8 +118,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
 
         HabitEvent habitEvent = new HabitEvent(new Date());
         habitEvent.setId(habitEventTitle.getText().toString());
-        //fake it out for now
-        habitEvent.setCompletionDate(new Date());
+        habitEvent.setCompletionDate(this.compDate);
         habitEvent.setComment(comment.getText().toString());
 
         updateHabitController.updateHabitEvent(habitEvent);

@@ -65,9 +65,9 @@
     <ImageButton
         android:id="@+id/userImage"
         android:layout_width="367dp"
-        android:layout_height="237dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:contentDescription="@string/userImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +88,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
+
+    <Button
+        android:id="@+id/delete2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="28dp"
+        android:onClick="onAdd"
+        android:text="@string/addEvent"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editscoordinator" />
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/eventEditDelete"
         android:layout_width="match_parent"
@@ -97,20 +111,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/delete2"
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:onClick="onAdd"
-            android:text="@string/addEvent"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="14sp"
-            tools:layout_editor_absoluteX="271dp" />
-
         <TextView
             android:id="@+id/habitEvent"
-            android:layout_width="249dp"
+            android:layout_width="348dp"
             android:layout_height="33dp"
             android:layout_gravity="start|top"
             android:layout_margin="8dp"

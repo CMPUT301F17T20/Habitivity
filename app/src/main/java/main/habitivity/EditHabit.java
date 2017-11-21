@@ -81,6 +81,7 @@ public class EditHabit extends BaseActivity {
 
         habitType = (Button) findViewById(R.id.colorButton);
 
+
         habitType.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -170,7 +171,6 @@ public class EditHabit extends BaseActivity {
         }
 
 
-        //SET LISTENERS////
         int yr = cal.get(Calendar.YEAR);
         int mth = cal.get(Calendar.MONTH);
         int dy = cal.get(Calendar.DAY_OF_MONTH);

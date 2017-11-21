@@ -6,6 +6,8 @@ package main.habitivity.controllers;
 
 import android.location.Location;
 
+import java.util.Date;
+
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.interactions.HabitInteractionsFactory;
 
@@ -27,8 +29,8 @@ public class AddHabitEventController {
      * @param comment - comment of habitevent
      * @param location - location of habitevent
      */
-    public void addHabitEvent(String title, String comment, Location location) {
-        habitInteractionsFactory.addHabitEvent().add(title, comment, location);
+    public void addHabitEvent(String title, String comment, Location location, Date compDate) {
+        habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate);
     }
 
 }
