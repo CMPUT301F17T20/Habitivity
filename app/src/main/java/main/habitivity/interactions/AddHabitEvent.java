@@ -4,6 +4,8 @@
 
 package main.habitivity.interactions;
 
+import android.location.Location;
+
 import java.util.Date;
 
 import main.habitivity.habits.Habit;
@@ -39,10 +41,12 @@ public class AddHabitEvent {
      * Add a habit event
      * @param id  of habit event
      * @param comment of habit event
+     * @param location of habit event
      */
-    public void add(String id, String comment){
+    public void add(String id, String comment, Location location){
         HabitEvent habitEvent = generateHabitEvent();
         habitEvent.setComment(comment);
+        habitEvent.setLocation(location);
         habitEvent.setId(id);
 
         habitRepository.addHabitEvent(habitEvent);

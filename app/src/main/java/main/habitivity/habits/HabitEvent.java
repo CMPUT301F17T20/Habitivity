@@ -6,6 +6,7 @@ package main.habitivity.habits;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.media.Image;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public class HabitEvent {
     private Date completionDate;
     private String comment;
     private Bitmap photograph;
+    private Location location;
 
     public HabitEvent(Date completionDate) {
         /* This path is going to need testing. I couldn't find the assumed source file online so I
@@ -26,6 +28,20 @@ public class HabitEvent {
         photograph = BitmapFactory.decodeFile("main\\res\\drawable\\habit_event_default.png");
     }
 
+    /**
+     * Gets the geo location of the event
+     * @return - The location of the event
+     */
+    public Location getLocation(){
+        return this.location;
+    }
+
+    /**
+     * Sets the geolocation of the event
+     */
+    public void setLocation(Location location){
+        this.location = location;
+    }
     /**
     * Gets the id of the HabitEvent
     *

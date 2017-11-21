@@ -4,6 +4,8 @@
 
 package main.habitivity.interactions;
 
+import android.location.Location;
+
 import java.util.List;
 
 import main.habitivity.habits.Habit;
@@ -27,4 +29,6 @@ public class GetHabitEvents {
     public List<HabitEvent> getListOfHabitEvents() {
         return habitRepository.getHabitEvents();
     }
+
+    public List<Location> getListOfHabitLocations(){return habitRepository.getHabitLocations();}
 }

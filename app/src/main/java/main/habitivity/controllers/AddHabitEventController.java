@@ -4,6 +4,8 @@
 
 package main.habitivity.controllers;
 
+import android.location.Location;
+
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.interactions.HabitInteractionsFactory;
 
@@ -23,9 +25,10 @@ public class AddHabitEventController {
      * Adds the habit event to our habit repository
      * @param title - title of habitevent
      * @param comment - comment of habitevent
+     * @param location - location of habitevent
      */
-    public void addHabitEvent(String title, String comment) {
-        habitInteractionsFactory.addHabitEvent().add(title, comment);
+    public void addHabitEvent(String title, String comment, Location location) {
+        habitInteractionsFactory.addHabitEvent().add(title, comment, location);
     }
 
 }

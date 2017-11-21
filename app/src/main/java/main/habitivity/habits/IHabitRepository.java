@@ -4,6 +4,8 @@
 
 package main.habitivity.habits;
 
+import android.location.Location;
+
 import java.util.List;
 
 /** 
@@ -14,6 +16,7 @@ public interface IHabitRepository {
     Habit getHabit(String id);
     List<Habit> getHabits();
     List<HabitEvent> getHabitEvents();
+    List<Location> getHabitLocations();
 
     void removeHabit(String id);
     void addHabit(Habit habit);

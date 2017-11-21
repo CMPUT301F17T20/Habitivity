@@ -35,10 +35,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 
+import main.habitivity.controllers.LocationsController;
+
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
-public class MapsActivity extends AppCompatActivity
+public class MapsActivity extends BaseActivity
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -65,6 +67,8 @@ public class MapsActivity extends AppCompatActivity
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+    private LocationsController locationsController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,8 @@ public class MapsActivity extends AppCompatActivity
 
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+
+        resolveDependencies();
 
         // Build the Play services client for use by the Fused Location Provider and the Places API.
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
@@ -100,6 +106,11 @@ public class MapsActivity extends AppCompatActivity
             outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
             super.onSaveInstanceState(outState);
         }
+    }
+
+    private void resolveDependencies() {
+        HabitApplication app = getHabitApplication();
+        locationsController = app.getLocationsController();
     }
 
     /**
@@ -208,13 +219,17 @@ public class MapsActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mLastKnownLocation.getLatitude(),
                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-            LatLng sydney = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(sydney)
-                    .title("Marker in Sydney"));
         } else {
             Log.d(TAG, "Current location is null. Using defaults.");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+
+        //add a marker for each habit location
+        for (Location location : locationsController.getLocations()) {
+                LatLng addMark = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(addMark)
+                        .title("stub title"));
         }
     }
 

@@ -4,6 +4,8 @@
 
 package main.habitivity.habits;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -24,6 +26,7 @@ import main.habitivity.services.WhichHabitService;
 public class HabitRepository implements IHabitRepository{
     private LocalHabitService habitService;
     private Map<String, Habit> habits;
+    private Map<String, Location> habitLocations;
     private Map<String, HabitEvent> habitEvents;
     private String userID;
     private String ID;
@@ -56,6 +59,7 @@ public class HabitRepository implements IHabitRepository{
         this.habitService = habitService;
         this.habits = new HashMap<>();
         this.habitEvents = new HashMap<>();
+        this.habitLocations = new HashMap<>();
     }
 
     /**
@@ -76,6 +80,27 @@ public class HabitRepository implements IHabitRepository{
         ensureHabitEvents();
         List<HabitEvent> events = new ArrayList<>(habitEvents.values());
         return events;
+    }
+
+    /**
+     * Grabs habit events locations that are saved locally since we don't have elastic search yet
+     */
+    public void ensureHabitLocations(){
+        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
+            if(habitEvent.getLocation() != null){
+                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
+            }
+        }
+    }
+
+    /**
+     * Get a list of habit locations
+     * @return list of habit locations
+     */
+    public List<Location> getHabitLocations() {
+        ensureHabitLocations();
+        List<Location> location = new ArrayList<>(habitLocations.values());
+        return location;
     }
 
     /**

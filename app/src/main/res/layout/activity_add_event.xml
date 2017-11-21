@@ -51,27 +51,14 @@
             android:textSize="14sp"
             android:textStyle="italic" />
 
-        <TextView
+        <ToggleButton
             android:id="@+id/location"
-            android:layout_width="194dp"
-            android:layout_height="21dp"
-            android:layout_gravity="start|top"
-            android:layout_margin="8dp"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            tools:text="Location Data" />
-
-        <Button
-            android:id="@+id/addlocation"
-            android:layout_width="168dp"
-            android:layout_height="45dp"
-            android:layout_gravity="top|end"
-            android:fontFamily="sans-serif"
-            android:text="@string/locationadd"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_dark"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteX="213dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Location"
+            android:textOff="Add Location"
+            android:textOn="Add Location"
+            tools:text="Add Location" />
 
     </android.support.design.widget.CoordinatorLayout>
 
