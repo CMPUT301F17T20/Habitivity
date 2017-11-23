@@ -1,7 +1,9 @@
 package main.habitivity;
 
 
-public class User {
+import main.habitivity.Users.Identifiable;
+
+public class User implements Identifiable {
     private String userName;
 
     public User() {

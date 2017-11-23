@@ -14,11 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import main.habitivity.Users.UserController;
 import main.habitivity.profiles.CurrentUser;
 
-public class HabitivityMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HabitivityMain extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView userName;
+    private UserController userController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,10 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void resolveDependencies() {
+        this.userController = getHabitApplication().getUserController();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

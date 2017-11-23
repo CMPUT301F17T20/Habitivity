@@ -15,7 +15,7 @@ import io.searchbox.core.SearchResult;
 import main.habitivity.habits.HabitRepository;
 
 public class ElasticsearchController {
-    private static final String indexString = "CMPUT301F17T20";
+    private static final String indexString = "cmput301f17t20";
     private static JestDroidClient client;
 
     public static class CreateHabitRepository extends AsyncTask<HabitRepository, Void, Void> {

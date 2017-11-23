@@ -5,6 +5,13 @@ package main.habitivity;
 
 import android.app.Application;
 
+import com.google.gson.GsonBuilder;
+import com.searchly.jestdroid.DroidClientConfig;
+import com.searchly.jestdroid.JestClientFactory;
+
+import io.searchbox.client.JestClient;
+import main.habitivity.Users.UserController;
+import main.habitivity.Users.UserService;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.controllers.HabitListController;
@@ -14,6 +21,7 @@ import main.habitivity.habits.HabitRepository;
 import main.habitivity.interactions.Clock;
 import main.habitivity.interactions.HabitInteractionsFactory;
 import main.habitivity.services.AndroidFileHandler;
+import main.habitivity.services.ElasticSearchService;
 import main.habitivity.services.LocalHabitService;
 
 
@@ -24,6 +32,7 @@ import main.habitivity.services.LocalHabitService;
  */
 public class HabitApplication extends Application {
     private HabitRepository habitRepository;
+    private JestClient jestClient;
     private HabitInteractionsFactory habitInteractionsFactory;
 
     public HabitRepository getHabitRepository() {
@@ -64,6 +73,37 @@ public class HabitApplication extends Application {
 
     public LocationsController getLocationsController(){
         return new LocationsController(getHabitInteractionsFactory());
+    }
+
+    public UserController getUserController(){
+        return new UserController(getUserService());
+    }
+
+    private UserService getUserService() {
+        ElasticSearchService service = getUserElasticSearchService();
+        return new UserService(service);
+    }
+
+    private ElasticSearchService<User> getUserElasticSearchService() {
+        return new ElasticSearchService.Builder<User>()
+                .setIndex("CMPUT301F17T20")
+                .setType("user")
+                .setTypeClass(User.class)
+                .setJestClient(getJestClient())
+                .build();
+    }
+
+    private JestClient getJestClient() {
+        if (jestClient == null) {
+            DroidClientConfig config = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080")
+                    .build();
+
+
+            JestClientFactory factory = new JestClientFactory();
+            factory.setDroidClientConfig(config);
+            jestClient = factory.getObject();
+        }
+        return jestClient;
     }
 //
 //    public TodaysHabitsController getTodaysHabitsController() {
