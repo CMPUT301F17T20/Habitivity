@@ -1,26 +1,30 @@
 package main.habitivity.Users;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import io.searchbox.annotations.JestId;
+import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
 
 /**
  * Created by Shally on 2017-11-22.
  */
 
-public class User implements Serializable, Identifiable {
+public class User implements Serializable, Parcelable, Identifiable {
     private String username;
-    private HabitRepository repo;
+    private ArrayList<Habit> habits;
     private ArrayList<User> friends;
 
     @JestId
     private String uid;
 
-    public User(String username, HabitRepository repo, ArrayList<User> friends){
+    public User(String username, ArrayList<Habit> habits, ArrayList<User> friends){
         this.username = username;
-        this.repo = repo;
+        this.habits = habits;
         this.friends = friends;
     }
 
@@ -56,21 +60,15 @@ public class User implements Serializable, Identifiable {
         return username;
     }
 
-    /**
-     * Get the habitRepository of the User
-     * @return HabitRepository object
-     */
-    public HabitRepository getHabitRepository(){
-        return this.repo;
+    public void setHabits(ArrayList<Habit> habits){
+        this.habits = habits;
     }
 
-
-    /**
-     * Set the habitRepository of the User
-     * @param - habitrepository to set
-     */
-    public void setHabitRepository(HabitRepository repo){
-        this.repo = repo;
+    public void addHabit(Habit habit){
+        this.habits.add(habit);
+    }
+    public ArrayList<Habit> getHabits(){
+        return this.habits;
     }
 
     /**
@@ -106,4 +104,13 @@ public class User implements Serializable, Identifiable {
         friends.remove(friend);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+    }
 }

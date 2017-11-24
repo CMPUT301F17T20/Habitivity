@@ -36,7 +36,7 @@ public class UserService extends BaseActivity implements IUserService
         if (userlist.size() > 0) {
             return userlist.get(0);
         }
-        return new User(username, habitApp.getHabitRepository(), new ArrayList<User>());
+        return null;
     }
 
     @Override

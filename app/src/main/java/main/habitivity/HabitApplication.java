@@ -4,12 +4,14 @@
 package main.habitivity;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 
 import io.searchbox.client.JestClient;
+import main.habitivity.Users.User;
 import main.habitivity.Users.UserController;
 import main.habitivity.Users.UserService;
 import main.habitivity.controllers.AddHabitController;
@@ -34,10 +36,21 @@ public class HabitApplication extends Application {
     private HabitRepository habitRepository;
     private JestClient jestClient;
     private HabitInteractionsFactory habitInteractionsFactory;
+    private String userId;
 
     public HabitRepository getHabitRepository() {
         ensureHabitRepository();
         return habitRepository;
+    }
+
+    public void setHabitRepository(HabitRepository repo){
+        this.habitRepository = repo;
+    }
+
+    public void setHabitRepoUserId(String id){
+        HabitRepository repo = getHabitRepository();
+        this.userId = id;
+        repo.setID(id);
     }
 
     private void ensureHabitRepository() {
@@ -57,6 +70,7 @@ public class HabitApplication extends Application {
         if (habitInteractionsFactory == null) {
             habitInteractionsFactory = new HabitInteractionsFactory(getHabitRepository(), new Clock());
         }
+        this.habitInteractionsFactory.setHabitRepository(getHabitRepository());
     }
 
     public HabitListController getHabitListController() {

@@ -6,6 +6,7 @@ package main.habitivity.habits;
 
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** 
@@ -26,4 +27,5 @@ public interface IHabitRepository {
     void removeHabitEvent(String id);
     void addHabitEvent(HabitEvent habitEvent);
 
+    void setHabits(ArrayList<Habit> habits);
 }

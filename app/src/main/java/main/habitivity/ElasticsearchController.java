@@ -8,15 +8,147 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import main.habitivity.Users.User;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.services.AndroidFileHandler;
+import main.habitivity.services.LocalHabitService;
 
-public class ElasticsearchController {
-    private static final String indexString = "cmput301f17t20";
+public class ElasticsearchController{
+    private static final String indexString = "cmput301f17t20_t3";
     private static JestDroidClient client;
+    private static String typeString = "users";
+
+    public static class GetSingleUserTask extends AsyncTask<String, Void, User> {
+        @Override
+        protected User doInBackground(String... username) {
+            verifySettings();
+
+
+            // Build the query
+
+            System.out.print("search_parameters[0]: ");
+            System.out.println(username[0]);
+
+            Get get = new Get.Builder(indexString, username[0]).type(typeString).build();
+
+
+
+            try {
+                JestResult result = client.execute(get);
+
+                if(result.isSucceeded()) {
+                    User user = result.getSourceAsObject(User.class);
+                    return user;
+
+                }
+                else{
+                    Log.i("Error", "fail no error");
+                    System.out.println("Fail error occured");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("Error", e.toString());
+                System.out.println("Something went wrong when we tried to comunicate with elasticserach server");
+            }
+            return null;
+        }
+    }
+
+    public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                Index index = new Index.Builder(user).index(indexString).type(typeString).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded())
+                    {
+                        user.setId(result.getId());
+                    }
+                    else
+                    {
+                        Log.i("Error", "Elasticsearch was not able to add the user");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the users");
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+            Index index = new Index.Builder(users[0]).index(indexString).type(typeString).id(users[0].getId()).build();
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+                if (result.isSucceeded())
+                {
+                    Log.i("Error", "updated user: " + users[0].getUsername());
+                }
+                else
+                {
+                    Log.i("Error", "Elasticsearch was not able to update the user");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the users");
+            }
+
+            return null;
+        }
+    }
+
+    public static class GetUsersTask extends AsyncTask<String, Void, ArrayList<User>> {
+        @Override
+        protected ArrayList<User> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<User> users = new ArrayList<User>();
+
+            // Build the query
+
+            Search search = new Search.Builder(search_parameters[0])
+                    .addIndex(indexString)
+                    .addType(typeString)
+                    .build();
+            try {
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()) {
+                    List<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    users.addAll(foundUsers);
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("Error", e.toString());
+            }
+
+            return users;
+        }
+    }
 
     public static class CreateHabitRepository extends AsyncTask<HabitRepository, Void, Void> {
 
@@ -88,6 +220,7 @@ public class ElasticsearchController {
                 }
                 else {
                     Log.i("Error", "the search query failed to find repository for given id");
+                    return repo;
                 }
             }
             catch (Exception e) {

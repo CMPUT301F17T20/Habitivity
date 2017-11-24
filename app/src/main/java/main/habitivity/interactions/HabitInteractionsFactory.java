@@ -12,11 +12,15 @@ import main.habitivity.habits.IHabitRepository;
  */
 public class HabitInteractionsFactory {
     private IClock clock;
-    private IHabitRepository habitRepository;
+    private HabitRepository habitRepository;
 
-    public HabitInteractionsFactory(IHabitRepository habitRepository, IClock clock) {
+    public HabitInteractionsFactory(HabitRepository habitRepository, IClock clock) {
         this.habitRepository = habitRepository;
         this.clock = clock;
+    }
+
+    public void setHabitRepository(HabitRepository habitRepo){
+        this.habitRepository = habitRepo;
     }
 
     public RemoveHabitEvent removeHabitEvent() {
@@ -42,6 +46,8 @@ public class HabitInteractionsFactory {
     public GetHabits getHabits(){
         return new GetHabits(habitRepository);
     }
+
+    public SetHabits setHabits() {return new SetHabits(habitRepository);}
 
     public GetHabitEvents getHabitEvents(){
         return new GetHabitEvents(habitRepository);

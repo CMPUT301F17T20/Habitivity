@@ -4,6 +4,8 @@ package main.habitivity;
 import java.util.Comparator;
 import java.util.List;
 
+import main.habitivity.Users.User;
+
 public class UserList {
     private List<User> users;
     private String ID;
@@ -19,12 +21,12 @@ public class UserList {
     }
 
     public List<User> getSortedUserList() {
-        users.sort(new Comparator<User>() {
-            @Override
-            public int compare(User user, User t1) {
-                return user.getUserName().compareToIgnoreCase(t1.getUserName());
-            }
-        });
+//        users.sort(new Comparator<User>() {
+//            @Override
+//            public int compare(User user, User t1) {
+//                return user.getUserName().compareToIgnoreCase(t1.getUserName());
+//            }
+//        });
         return users;
     }
 

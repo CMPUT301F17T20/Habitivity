@@ -1,6 +1,8 @@
 package main.habitivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,25 +10,57 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+
+import main.habitivity.Users.Helper;
 import main.habitivity.Users.UserController;
+import main.habitivity.controllers.AddHabitController;
 import main.habitivity.profiles.CurrentUser;
+import main.habitivity.Users.User;
 
 public class HabitivityMain extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView userName;
     private UserController userController;
+    private User currentlylogged;
+    private ElasticsearchController elasticsearchController;
+    private AddHabitController addHabitController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habitivity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // get the user
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null){
+            if (extras.containsKey("user")){
+                currentlylogged = (User) getIntent().getSerializableExtra("user");
+            }
+            else{
+                Log.i("Error", "Intent had extras but not user");
+            }
+        }
+        else{
+
+            SharedPreferences settings = getSharedPreferences("dbSettings", Context.MODE_PRIVATE);
+            String jestID = settings.getString("jestID", "defaultvalue");
+
+            if (jestID.equals("defaultvalue")) {
+                Log.i("Error", "Did not find correct jestID");
+            }
+
+            currentlylogged = Helper.getUserObject(jestID);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -3,6 +3,9 @@
  */
 package main.habitivity.controllers;
 
+import java.util.ArrayList;
+
+import main.habitivity.habits.Habit;
 import main.habitivity.interactions.HabitInteractionsFactory;
 
 /**
@@ -21,5 +24,9 @@ public class AddHabitController {
      */
     public void addHabit(AddHabitRequest addHabitRequest) {
         habitInteractionsFactory.addHabit().add(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek(), addHabitRequest.getHabitType());
+    }
+
+    public void setHabits(ArrayList<Habit> habits){
+        habitInteractionsFactory.setHabits().setHabits(habits);
     }
 }
