@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import io.searchbox.annotations.JestId;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
-import main.habitivity.habits.HabitRepository;
-
-/**
- * Created by Shally on 2017-11-22.
- */
 
 public class User implements Serializable, Parcelable{
     private String username;
@@ -57,6 +52,7 @@ public class User implements Serializable, Parcelable{
      * @param uid UserID string
      */
     public void setId(String uid){
+
         this.uid = uid;
     }
 
@@ -65,6 +61,7 @@ public class User implements Serializable, Parcelable{
      * @return UserID string
      */
     public String getId(){
+
         return uid;
     }
 
@@ -73,6 +70,7 @@ public class User implements Serializable, Parcelable{
      * @param username Username string
      */
     public void setUserName(String username){
+
         this.username = username;
     }
 
@@ -81,20 +79,40 @@ public class User implements Serializable, Parcelable{
      * @return Username string
      */
     public String getUserName(){
+
         return username;
     }
 
+
+    /**
+     * Set the habits of the user
+     * @param habits - habits to set
+     */
     public void setHabits(ArrayList<Habit> habits){
+
         this.habits = habits;
     }
 
+    /**
+     * Adds the habit to the user's habits list
+     * @param habit - habit to add
+     */
     public void addHabit(Habit habit){
         this.habits.add(habit);
     }
+
+    /**
+     * Gets the habits of the user
+     * @return - The list of habits of the user
+     */
     public ArrayList<Habit> getHabits(){
         return this.habits;
     }
 
+    /**
+     * Removes the habit event from the user's habit event list
+     * @param id - id of the habitEvent to remove
+     */
     public void removeHabitEvent(String id){
         for(HabitEvent habitEvent: this.habitEvents){
             if(habitEvent.getId() == id){
@@ -103,7 +121,10 @@ public class User implements Serializable, Parcelable{
         }
     }
 
-
+    /**
+     * Removes the habit from the user's habit's list
+     * @param id - id of habit to remove
+     */
     public void removeHabit(String id){
         for(Habit habit: this.habits){
             if(habit.getId() == id){
@@ -112,14 +133,27 @@ public class User implements Serializable, Parcelable{
         }
     }
 
+    /**
+     * Sets the habitEvents of the user
+     * @param habitEvents - the habitEvents to set for the user
+     */
     public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
         this.habitEvents = habitEvents;
     }
 
+    /**
+     * Adds the habitEvent to the user's habitEvent list
+     * @param habitEvent - habitEvent to add
+     */
     public void addHabitEvent(HabitEvent habitEvent){
         this.habitEvents.add(habitEvent);
     }
-    public ArrayList<HabitEvent> getHabitEvents(){
+
+    /**
+     * Gets the list of habitEvents of the user
+     * @return
+     */
+    public ArrayList<HabitEvent> getHabitEvents() {
         return this.habitEvents;
     }
 
