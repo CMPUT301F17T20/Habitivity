@@ -63,13 +63,19 @@ public class HabitRepository implements IHabitRepository{
     }
 
     /**
-    * Gets the list of sorted habits 
-    * 
-    * @return list of sorted habits
-    */
+     * Gets the list of sorted habits
+     *
+     * @return list of sorted habits
+     */
     public ArrayList<Habit> getHabits() {
         ensureHabits();
         return getSortedHabits();
+    }
+
+    public void setHabits(ArrayList<Habit> habits){
+        for(Habit habit: habits){
+            this.habits.put(habit.getId(), habit);
+        }
     }
 
     /**
@@ -104,10 +110,10 @@ public class HabitRepository implements IHabitRepository{
     }
 
     /**
-    * Gets the habit of the with the corresponding id
-    * @param[in] - id of habit
-    * @return habit with the corresponding id
-    */
+     * Gets the habit of the with the corresponding id
+     * @param[in] - id of habit
+     * @return habit with the corresponding id
+     */
     public Habit getHabit(String id) {
         return new Habit();
     }
@@ -168,7 +174,7 @@ public class HabitRepository implements IHabitRepository{
     }
 
     /**
-     * Update the habit stored in our local disk/server 
+     * Update the habit stored in our local disk/server
      *
      * @param[in] - the habit to update in our local disk/server
      *
@@ -214,13 +220,13 @@ public class HabitRepository implements IHabitRepository{
     /**
      * Sorts the habit by creation date
      *
-     * @return a list of sorted habits 
+     * @return a list of sorted habits
      */
     private ArrayList<Habit> getSortedHabits() {
 
-       ArrayList<Habit> sortedHabits = new ArrayList<>(habits.values());
-       //TODO LATER
-       //Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
+        ArrayList<Habit> sortedHabits = new ArrayList<>(habits.values());
+        //TODO LATER
+        //Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
 
         return sortedHabits;
     }

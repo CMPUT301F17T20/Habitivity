@@ -1,4 +1,4 @@
-package main.habitivity;
+package main.habitivity.controllers;
 
 
 import android.os.AsyncTask;
@@ -8,15 +8,115 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.searchbox.client.JestResult;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserList;
 
 public class ElasticsearchController {
-    private static final String indexString = "CMPUT301F17T20";
+    private static final String indexString = "cmput301f17t20_test1";
     private static JestDroidClient client;
+    private static String userTypeString = "users";
+
+    public static class GetUserTask extends AsyncTask<String, Void, User> {
+        @Override
+        protected User doInBackground(String... username) {
+            verifySettings();
+
+            Get get = new Get.Builder(indexString, username[0]).type(userTypeString).build();
+
+            try {
+                JestResult result = client.execute(get);
+
+                if(result.isSucceeded()) {
+                    User user = result.getSourceAsObject(User.class);
+                    return user;
+
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Error when communicating with server");
+            }
+            return null;
+        }
+    }
+
+    public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                Index index = new Index.Builder(user).index(indexString).type(userTypeString).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        user.setId(result.getId());
+                    }
+                    else {
+                        Log.i("Error", "Cannot add user to server");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Exception occurred when trying to add user to server");
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+            Index index = new Index.Builder(users[0]).index(indexString).type(userTypeString).id(users[0].getId()).build();
+
+            try {
+                DocumentResult result = client.execute(index);
+            }
+            catch (Exception e) {
+                Log.i("Error", "Exception occurred when trying to update the user on the server");
+            }
+
+            return null;
+        }
+    }
+
+    public static class GetAllUsersWithUserNameTask extends AsyncTask<String, Void, ArrayList<User>> {
+        @Override
+        protected ArrayList<User> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<User> users = new ArrayList<User>();
+
+            Search search = new Search.Builder(search_parameters[0])
+                    .addIndex(indexString)
+                    .addType(userTypeString)
+                    .build();
+            try {
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()) {
+                    List<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    users.addAll(foundUsers);
+                }
+            }
+            catch (Exception e) {
+            }
+            return users;
+        }
+    }
 
     public static class CreateHabitRepository extends AsyncTask<HabitRepository, Void, Void> {
 

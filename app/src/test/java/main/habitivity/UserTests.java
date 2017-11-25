@@ -2,6 +2,8 @@ package main.habitivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import main.habitivity.users.User;
+
 
 public class UserTests extends ActivityInstrumentationTestCase2 {
 

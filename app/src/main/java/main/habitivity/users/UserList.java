@@ -1,4 +1,4 @@
-package main.habitivity;
+package main.habitivity.users;
 
 
 import java.util.Comparator;

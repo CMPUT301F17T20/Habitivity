@@ -6,8 +6,10 @@ package main.habitivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -30,9 +33,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.users.User;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitRequest;
+import main.habitivity.controllers.ElasticsearchController;
+import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitRepository;
 import main.habitivity.interactions.AddHabit;
+import main.habitivity.users.UserContainer;
 
 
 public class AddHabitActivity extends BaseActivity {
@@ -46,6 +54,8 @@ public class AddHabitActivity extends BaseActivity {
     private AddHabitController addHabitController;
     private EditText reason;
     private List<Integer> dayOfTheWeek = new ArrayList<Integer>();
+    public User currentlylogged;
+    private String JestId;
 
     private Button habitType;
     public static String habitTypeString = new String();
@@ -83,6 +93,15 @@ public class AddHabitActivity extends BaseActivity {
         habitType = (Button) findViewById(R.id.colorButton);
         //default habit color type
         habitType.setBackgroundColor(Color.BLACK);
+
+        SharedPreferences settings = getSharedPreferences("dbSettings", Context.MODE_PRIVATE);
+        String jestID = settings.getString("jestID", "defaultvalue");
+
+        if (jestID.equals("defaultvalue")) {
+            Log.i("Error", "Did not find correct jestID");
+        }
+
+        currentlylogged = UserContainer.getUserObject(jestID);
 
         int yr = cal.get(Calendar.YEAR);
         int mth = cal.get(Calendar.MONTH);
@@ -232,7 +251,7 @@ public class AddHabitActivity extends BaseActivity {
         title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
 
-        //faking out the data for now
+        //add for local services
         AddHabitRequest addHabitRequest = new AddHabitRequest();
         addHabitRequest.setHabitType(habitTypeString);
         addHabitRequest.setId(title.getText().toString());
@@ -240,6 +259,20 @@ public class AddHabitActivity extends BaseActivity {
         addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
 
         addHabitController.addHabit(addHabitRequest);
+
+
+        //add for elastic search server
+        Habit testHabit = new Habit();
+        testHabit.setHabitType(habitTypeString);
+        testHabit.setId(title.getText().toString());
+        testHabit.setTitle(title.getText().toString());
+        testHabit.setStartDate(startingDate);
+        testHabit.setDaysOfTheWeekToComplete(dayOfTheWeek);
+
+        currentlylogged.addHabit(testHabit);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlylogged);
+
         startActivity(intent);
     }
 
