@@ -6,14 +6,18 @@ package main.habitivity.interactions;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Interaction class to control updating the Habits
  */
 public class UpdateHabit {
     private IHabitRepository habitRepository;
+    private User currentlyLoggedInUser;
 
     public UpdateHabit(IHabitRepository habitRepository) {
         this.habitRepository = habitRepository;
@@ -34,11 +38,18 @@ public class UpdateHabit {
         habit.setReason(reason);
         habit.setDaysOfTheWeekToComplete(days);
         habit.setHabitType(habitType);
+        currentlyLoggedInUser = UserContainer.getInstance().getUser();
 
         if(id != oldId){
             habitRepository.removeHabit(oldId);
+
+            currentlyLoggedInUser.removeHabit(oldId);
         }
 
         habitRepository.updateHabit(habit);
+
+        currentlyLoggedInUser.addHabit(habit);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlyLoggedInUser);
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import io.searchbox.annotations.JestId;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 
 /**
@@ -18,14 +19,16 @@ public class User implements Serializable, Parcelable{
     private String username;
     private ArrayList<Habit> habits;
     private ArrayList<User> followers;
+    private ArrayList<HabitEvent> habitEvents;
     private ArrayList<User> following;
 
     @JestId
     private String uid;
 
-    public User(String username, ArrayList<Habit> habits, ArrayList<User> followers, ArrayList<User> following){
+    public User(String username, ArrayList<Habit> habits, ArrayList<HabitEvent> habitEvents, ArrayList<User> followers, ArrayList<User> following){
         this.username = username;
         this.habits = habits;
+        this.habitEvents = habitEvents;
         this.followers = followers;
         this.following = following;
     }
@@ -92,6 +95,33 @@ public class User implements Serializable, Parcelable{
         return this.habits;
     }
 
+    public void removeHabitEvent(String id){
+        for(HabitEvent habitEvent: this.habitEvents){
+            if(habitEvent.getId() == id){
+                this.habitEvents.remove(habitEvent);
+            }
+        }
+    }
+
+
+    public void removeHabit(String id){
+        for(Habit habit: this.habits){
+            if(habit.getId() == id){
+                this.habits.remove(habit);
+            }
+        }
+    }
+
+    public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
+        this.habitEvents = habitEvents;
+    }
+
+    public void addHabitEvent(HabitEvent habitEvent){
+        this.habitEvents.add(habitEvent);
+    }
+    public ArrayList<HabitEvent> getHabitEvents(){
+        return this.habitEvents;
+    }
 
     @Override
     public int describeContents() {

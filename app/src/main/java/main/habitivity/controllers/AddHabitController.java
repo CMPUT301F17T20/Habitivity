@@ -29,4 +29,5 @@ public class AddHabitController {
     public void setHabits(ArrayList<Habit> habits){
         habitInteractionsFactory.setHabits().setHabits(habits);
     }
+
 }

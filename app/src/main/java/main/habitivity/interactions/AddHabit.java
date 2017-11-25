@@ -7,9 +7,12 @@ package main.habitivity.interactions;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Interaction class that helps add habits to our hait repo
@@ -37,5 +40,10 @@ public class AddHabit {
         habit.setDaysOfTheWeekToComplete(days);
 
         habitRepository.addHabit(habit);
+
+        User currentlylogged = UserContainer.getInstance().getUser();
+        currentlylogged.addHabit(habit);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlylogged);
     }
 }

@@ -9,10 +9,13 @@ import android.location.Location;
 
 import java.util.Date;
 
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Interaction class that helps add habitEvents to our repo
@@ -53,6 +56,11 @@ public class AddHabitEvent {
         habitEvent.setCompletionDate(completionDate);
 
         habitRepository.addHabitEvent(habitEvent);
+
+        User currentlylogged = UserContainer.getInstance().getUser();
+        currentlylogged.addHabitEvent(habitEvent);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlylogged);
     }
 
     /**

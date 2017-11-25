@@ -4,8 +4,11 @@
 
 package main.habitivity.interactions;
 
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Interaction class to help delete habits
@@ -23,5 +26,10 @@ public class DeleteHabit {
      */
     public void delete(String habitId) {
         habitRepository.removeHabit(habitId);
+
+        User currentlylogged = UserContainer.getInstance().getUser();
+        currentlylogged.removeHabit(habitId);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlylogged);
     }
 }

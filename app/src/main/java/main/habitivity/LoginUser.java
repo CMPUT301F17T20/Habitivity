@@ -21,7 +21,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.controllers.ElasticsearchController;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.users.UserContainer;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.habits.Habit;
@@ -33,6 +35,7 @@ import main.habitivity.profiles.CurrentUser;
 public class LoginUser extends BaseActivity implements Serializable, Parcelable {
     private EditText currentUserName;
     private AddHabitController addHabitController;
+    private AddHabitEventController addHabitEventController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +49,26 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
     private void resolveDependencies() {
         HabitApplication app = getHabitApplication();
         addHabitController = app.getAddHabitController();
+        addHabitEventController = app.getAddHabitEventsController();
     }
 
     private void loginUser(User user){
         // after elasticsearch, go to main as that user
-        System.out.println("Logging in as: " + user.getUserName());
-        System.out.println("JestId: " + user.getId());
-        SharedPreferences settings = getSharedPreferences("dbSettings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("jestID", user.getId());
-        editor.commit();
 
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
-        intent.putExtra("user", (Serializable) user);
         UserContainer.getInstance().setUser(user);
         if(user.getHabits() != null) {
             addHabitController.setHabits(user.getHabits());
+        }
+        if(user.getHabitEvents() != null){
+            addHabitEventController.setHabitEvents(user.getHabitEvents());
+
         }
         startActivity(intent);
     }
 
     private void registerUser(String username){
-        User user = new User(username, new ArrayList<Habit>(), new ArrayList<User>(), new ArrayList<User>());
+        User user = new User(username, new ArrayList<Habit>(), new ArrayList<HabitEvent>(), new ArrayList<User>(), new ArrayList<User>());
 
         ElasticsearchController.AddUsersTask addUsersTask
                 = new ElasticsearchController.AddUsersTask();

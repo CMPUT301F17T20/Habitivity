@@ -3,10 +3,13 @@
  */
 package main.habitivity.interactions;
 
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Interaction class to remove habit events
@@ -24,6 +27,11 @@ public class RemoveHabitEvent {
      */
     public void remove(String habitEventId){
         habitRepository.removeHabitEvent(habitEventId);
+
+        User currentlylogged = UserContainer.getInstance().getUser();
+        currentlylogged.removeHabitEvent(habitEventId);
+        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+        updateUserTask.execute(currentlylogged);
     }
 
 }

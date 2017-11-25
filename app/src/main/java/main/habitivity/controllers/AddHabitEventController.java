@@ -7,8 +7,10 @@ package main.habitivity.controllers;
 import android.graphics.Bitmap;
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.interactions.HabitInteractionsFactory;
 
@@ -33,6 +35,10 @@ public class AddHabitEventController {
      */
     public void addHabitEvent(String title, String comment, Location location, Date compDate, Bitmap image) {
         habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate, image);
+    }
+
+    public void setHabitEvents(ArrayList<HabitEvent> habits){
+        habitInteractionsFactory.setHabits().setHabitEvents(habits);
     }
 
 }

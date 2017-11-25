@@ -4,7 +4,9 @@
 package main.habitivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -20,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -42,8 +45,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 import main.habitivity.controllers.AddHabitEventController;
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 
 /**TODO MOVE LOCATION HANDLING INTO ANOTHER CLASS*/
@@ -70,6 +77,9 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private AddHabitEventController addHabitEventController;
     private DatePickerDialog.OnDateSetListener addDateSetListen;
+
+    public User currentlylogged;
+    private String JestId;
 
     public Location getCurrentLocation(){
 
@@ -114,6 +124,16 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         userImage = (ImageView) findViewById(R.id.userImage);
+
+
+        SharedPreferences settings = getSharedPreferences("dbSettings", Context.MODE_PRIVATE);
+        String jestID = settings.getString("jestID", "defaultvalue");
+
+        if (jestID.equals("defaultvalue")) {
+            Log.i("Error", "Did not find correct jestID");
+        }
+
+        currentlylogged = UserContainer.getUserObject(jestID);
 
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
         mGoogleApiClient = new GoogleApiClient.Builder(this)

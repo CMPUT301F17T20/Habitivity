@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.IHabitRepository;
 
 /**
@@ -24,5 +25,9 @@ public class SetHabits {
      */
     public void setHabits(ArrayList<Habit> habits) {
         habitRepository.setHabits(habits);
+    }
+
+    public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
+        habitRepository.setHabitEvents(habitEvents);
     }
 }

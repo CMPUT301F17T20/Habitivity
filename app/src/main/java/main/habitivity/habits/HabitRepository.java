@@ -78,6 +78,12 @@ public class HabitRepository implements IHabitRepository{
         }
     }
 
+    public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
+        for(HabitEvent habitEvent: habitEvents){
+            this.habitEvents.put(habitEvent.getId(), habitEvent);
+        }
+    }
+
     /**
      * Get a list of habit events
      * @return list of habit events

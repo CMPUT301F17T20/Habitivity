@@ -24,6 +24,7 @@ import java.util.Date;
 
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.UpdateHabitController;
+import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 
@@ -176,7 +177,6 @@ public class HabitEventDetailsActivity extends BaseActivity {
         habitEvent.setId(habitEventTitle.getText().toString());
         habitEvent.setCompletionDate(this.compDate);
         habitEvent.setComment(comment.getText().toString());
-
 
         updateHabitController.updateHabitEvent(habitEvent);
         HabitSingletonContainer.getInstance().setHabitEvent(habitEvent);

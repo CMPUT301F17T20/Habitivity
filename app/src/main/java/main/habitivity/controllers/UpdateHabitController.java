@@ -32,7 +32,7 @@ public class UpdateHabitController {
      * @param habitEvent to update
      */
     public void updateHabitEvent(HabitEvent habitEvent) {
-        habitInteractionsFactory.updateHabitEvent().update(habitEvent.getId(), habitEvent.getCompletionDate(), habitEvent.getComment());
+        habitInteractionsFactory.updateHabitEvent().update(habitEvent.getId(), habitEvent.getCompletionDate(), habitEvent.getComment(), habitEvent.getPhoto(), habitEvent.getLocation());
     }
 
 }

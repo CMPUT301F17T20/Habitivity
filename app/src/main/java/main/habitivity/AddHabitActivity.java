@@ -94,14 +94,7 @@ public class AddHabitActivity extends BaseActivity {
         //default habit color type
         habitType.setBackgroundColor(Color.BLACK);
 
-        SharedPreferences settings = getSharedPreferences("dbSettings", Context.MODE_PRIVATE);
-        String jestID = settings.getString("jestID", "defaultvalue");
-
-        if (jestID.equals("defaultvalue")) {
-            Log.i("Error", "Did not find correct jestID");
-        }
-
-        currentlylogged = UserContainer.getUserObject(jestID);
+        currentlylogged = UserContainer.getInstance().getUser();
 
         int yr = cal.get(Calendar.YEAR);
         int mth = cal.get(Calendar.MONTH);
