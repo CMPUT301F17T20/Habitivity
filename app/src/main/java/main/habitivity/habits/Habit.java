@@ -14,6 +14,7 @@ import java.util.List;
  * Habit Model Class
  */
 public class Habit {
+    private String userName;
     private String id;
     private String title;
     private Date startDate;
@@ -25,6 +26,10 @@ public class Habit {
 
     public Habit() {
     }
+
+    public String getUserName(){return this.userName;}
+
+    public void setUserName(String name){this.userName = name;}
 
     /**
     * Gets the id of the Habit
@@ -231,7 +236,7 @@ public class Habit {
      * ArrayAdapter calls toString() on the object and displays it on the TextView. Override to display what we want
      */
     public String toString(){
-        return "Habit Title: " + this.getTitle();
+        return "Habit Title: " + this.getTitle() + "| UserName: " + this.getUserName();
 
     }
 }

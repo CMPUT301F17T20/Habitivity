@@ -261,6 +261,7 @@ public class AddHabitActivity extends BaseActivity {
         testHabit.setTitle(title.getText().toString());
         testHabit.setStartDate(startingDate);
         testHabit.setDaysOfTheWeekToComplete(dayOfTheWeek);
+        testHabit.setUserName(currentlylogged.getUserName());
 
         currentlylogged.addHabit(testHabit);
         ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();

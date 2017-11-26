@@ -158,6 +158,15 @@ public class User implements Serializable, Parcelable{
     }
 
     @Override
+    /**
+     * ArrayAdapter calls toString() on the object and displays it on the TextView. Override to display what we want
+     */
+    public String toString(){
+        return "User: " + this.getUserName();
+
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

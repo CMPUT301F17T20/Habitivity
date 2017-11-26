@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Habitivity.iml" filepath="$PROJECT_DIR$/Habitivity.iml" />
-      <module fileurl="file://C:\Users\Shally\Documents\GitHub\301\Habitivity\Habitivity.iml" filepath="C:\Users\Shally\Documents\GitHub\301\Habitivity\Habitivity.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Shally\Documents\GitHub\301\Habitivity\app\app.iml" filepath="C:\Users\Shally\Documents\GitHub\301\Habitivity\app\app.iml" />
     </modules>
   </component>
 </project>

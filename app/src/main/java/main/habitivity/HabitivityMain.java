@@ -100,6 +100,10 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
             Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
             startActivity(intent);
         }
+        else if(id == R.id.find_friends){
+            Intent intent = new Intent(getApplicationContext(), FindFriendsActivity.class);
+            startActivity(intent);
+        }
         return false;
     }
 }

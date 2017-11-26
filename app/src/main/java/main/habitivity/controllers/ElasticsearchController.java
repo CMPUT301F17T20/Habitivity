@@ -94,6 +94,31 @@ public class ElasticsearchController {
         }
     }
 
+    public static class GetAllUserTask extends AsyncTask<Void, Void, ArrayList<User>> {
+        @Override
+        protected ArrayList<User> doInBackground(Void... params) {
+            verifySettings();
+
+            ArrayList<User> users = new ArrayList<User>();
+            String query = "";
+
+            Search search = new Search.Builder(query)
+                    .addIndex(indexString)
+                    .addType(userTypeString)
+                    .build();
+            try {
+                SearchResult result = client.execute(search);
+                if(result.isSucceeded()) {
+                    List<User> foundUsers = result.getSourceAsObjectList(User.class);
+                    users.addAll(foundUsers);
+                }
+            }
+            catch (Exception e) {
+            }
+            return users;
+        }
+    }
+
     public static class GetAllUsersWithUserNameTask extends AsyncTask<String, Void, ArrayList<User>> {
         @Override
         protected ArrayList<User> doInBackground(String... search_parameters) {

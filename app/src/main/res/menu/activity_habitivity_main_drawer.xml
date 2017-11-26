@@ -24,11 +24,15 @@
     <item android:title="Following">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/find_friends"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Find Friends" />
+            <item
+                android:id="@+id/followers"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Followers" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/following"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Following" />
         </menu>

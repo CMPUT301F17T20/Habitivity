@@ -36,6 +36,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
     private EditText currentUserName;
     private AddHabitController addHabitController;
     private AddHabitEventController addHabitEventController;
+    private ArrayList<User> allUsers = new ArrayList<User>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,11 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
 
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         UserContainer.getInstance().setUser(user);
+        if(allUsers != null){
+            for(User following: allUsers){
+
+            }
+        }
         if(user.getHabits() != null) {
             addHabitController.setHabits(user.getHabits());
         }
