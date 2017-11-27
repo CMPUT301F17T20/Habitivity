@@ -130,9 +130,9 @@ public class HabitEvent {
             this.thumbnail = null;
             return;
         }
-        if (photograph.getByteCount() >= 65536) {
-            //throw an exception todo later (create an exception class)
-        }
+//        if (photograph.getByteCount() >= 65536) {
+//            //throw an exception todo later (create an exception class)
+//        }
         else {
             this.photograph = photograph;
             this.photograph.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
