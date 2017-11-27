@@ -52,6 +52,7 @@ public class AllUsersController {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        UserContainer.getInstance().setAllUsers(allUsers);
         return allUsers;
     }
 
@@ -86,6 +87,7 @@ public class AllUsersController {
                 break;
             }
         }
+        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
         return allUsers;
     }
 

@@ -25,7 +25,7 @@ public class FindFriendsActivity extends BaseActivity {
         setContentView(R.layout.activity_find_friends);
 
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, AllUsersController.getAllUsersExcludingCurrentUser() );
+        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, UserContainer.getInstance().getAllUsersExcludingUser() );
         listView.setAdapter(adapter);
         //Listens for when a record in the list is pressed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

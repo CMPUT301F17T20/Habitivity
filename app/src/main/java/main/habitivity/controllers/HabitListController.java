@@ -23,6 +23,7 @@ import main.habitivity.users.UserContainer;
 public class HabitListController {
     private HabitInteractionsFactory habitInteractionsFactory;
     private ArrayList<User> allUsers;
+    private User currentlyLoggedInUser;
 
 
     public HabitListController(HabitInteractionsFactory habitInteractionsFactory) {
@@ -36,7 +37,7 @@ public class HabitListController {
      */
     public ArrayList<Habit> getAllHabitsOfUserAndFollowing(){
         ArrayList<Habit> usersAndFollowingHabits = new ArrayList<Habit>();
-        allUsers = AllUsersController.getAllUsers();
+        allUsers = UserContainer.getInstance().getAllUsers();
         User currentlyLoggedInUser = UserContainer.getInstance().getUser();
         for(User user: allUsers) {
             for(User following: currentlyLoggedInUser.getFollowing()){
@@ -53,7 +54,8 @@ public class HabitListController {
      * @return list of habits
      */
     public List<Habit> getHabits() {
-        return habitInteractionsFactory.getHabits().getListOfHabits();
+        currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        return currentlyLoggedInUser.getHabits();
     }
 
     /**
@@ -77,7 +79,8 @@ public class HabitListController {
      * @return a list of habit events
      */
     public List<HabitEvent> getHabitEvents() {
-        return habitInteractionsFactory.getHabitEvents().getListOfHabitEvents();
+        currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        return currentlyLoggedInUser.getHabitEvents();
     }
 
 }

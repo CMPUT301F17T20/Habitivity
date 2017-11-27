@@ -120,6 +120,7 @@ public class User implements Serializable, Parcelable{
      * @param followerToAdd - the user to add to the follower's list
      */
     public void addFollower(User followerToAdd){
+
         this.followers.add(followerToAdd);
     }
 
@@ -144,7 +145,11 @@ public class User implements Serializable, Parcelable{
      * @param user - the user to add to our following list
      */
     public void addFollowing(User user){
-        this.following.add(user);
+        for(User userInFollowingList: this.following){
+            if(!userInFollowingList.getUserName().equals(user.getUserName())){
+                this.following.add(user);
+            }
+        }
     }
 
     /**
@@ -152,7 +157,9 @@ public class User implements Serializable, Parcelable{
      * @param user - the user to remove from our following list
      */
     public void deleteFollowing(User user){
-        this.following.remove(user);
+        if(this.following.contains(user)) {
+            this.following.remove(user);
+        }
     }
 
     /**

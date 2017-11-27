@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 import main.habitivity.R;
 import main.habitivity.controllers.AddHabitEventController;
+import main.habitivity.controllers.AllUsersController;
 import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.users.UserContainer;
@@ -43,6 +44,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         resolveDependencies();
+        AllUsersController.getAllUsers();
 
     }
 
@@ -84,46 +86,49 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         CurrentUser.getInstance().setCurrentUser(currentUserName.getText().toString());
         String username = currentUserName.getText().toString();
 
+        for(User user: UserContainer.getInstance().getAllUsers()){
+            if(user.getUserName().equals(username)){
+                loginUser(user);
+                break;
+            }
+            else{
+                registerUser(username);
+            }
+        }
+
         String query = "{\n" +
                 "    \"query\" : {\n" +
                 "        \"term\" : { \"username\" : \"" + username + "\" }\n" +
                 "    }\n" +
                 "}";
 
-        ElasticsearchController.GetAllUsersWithUserNameTask getAllUsersWithUserNameTask
-                = new ElasticsearchController.GetAllUsersWithUserNameTask();
-        try {
-            getAllUsersWithUserNameTask.execute(query).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        // ElasticsearchController.GetAllUsersWithUserNameTask getAllUsersWithUserNameTask
+        //         = new ElasticsearchController.GetAllUsersWithUserNameTask();
 
 
-        try {
-            ArrayList<User> users = getAllUsersWithUserNameTask.get();
+        // try {
+        //     ArrayList<User> users = getAllUsersWithUserNameTask.execute(query).get();;
 
-            System.out.println("size: " + users.size());
-            if (username.length() == 0){
-                emptyUsernameDialog();
-            }
-            //we found the user login them in
-            else if (users.size() == 1){
-                loginUser(users.get(0));
-            }
-            else if (users.size() > 1){
-                Log.i("Error", "Username appears more than once in the server");
-                loginUser(users.get(0));
-            }
-            else{
-                registerUser(username);
-            }
-        }
-        catch (Exception e) {
-            Log.i("Error", "Failed to get the users from the async object");
-            Log.i("Error", e.toString());
-        }
+        //     System.out.println("size: " + users.size());
+        //     if (username.length() == 0){
+        //         emptyUsernameDialog();
+        //     }
+        //     //we found the user login them in
+        //     else if (users.size() == 1){
+        //         loginUser(users.get(0));
+        //     }
+        //     else if (users.size() > 1){
+        //         Log.i("Error", "Username appears more than once in the server");
+        //         loginUser(users.get(0));
+        //     }
+        //     else{
+        //         registerUser(username);
+        //     }
+        // }
+        // catch (Exception e) {
+        //     Log.i("Error", "Failed to get the users from the async object");
+        //     Log.i("Error", e.toString());
+        // }
     }
 
     public void emptyUsernameDialog() {

@@ -2,6 +2,7 @@ package main.habitivity.users;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import main.habitivity.controllers.ElasticsearchController;
@@ -13,6 +14,8 @@ public class UserContainer {
     private static final UserContainer ourInstance = new UserContainer();
     private User user;
     private User userToView;
+    private ArrayList<User> allUsers = new ArrayList<>();
+    private ArrayList<User> allUsersExcludingUser = new ArrayList<>();
     public static UserContainer getInstance() {
         return ourInstance;
     }
@@ -48,6 +51,22 @@ public class UserContainer {
      */
     public void setUserToView(User user){
         this.userToView = user;
+    }
+
+    public void setAllUsers(ArrayList<User> allUsers){
+        this.allUsers = allUsers;
+    }
+
+    public void setAllUsersExcludingUser(ArrayList<User> allUsers){
+        this.allUsersExcludingUser = allUsers;
+    }
+
+    public ArrayList<User> getAllUsersExcludingUser(){
+        return this.allUsersExcludingUser;
+    }
+
+    public ArrayList<User> getAllUsers(){
+        return this.allUsers;
     }
 
     private UserContainer() {
