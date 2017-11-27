@@ -40,14 +40,14 @@ public class UpdateHabit {
         habit.setHabitType(habitType);
         currentlyLoggedInUser = UserContainer.getInstance().getUser();
 
+        //indicates that the user changed the habit title which is what we're using as a unique identifier so we need to delete the old one
         if(id != oldId){
             habitRepository.removeHabit(oldId);
-
             currentlyLoggedInUser.removeHabit(oldId);
         }
-
         habitRepository.updateHabit(habit);
 
+        //Update on the server
         currentlyLoggedInUser.addHabit(habit);
         ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
         updateUserTask.execute(currentlyLoggedInUser);

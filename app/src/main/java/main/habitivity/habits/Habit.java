@@ -27,9 +27,21 @@ public class Habit {
     public Habit() {
     }
 
-    public String getUserName(){return this.userName;}
+    /**
+     * Gets the name of the user which this habit belongs to.
+     * @return - the userName of which this habit belongs to
+     */
+    public String getUserName(){
+        return this.userName;
+    }
 
-    public void setUserName(String name){this.userName = name;}
+    /**
+     * Sets the userName of the user. I.e who does this habit belong to
+     * @param name - name of the user
+     */
+    public void setUserName(String name){
+        this.userName = name;
+    }
 
     /**
     * Gets the id of the Habit
@@ -48,7 +60,6 @@ public class Habit {
     public void setId(String id) {
         this.id = id;
     }
-
 
     /**
     * Gets the habitType of the Habit

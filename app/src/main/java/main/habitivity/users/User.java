@@ -52,7 +52,6 @@ public class User implements Serializable, Parcelable{
      * @param uid UserID string
      */
     public void setId(String uid){
-
         this.uid = uid;
     }
 
@@ -61,7 +60,6 @@ public class User implements Serializable, Parcelable{
      * @return UserID string
      */
     public String getId(){
-
         return uid;
     }
 
@@ -70,7 +68,6 @@ public class User implements Serializable, Parcelable{
      * @param username Username string
      */
     public void setUserName(String username){
-
         this.username = username;
     }
 
@@ -79,17 +76,14 @@ public class User implements Serializable, Parcelable{
      * @return Username string
      */
     public String getUserName(){
-
         return username;
     }
-
 
     /**
      * Set the habits of the user
      * @param habits - habits to set
      */
     public void setHabits(ArrayList<Habit> habits){
-
         this.habits = habits;
     }
 
@@ -121,29 +115,54 @@ public class User implements Serializable, Parcelable{
         }
     }
 
-    public void addFollower(User follower){
-        this.followers.add(follower);
+    /**
+     * Adds the specified user to the user's follower's list
+     * @param followerToAdd - the user to add to the follower's list
+     */
+    public void addFollower(User followerToAdd){
+        this.followers.add(followerToAdd);
     }
 
-    public void deleteFollower(User follower){
-        this.followers.remove(follower);
+    /**
+     * Remove the specified user from the user's follower's list
+     * @param followerToRemove - the user to remove from the follower's list
+     */
+    public void deleteFollower(User followerToRemove){
+        this.followers.remove(followerToRemove);
     }
 
+    /**
+     * Gets the list of followers for the user
+     * @return - the list of followers of the user
+     */
     public ArrayList<User> getFollowers(){
         return this.followers;
     }
 
-    public void addFollowing(User following){
-        this.following.add(following);
+    /**
+     * Adds the user to the list of users that we're following
+     * @param user - the user to add to our following list
+     */
+    public void addFollowing(User user){
+        this.following.add(user);
     }
 
-    public void deleteFollowing(User following){
-        this.following.remove(following);
+    /**
+     * Removes the specified user from the list of users that we're following
+     * @param user - the user to remove from our following list
+     */
+    public void deleteFollowing(User user){
+        this.following.remove(user);
     }
 
+    /**
+     * Get the list of users that the User is following
+     * @return - the list of users that the user is following
+     */
     public ArrayList<User> getFollowing(){
         return this.following;
     }
+
     /**
      * Removes the habit from the user's habit's list
      * @param id - id of habit to remove

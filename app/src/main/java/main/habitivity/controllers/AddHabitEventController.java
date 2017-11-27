@@ -37,8 +37,12 @@ public class AddHabitEventController {
         habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate, image);
     }
 
-    public void setHabitEvents(ArrayList<HabitEvent> habits){
-        habitInteractionsFactory.setHabits().setHabitEvents(habits);
+    /**
+     * Sets the list of habitEvents to our habitRepository
+     * @param habitEvents - the list of habitEvents to set in our habitRepository
+     */
+    public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
+        habitInteractionsFactory.setHabits().setHabitEvents(habitEvents);
     }
 
 }

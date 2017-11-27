@@ -26,6 +26,10 @@ public class AddHabitController {
         habitInteractionsFactory.addHabit().add(addHabitRequest.getId(), addHabitRequest.getStartDate(), addHabitRequest.getDaysOfTheWeek(), addHabitRequest.getHabitType());
     }
 
+    /**
+     * Sets the list of habits to our habit repository
+     * @param habits - the list of habits to set in our habit repository
+     */
     public void setHabits(ArrayList<Habit> habits){
         habitInteractionsFactory.setHabits().setHabits(habits);
     }

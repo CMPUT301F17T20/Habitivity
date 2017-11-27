@@ -20,14 +20,6 @@ public class UpdateHabitEventRequest {
     private transient Bitmap photograph;
     private Location location;
 
-
-    public void setOldId(String oldId){
-        this.oldId = oldId;
-    }
-
-    public String getOldId(){
-        return this.oldId;
-    }
     /**
      * Gets the geo location of the event
      * @return - The location of the event

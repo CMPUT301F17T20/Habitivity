@@ -30,14 +30,22 @@ public class UserContainer {
      * @return
      */
     public User getUser(){
-
         return this.user;
     }
 
+    /**
+     * Gets the user that we're viewing. This is used when we click on a user in the find friend tab
+     * @return - the user we're viewing
+     */
     public User getUserToView(){
         return this.userToView;
     }
 
+    /**
+     * Sets the user that we're viewing. This is used when we click on a user in the find friend tab
+     * @param user - the user to set as the user we're viewing
+     * @return - the user we're viewing
+     */
     public void setUserToView(User user){
         this.userToView = user;
     }

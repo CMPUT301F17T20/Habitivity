@@ -43,9 +43,7 @@ public class UpdateHabitEvent {
         habitEvent.setLocation(location);
         habitEvent.setPhoto(photo);
 
-
         currentlyLoggedInUser = UserContainer.getInstance().getUser();
-
         habitRepository.updateHabitEvent(habitEvent);
     }
 }

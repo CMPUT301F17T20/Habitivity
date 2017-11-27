@@ -220,7 +220,6 @@ public class HabitRepository implements IHabitRepository{
         //ensureHabits();
         habitService.deleteHabit(id);
         habits.remove(id);
-
     }
 
     /**

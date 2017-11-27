@@ -19,16 +19,18 @@ public class UpdateHabitRequest {
     private List<Integer> daysOfTheWeek;
 
     /**
-     * Sets the old id of the habit
-     * @param id to set
+     * Sets the id of the old habit (i.e habit before editing). This is mainly used for when the user is editing
+     * the habit and changes the title since we're using the title as the habit's unique identifier
+     * @param id - id of the old habit
      */
     public void setOldId(String id) {
         this.oldId = id;
     }
 
     /**
-     * Get the old id of the habit
-     * @return id of the habit
+     * Gets the id of the old habit (i.e habit before editing). This is mainly used for when the user is editing
+     * the habit and changes the title since we're using the title as the habit's unique identifier
+     * @return - the id of the old habit
      */
     public String getOldId() {
         return oldId;
@@ -46,13 +48,17 @@ public class UpdateHabitRequest {
      * Sets the habit type
      * @param type - type to set the habit to
      */
-    public void setHabitType(String type){ this.habitType = type;}
+    public void setHabitType(String type){
+        this.habitType = type;
+    }
 
     /**
      * Returns the habit type
      * @return
      */
-    public String getHabitType(){ return this.habitType;}
+    public String getHabitType(){
+        return this.habitType;
+    }
 
     /**
      * Sets the id of the habit

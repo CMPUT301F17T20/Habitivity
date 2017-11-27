@@ -30,5 +30,11 @@ public class GetHabitEvents {
         return habitRepository.getHabitEvents();
     }
 
-    public List<Location> getListOfHabitLocations(){return habitRepository.getHabitLocations();}
+    /**
+     * Gets a list of habit event locations
+     * @return a list of habit event locations
+     */
+    public List<Location> getListOfHabitLocations(){
+        return habitRepository.getHabitLocations();
+    }
 }

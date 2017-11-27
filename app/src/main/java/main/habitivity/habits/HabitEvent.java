@@ -148,10 +148,8 @@ public class HabitEvent {
     * @param[in] path - a path to a photo associated with the HabitEvent
     */
     public void setPhoto(String path) {
-
         this.photograph = BitmapFactory.decodeFile(path);
     }
-
 
     public static Bitmap compressBitmap(Bitmap bitmap) {
         return Bitmap.createScaledBitmap(bitmap, 127, 127, true);

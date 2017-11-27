@@ -10,11 +10,14 @@ import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
 
 /**
- * Created by Shally on 2017-11-26.
+ * Controls grabbing users from the server
  */
-
 public class AllUsersController {
 
+    /**
+     * Gets a list of users that the currently logged in user is following
+     * @return - a list of users that the user is currently following
+     */
     public static ArrayList<User> getUsersFollowing(){
         User currentLoggedInUser = UserContainer.getInstance().getUser();
         ArrayList<User> userFollowing = new ArrayList<User>();
@@ -25,6 +28,10 @@ public class AllUsersController {
         return userFollowing;
     }
 
+    /**
+     * Gets all the users in the server
+     * @return - a list of all the users in the server
+     */
     public static ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList();
 
@@ -47,6 +54,11 @@ public class AllUsersController {
         }
         return allUsers;
     }
+
+    /**
+     * Gets the all the users from the user excluding the current user
+     * @return - a list of all of the users from the server excluding the current user
+     */
     public static ArrayList<User> getAllUsersExcludingCurrentUser() {
         ArrayList<User> allUsers = new ArrayList();
 

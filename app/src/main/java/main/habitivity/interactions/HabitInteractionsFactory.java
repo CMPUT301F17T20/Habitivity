@@ -47,11 +47,14 @@ public class HabitInteractionsFactory {
         return new GetHabits(habitRepository);
     }
 
-    public SetHabits setHabits() {return new SetHabits(habitRepository);}
+    public SetHabits setHabits(){
+        return new SetHabits(habitRepository);
+    }
 
     public GetHabitEvents getHabitEvents(){
         return new GetHabitEvents(habitRepository);
     }
+
     public DeleteHabit deleteHabit() {
         return new DeleteHabit(habitRepository);
     }

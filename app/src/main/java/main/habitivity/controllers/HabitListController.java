@@ -29,6 +29,11 @@ public class HabitListController {
         this.habitInteractionsFactory = habitInteractionsFactory;
     }
 
+    /**
+     * Gets all the habits of the currently logged in user and all the habits of the users that the currently
+     * logged in user is following
+     * @return - a list of habits of the currently logged in user and the habits of the users that the currently logged in user is following
+     */
     public ArrayList<Habit> getAllHabitsOfUserAndFollowing(){
         ArrayList<Habit> usersAndFollowingHabits = new ArrayList<Habit>();
         allUsers = AllUsersController.getAllUsers();

@@ -29,5 +29,4 @@ public interface IHabitRepository {
     void addHabitEvent(HabitEvent habitEvent);
     void setHabitEvents(ArrayList<HabitEvent> habitEvents);
 
-
 }
