@@ -29,7 +29,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".HabitApplication"
+        android:name=".activities.HabitApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -43,32 +43,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HabitivityMain"
+            android:name=".activities.HabitivityMain"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddHabitActivity"
+            android:name=".activities.AddHabitActivity"
             android:label="@string/title_activity_add_habit"
-            android:parentActivityName=".HabitivityMain"
+            android:parentActivityName=".activities.HabitivityMain"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="main.habitivity.HabitivityMain" />
+                android:value="main.habitivity.activities.HabitivityMain" />
         </activity>
         <activity
-            android:name=".AddEvent"
+            android:name=".activities.AddEvent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_add_event"
-            android:parentActivityName=".HabitivityMain"
+            android:parentActivityName=".activities.HabitivityMain"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="main.habitivity.HabitivityMain" />
+                android:value="main.habitivity.activities.HabitivityMain" />
         </activity>
-        <activity android:name=".TodaysHabits" />
+        <activity android:name=".activities.TodaysHabits" />
         <activity
-            android:name=".FollowRequest"
+            android:name=".activities.FollowRequest"
             android:label="@string/title_activity_follow_request"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -77,7 +77,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".LoginUser"
+            android:name=".activities.LoginUser"
             android:label="@string/title_activity_login_user"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -86,16 +86,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HabitDetails" />
-        <activity android:name=".EditHabit" />
+        <activity android:name=".activities.EditHabit" />
         <activity
-            android:name=".HabitListActivity"
+            android:name=".activities.HabitListActivity"
             android:label="All Habits" />
-        <activity android:name=".JustHabitDetails" />
+        <activity android:name=".activities.JustHabitDetails" />
         <activity
-            android:name=".HabitHistoryActivity"
+            android:name=".activities.HabitHistoryActivity"
             android:label="Habit History" />
-        <activity android:name=".HabitEventDetailsActivity" />
+        <activity android:name=".activities.HabitEventDetailsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -111,10 +110,10 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".FindFriendsActivity" />
-        <activity android:name=".UserInformationActivity"></activity>
+        <activity android:name=".activities.FindFriendsActivity" />
+        <activity android:name=".activities.UserInformationActivity"></activity>
     </application>
 
 </manifest>

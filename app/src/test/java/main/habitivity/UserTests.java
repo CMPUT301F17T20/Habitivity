@@ -2,13 +2,14 @@ package main.habitivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import main.habitivity.activities.HabitivityMain;
 import main.habitivity.users.User;
 
 
 public class UserTests extends ActivityInstrumentationTestCase2 {
 
     public UserTests() {
-        super (main.habitivity.HabitivityMain.class);
+        super (HabitivityMain.class);
     }
 
     public void testUser() {

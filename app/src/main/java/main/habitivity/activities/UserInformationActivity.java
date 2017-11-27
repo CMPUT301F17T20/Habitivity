@@ -1,13 +1,11 @@
-package main.habitivity;
+package main.habitivity.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.w3c.dom.Text;
-
+import main.habitivity.R;
 import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;

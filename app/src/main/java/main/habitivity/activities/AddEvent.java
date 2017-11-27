@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
-package main.habitivity;
+package main.habitivity.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -39,15 +39,13 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import main.habitivity.R;
 import main.habitivity.controllers.AddHabitEventController;
-import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
-import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;

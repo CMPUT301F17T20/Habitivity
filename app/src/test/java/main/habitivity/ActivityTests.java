@@ -7,12 +7,15 @@ import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 
+import main.habitivity.activities.HabitivityMain;
+import main.habitivity.activities.LoginUser;
+
 public class ActivityTests extends ActivityInstrumentationTestCase2<LoginUser>{
 
     private Solo solo;
 
     public ActivityTests() {
-        super(main.habitivity.LoginUser.class);
+        super(LoginUser.class);
     }
 
     public void setUp() throws Exception {

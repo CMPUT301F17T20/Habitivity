@@ -1,31 +1,22 @@
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
-package main.habitivity;
+package main.habitivity.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.PaintDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -33,13 +24,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.R;
 import main.habitivity.users.User;
 import main.habitivity.controllers.AddHabitController;
-import main.habitivity.controllers.AddHabitRequest;
 import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.Habit;
-import main.habitivity.habits.HabitRepository;
-import main.habitivity.interactions.AddHabit;
 import main.habitivity.users.UserContainer;
 
 

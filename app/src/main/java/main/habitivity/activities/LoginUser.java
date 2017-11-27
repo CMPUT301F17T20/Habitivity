@@ -1,14 +1,12 @@
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
-package main.habitivity;
+package main.habitivity.activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import main.habitivity.R;
 import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.habits.HabitEvent;

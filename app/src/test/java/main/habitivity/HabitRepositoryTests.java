@@ -7,19 +7,19 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 import java.util.Date;
 
+import main.habitivity.activities.HabitivityMain;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.services.AndroidFileHandler;
 import main.habitivity.services.LocalHabitService;
-import main.habitivity.services.WhichHabitService;
 
 import static org.mockito.Mockito.mock;
 
 public class HabitRepositoryTests extends ActivityInstrumentationTestCase2 {
 
     public HabitRepositoryTests() {
-        super(main.habitivity.HabitivityMain.class);
+        super(HabitivityMain.class);
     }
 
     public void testHabits() {

@@ -1,21 +1,17 @@
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
-package main.habitivity;
+package main.habitivity.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import main.habitivity.R;
 import main.habitivity.controllers.AllUsersController;
-import main.habitivity.controllers.HabitListController;
-import main.habitivity.habits.HabitEvent;
-import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
 

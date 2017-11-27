@@ -8,10 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import main.habitivity.activities.HabitivityMain;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
-import main.habitivity.habits.HabitRepository;
-import main.habitivity.interactions.RemoveHabitEvent;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -35,7 +34,7 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
     private Habit addsomeEvents;
 
     public HabitTest(){
-        super(main.habitivity.HabitivityMain.class);
+        super(HabitivityMain.class);
     }
 
     public void set_up() {

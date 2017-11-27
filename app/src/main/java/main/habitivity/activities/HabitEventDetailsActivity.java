@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
-package main.habitivity;
+package main.habitivity.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +21,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.UpdateHabitController;
-import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 

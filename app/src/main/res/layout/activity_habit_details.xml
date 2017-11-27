@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="main.habitivity.HabitDetails">
+    tools:context="main.habitivity.activities.HabitDetails">
 
     <Button
         android:id="@+id/button7"

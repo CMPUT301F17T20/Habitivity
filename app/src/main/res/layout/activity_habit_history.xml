@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:label="Habit History"
-    tools:context="main.habitivity.HabitHistoryActivity">
+    tools:context="main.habitivity.activities.HabitHistoryActivity">
 
         <ListView
             android:id="@+id/list"

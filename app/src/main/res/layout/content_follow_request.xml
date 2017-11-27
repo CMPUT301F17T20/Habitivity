@@ -7,7 +7,7 @@
     android:background="@color/brown1"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="main.habitivity.FollowRequest"
+    tools:context="main.habitivity.activities.FollowRequest"
     tools:showIn="@layout/activity_follow_request">
 
     <TextView
