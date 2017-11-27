@@ -15,6 +15,16 @@ import main.habitivity.users.UserContainer;
 
 public class AllUsersController {
 
+    public static ArrayList<User> getUsersFollowing(){
+        User currentLoggedInUser = UserContainer.getInstance().getUser();
+        ArrayList<User> userFollowing = new ArrayList<User>();
+
+        for(User following: currentLoggedInUser.getFollowing()){
+            userFollowing.add(following);
+        }
+        return userFollowing;
+    }
+
     public static ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList();
 

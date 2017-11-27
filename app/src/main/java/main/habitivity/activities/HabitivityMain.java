@@ -136,6 +136,10 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
             Intent intent = new Intent(getApplicationContext(), LoginUser.class);
             startActivity(intent);
         }
+        else if(id == R.id.following){
+            Intent intent = new Intent(getApplicationContext(), Following.class);
+            startActivity(intent);
+        }
         return false;
     }
 }
