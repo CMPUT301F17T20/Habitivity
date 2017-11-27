@@ -55,6 +55,7 @@
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/check"
             android:text="Add Location"
             android:textOff="Add Location"
             android:textOn="Add Location"

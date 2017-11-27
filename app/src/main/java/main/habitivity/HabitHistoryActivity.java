@@ -16,8 +16,8 @@ import main.habitivity.habits.HabitSingletonContainer;
 
 public class HabitHistoryActivity extends BaseActivity {
 
-    public ArrayAdapter<HabitEvent> adapter;
-    public ListView listView;
+    private ArrayAdapter<HabitEvent> adapter;
+    private ListView listView;
     private HabitListController habitListController;
 
     @Override

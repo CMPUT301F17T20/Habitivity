@@ -68,7 +68,7 @@ public class HabitRepository implements IHabitRepository{
      * @return list of sorted habits
      */
     public ArrayList<Habit> getHabits() {
-        ensureHabits();
+        //ensureHabits();
         return getSortedHabits();
     }
 
@@ -89,7 +89,7 @@ public class HabitRepository implements IHabitRepository{
      * @return list of habit events
      */
     public List<HabitEvent> getHabitEvents() {
-        ensureHabitEvents();
+        //ensureHabitEvents();
         List<HabitEvent> events = new ArrayList<>(habitEvents.values());
         return events;
     }
@@ -188,7 +188,7 @@ public class HabitRepository implements IHabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void updateHabit(Habit habit) {
-        ensureHabits();
+        //ensureHabits();
         habitService.updateHabit(habit);
         habits.put(habit.getId(), habit);
     }
@@ -202,7 +202,7 @@ public class HabitRepository implements IHabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void addHabit(Habit habit) {
-        ensureHabits();
+        //ensureHabits();
 
         habitService.addHabit(habit);
         habits.put(habit.getId(), habit);
@@ -217,7 +217,7 @@ public class HabitRepository implements IHabitRepository{
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void removeHabit(String id) {
-        ensureHabits();
+        //ensureHabits();
         habitService.deleteHabit(id);
         habits.remove(id);
 

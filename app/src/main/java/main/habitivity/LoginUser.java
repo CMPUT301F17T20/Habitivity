@@ -58,15 +58,10 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
 
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         UserContainer.getInstance().setUser(user);
-        if(allUsers != null){
-            for(User following: allUsers){
-
-            }
-        }
-        if(user.getHabits() != null) {
+        if(user.getHabits().size() != 0) {
             addHabitController.setHabits(user.getHabits());
         }
-        if(user.getHabitEvents() != null){
+        if(user.getHabitEvents().size() != 0){
             addHabitEventController.setHabitEvents(user.getHabitEvents());
 
         }

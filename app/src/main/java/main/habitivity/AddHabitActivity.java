@@ -245,13 +245,13 @@ public class AddHabitActivity extends BaseActivity {
         reason = (EditText) findViewById(R.id.addComment);
 
         //add for local services
-        AddHabitRequest addHabitRequest = new AddHabitRequest();
-        addHabitRequest.setHabitType(habitTypeString);
-        addHabitRequest.setId(title.getText().toString());
-        addHabitRequest.setStartDate(startingDate);
-        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
-
-        addHabitController.addHabit(addHabitRequest);
+//        AddHabitRequest addHabitRequest = new AddHabitRequest();
+//        addHabitRequest.setHabitType(habitTypeString);
+//        addHabitRequest.setId(title.getText().toString());
+//        addHabitRequest.setStartDate(startingDate);
+//        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
+//
+//        addHabitController.addHabit(addHabitRequest);
 
 
         //add for elastic search server

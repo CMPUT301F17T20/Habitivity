@@ -12,6 +12,7 @@ import main.habitivity.controllers.ElasticsearchController;
 public class UserContainer {
     private static final UserContainer ourInstance = new UserContainer();
     private User user;
+    private User userToView;
     public static UserContainer getInstance() {
         return ourInstance;
     }
@@ -25,12 +26,20 @@ public class UserContainer {
     }
 
     /**
-     * Gets the Current User
+     * Gets the user that's currently logged in
      * @return
      */
     public User getUser(){
 
         return this.user;
+    }
+
+    public User getUserToView(){
+        return this.userToView;
+    }
+
+    public void setUserToView(User user){
+        this.userToView = user;
     }
 
     private UserContainer() {

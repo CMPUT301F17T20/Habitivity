@@ -113,7 +113,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".FindFriendsActivity"></activity>
+        <activity android:name=".FindFriendsActivity" />
+        <activity android:name=".UserInformationActivity"></activity>
     </application>
 
 </manifest>

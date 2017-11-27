@@ -11,14 +11,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import main.habitivity.controllers.HabitListController;
+import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
+import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.profiles.CurrentUser;
 
-public class HabitivityMain extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HabitivityMain extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView userName;
+    private ListView listView;
+    public ArrayAdapter<Habit> adapter;
+    private HabitListController habitListController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +45,26 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        resolveDependencies();
+
         userName = (TextView) findViewById(R.id.User);
         String welcomeUser = "Welcome User: " + CurrentUser.getInstance().getCurrentUser();
         userName.setText(welcomeUser);
+
+        listView = (ListView) findViewById(R.id.list);
+        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, android.R.id.text1, habitListController.getAllHabitsOfUserAndFollowing() );
+        listView.setAdapter(adapter);
+        //Listens for when a record in the list is pressed
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+    }
+
+    private void resolveDependencies() {
+        HabitApplication app = getHabitApplication();
+        habitListController = app.getHabitListController();
     }
 
     @Override
@@ -102,6 +129,14 @@ public class HabitivityMain extends AppCompatActivity implements NavigationView.
         }
         else if(id == R.id.find_friends){
             Intent intent = new Intent(getApplicationContext(), FindFriendsActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.requests){
+            Intent intent = new Intent(getApplicationContext(), FollowRequest.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.log_out){
+            Intent intent = new Intent(getApplicationContext(), LoginUser.class);
             startActivity(intent);
         }
         return false;

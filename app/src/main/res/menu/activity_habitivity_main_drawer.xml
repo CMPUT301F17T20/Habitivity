@@ -35,11 +35,25 @@
                 android:id="@+id/following"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Following" />
+            <item
+                android:id="@+id/requests"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Requests" />
         </menu>
     </item>
     <item
         android:id="@+id/maps"
         android:icon="@drawable/ic_menu_gallery"
         android:title="Map" />
+
+    <item android:title="Log Out">
+    <menu>
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Log out" />
+
+    </menu>
+    </item>
 
 </menu>

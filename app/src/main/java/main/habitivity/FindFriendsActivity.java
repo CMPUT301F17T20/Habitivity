@@ -5,6 +5,8 @@ package main.habitivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,7 @@ import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 public class FindFriendsActivity extends BaseActivity {
     private ArrayAdapter<User> adapter;
@@ -26,13 +29,22 @@ public class FindFriendsActivity extends BaseActivity {
         setContentView(R.layout.activity_find_friends);
 
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, AllUsersController.getAllUsers() );
+        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, AllUsersController.getAllUsersExcludingCurrentUser() );
         listView.setAdapter(adapter);
         //Listens for when a record in the list is pressed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), UserInformationActivity.class);
+                UserContainer.getInstance().setUserToView((User)listView.getAdapter().getItem(position));
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        startActivity(intent);
     }
 }

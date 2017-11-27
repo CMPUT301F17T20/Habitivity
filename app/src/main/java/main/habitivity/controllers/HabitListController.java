@@ -5,11 +5,16 @@
 package main.habitivity.controllers;
 
 
+import com.google.common.collect.ArrayTable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.interactions.HabitInteractionsFactory;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /**
  * Controls getting the habits and habitevents stored in our repo. Also controls removing
@@ -17,12 +22,27 @@ import main.habitivity.interactions.HabitInteractionsFactory;
  */
 public class HabitListController {
     private HabitInteractionsFactory habitInteractionsFactory;
+    private ArrayList<User> allUsers;
 
 
     public HabitListController(HabitInteractionsFactory habitInteractionsFactory) {
         this.habitInteractionsFactory = habitInteractionsFactory;
     }
 
+    public ArrayList<Habit> getAllHabitsOfUserAndFollowing(){
+        ArrayList<Habit> usersAndFollowingHabits = new ArrayList<Habit>();
+        allUsers = AllUsersController.getAllUsers();
+        User currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        for(User user: allUsers) {
+            for(User following: currentlyLoggedInUser.getFollowing()){
+                if(following.getUserName().equals(user.getUserName())){
+                    usersAndFollowingHabits.addAll(user.getHabits());
+                    continue;
+                }
+            }
+        }
+        return usersAndFollowingHabits;
+    }
     /**
      * Get a list of habits stored in our repo
      * @return list of habits

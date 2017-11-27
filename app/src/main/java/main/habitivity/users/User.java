@@ -121,6 +121,29 @@ public class User implements Serializable, Parcelable{
         }
     }
 
+    public void addFollower(User follower){
+        this.followers.add(follower);
+    }
+
+    public void deleteFollower(User follower){
+        this.followers.remove(follower);
+    }
+
+    public ArrayList<User> getFollowers(){
+        return this.followers;
+    }
+
+    public void addFollowing(User following){
+        this.following.add(following);
+    }
+
+    public void deleteFollowing(User following){
+        this.following.remove(following);
+    }
+
+    public ArrayList<User> getFollowing(){
+        return this.following;
+    }
     /**
      * Removes the habit from the user's habit's list
      * @param id - id of habit to remove
