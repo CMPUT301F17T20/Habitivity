@@ -1,6 +1,5 @@
 package main.habitivity.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +10,9 @@ import android.widget.ListView;
 import main.habitivity.R;
 import main.habitivity.controllers.AllUsersController;
 import main.habitivity.controllers.HabitListController;
-import main.habitivity.habits.HabitEvent;
-import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
 
-public class Following extends BaseActivity {
-
+public class Followers extends BaseActivity {
     private ArrayAdapter<User> adapter;
     private ListView listView;
     private AllUsersController allUsersController;
@@ -24,11 +20,11 @@ public class Following extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_following);
+        setContentView(R.layout.activity_followers);
 
         resolveDependencies();
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, allUsersController.getUsersFollowing() );
+        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, allUsersController.getUsersFollowers() );
         listView.setAdapter(adapter);
         //Listens for when a record in the list is pressed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,5 +39,4 @@ public class Following extends BaseActivity {
         HabitApplication app = getHabitApplication();
         allUsersController = app.getAllUserController();
     }
-
 }

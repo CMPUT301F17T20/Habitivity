@@ -7,6 +7,7 @@ import android.app.Application;
 
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.AddHabitEventController;
+import main.habitivity.controllers.AllUsersController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.LocationsController;
 import main.habitivity.controllers.UpdateHabitController;
@@ -64,6 +65,10 @@ public class HabitApplication extends Application {
 
     public LocationsController getLocationsController(){
         return new LocationsController(getHabitInteractionsFactory());
+    }
+
+    public AllUsersController getAllUserController(){
+        return new AllUsersController();
     }
 //
 //    public TodaysHabitsController getTodaysHabitsController() {

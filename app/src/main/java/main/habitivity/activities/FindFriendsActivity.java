@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import main.habitivity.R;
 import main.habitivity.controllers.AllUsersController;
 import main.habitivity.users.User;

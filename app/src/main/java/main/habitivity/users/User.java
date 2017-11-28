@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.searchbox.annotations.JestId;
 import main.habitivity.habits.Habit;
@@ -13,39 +14,20 @@ import main.habitivity.habits.HabitEvent;
 public class User implements Serializable, Parcelable{
     private String username;
     private ArrayList<Habit> habits;
-    private ArrayList<User> followers;
+    private ArrayList<String> followers;
     private ArrayList<HabitEvent> habitEvents;
-    private ArrayList<User> following;
+    private ArrayList<String> following;
 
     @JestId
     private String uid;
 
-    public User(String username, ArrayList<Habit> habits, ArrayList<HabitEvent> habitEvents, ArrayList<User> followers, ArrayList<User> following){
+    public User(String username, ArrayList<Habit> habits, ArrayList<HabitEvent> habitEvents, ArrayList<String> followers, ArrayList<String> following){
         this.username = username;
         this.habits = habits;
         this.habitEvents = habitEvents;
         this.followers = followers;
         this.following = following;
     }
-
-    protected User(Parcel in) {
-        username = in.readString();
-        followers = in.createTypedArrayList(User.CREATOR);
-        following = in.createTypedArrayList(User.CREATOR);
-        uid = in.readString();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     /**
      * Set the userID of the User
@@ -121,7 +103,16 @@ public class User implements Serializable, Parcelable{
      */
     public void addFollower(User followerToAdd){
 
-        this.followers.add(followerToAdd);
+        if(this.followers.size() == 0){
+            this.followers.add(followerToAdd.getUserName());
+            return;
+        }
+
+        for(String userInFollowerList: this.followers){
+            if(!userInFollowerList.equals(followerToAdd.getUserName())){
+                this.followers.add(followerToAdd.getUserName());
+            }
+        }
     }
 
     /**
@@ -129,7 +120,8 @@ public class User implements Serializable, Parcelable{
      * @param followerToRemove - the user to remove from the follower's list
      */
     public void deleteFollower(User followerToRemove){
-        this.followers.remove(followerToRemove);
+        this.followers.remove(followerToRemove.getUserName());
+
     }
 
     /**
@@ -137,7 +129,23 @@ public class User implements Serializable, Parcelable{
      * @return - the list of followers of the user
      */
     public ArrayList<User> getFollowers(){
-        return this.followers;
+        ArrayList<User> allUsers = UserContainer.getInstance().getAllUsers();
+        Boolean userInFollowers = false;
+        for(User user: allUsers){
+            for(String followers: this.followers){
+                if(user.getUserName().equals(followers)){
+                    userInFollowers = true;
+                    break;
+                }
+            }
+            if(userInFollowers == false){
+                allUsers.remove(user);
+            }
+            else{
+                userInFollowers = true;
+            }
+        }
+        return allUsers;
     }
 
     /**
@@ -145,9 +153,14 @@ public class User implements Serializable, Parcelable{
      * @param user - the user to add to our following list
      */
     public void addFollowing(User user){
-        for(User userInFollowingList: this.following){
-            if(!userInFollowingList.getUserName().equals(user.getUserName())){
-                this.following.add(user);
+        if(this.following.size() == 0){
+            this.following.add(user.getUserName());
+            return;
+        }
+
+        for(String userInFollowerList: this.following){
+            if(!userInFollowerList.equals(user.getUserName())){
+                this.following.add(user.getUserName());
             }
         }
     }
@@ -157,9 +170,8 @@ public class User implements Serializable, Parcelable{
      * @param user - the user to remove from our following list
      */
     public void deleteFollowing(User user){
-        if(this.following.contains(user)) {
-            this.following.remove(user);
-        }
+        this.following.remove(user.getUserName());
+
     }
 
     /**
@@ -167,7 +179,24 @@ public class User implements Serializable, Parcelable{
      * @return - the list of users that the user is following
      */
     public ArrayList<User> getFollowing(){
-        return this.following;
+        ArrayList<User> allUsers = UserContainer.getInstance().getAllUsers();
+        ArrayList<User> listToReturn = new ArrayList(allUsers);
+        Integer userInFollowers = 0;
+        for(User user: allUsers){
+            for(String following: this.following){
+                if(user.getUserName().equals(following)){
+                    userInFollowers = 1;
+                    break;
+                }
+            }
+            if(userInFollowers == 0){
+                listToReturn.remove(user);
+            }
+            else{
+                userInFollowers = 1;
+            }
+        }
+        return listToReturn;
     }
 
     /**

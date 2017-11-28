@@ -15,10 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import main.habitivity.R;
+import main.habitivity.controllers.AllUsersController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.profiles.CurrentUser;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 public class HabitivityMain extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,6 +86,24 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         return true;
     }
 
+    public void updateUsers(){
+        ArrayList<User> allUsers = AllUsersController.getAllUsers();
+        UserContainer.getInstance().setAllUsers(allUsers);
+
+        String currentUserName =  UserContainer.getInstance().getUser().getUserName();
+        for(User users: allUsers){
+            if(users.getUserName().equals(currentUserName)){
+                allUsers.remove(users);
+                break;
+            }
+        }
+        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
+    }
+    public void onRefreshClicked(View view){
+        updateUsers();
+        adapter.notifyDataSetChanged();
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -138,6 +161,10 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         }
         else if(id == R.id.following){
             Intent intent = new Intent(getApplicationContext(), Following.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.followers){
+            Intent intent = new Intent(getApplicationContext(), Followers.class);
             startActivity(intent);
         }
         return false;

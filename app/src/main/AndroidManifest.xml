@@ -80,11 +80,6 @@
             android:name=".activities.LoginUser"
             android:label="@string/title_activity_login_user"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.EditHabit" />
         <activity
@@ -114,7 +109,15 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".activities.FindFriendsActivity" />
         <activity android:name=".activities.UserInformationActivity" />
-        <activity android:name=".activities.Following"></activity>
+        <activity android:name=".activities.Following" />
+        <activity android:name=".activities.Followers" />
+        <activity android:name=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

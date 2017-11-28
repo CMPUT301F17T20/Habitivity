@@ -14,15 +14,34 @@ import main.habitivity.users.UserContainer;
  */
 public class AllUsersController {
 
+    public AllUsersController() {
+    }
+
     /**
      * Gets a list of users that the currently logged in user is following
+     *
      * @return - a list of users that the user is currently following
      */
-    public static ArrayList<User> getUsersFollowing(){
+    public ArrayList<User> getUsersFollowers() {
         User currentLoggedInUser = UserContainer.getInstance().getUser();
         ArrayList<User> userFollowing = new ArrayList<User>();
 
-        for(User following: currentLoggedInUser.getFollowing()){
+        for (User following : currentLoggedInUser.getFollowing()) {
+            userFollowing.add(following);
+        }
+        return userFollowing;
+    }
+
+    /**
+     * Gets a list of users that the currently logged in user is following
+     *
+     * @return - a list of users that the user is currently following
+     */
+    public ArrayList<User> getUsersFollowing() {
+        User currentLoggedInUser = UserContainer.getInstance().getUser();
+        ArrayList<User> userFollowing = new ArrayList<User>();
+
+        for (User following : currentLoggedInUser.getFollowing()) {
             userFollowing.add(following);
         }
         return userFollowing;
@@ -30,20 +49,16 @@ public class AllUsersController {
 
     /**
      * Gets all the users in the server
+     *
      * @return - a list of all the users in the server
      */
     public static ArrayList<User> getAllUsers() {
-        ArrayList<User> allUsers = new ArrayList();
+        ArrayList<User> allUsers = new ArrayList<>();
 
         ElasticsearchController.GetAllUserTask getAllUsers
                 = new ElasticsearchController.GetAllUserTask();
-        try {
-            getAllUsers.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+
+        getAllUsers.execute();
 
         try {
             allUsers = getAllUsers.get();
@@ -55,40 +70,4 @@ public class AllUsersController {
         UserContainer.getInstance().setAllUsers(allUsers);
         return allUsers;
     }
-
-    /**
-     * Gets the all the users from the user excluding the current user
-     * @return - a list of all of the users from the server excluding the current user
-     */
-    public static ArrayList<User> getAllUsersExcludingCurrentUser() {
-        ArrayList<User> allUsers = new ArrayList();
-
-        ElasticsearchController.GetAllUserTask getAllUsers
-                = new ElasticsearchController.GetAllUserTask();
-        try {
-            getAllUsers.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            allUsers = getAllUsers.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String currentUserName =  UserContainer.getInstance().getUser().getUserName();
-        for(User user: allUsers){
-            if(user.getUserName().equals(currentUserName)){
-                allUsers.remove(user);
-                break;
-            }
-        }
-        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
-        return allUsers;
-    }
-
 }

@@ -1,5 +1,6 @@
 package main.habitivity.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -30,8 +31,8 @@ public class UserInformationActivity extends BaseActivity {
 
         following = (ToggleButton) findViewById(R.id.followButton);
 
-        for(User user: loggedInUser.getFollowers()){
-            if(user.getUserName().equals(userToView.getUserName())) {
+        for (User user : loggedInUser.getFollowing()) {
+            if (user.getUserName().equals(userToView.getUserName())) {
                 following.setChecked(true);
             }
         }
@@ -39,17 +40,24 @@ public class UserInformationActivity extends BaseActivity {
         following.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked()){
+                if (buttonView.isChecked()) {
                     loggedInUser.addFollowing(userToView);
+                    userToView.addFollower(loggedInUser);
                     UserContainer.getInstance().setUser(loggedInUser);
-                }
-                else{
+                } else {
                     loggedInUser.deleteFollowing(userToView);
+                    userToView.deleteFollower(loggedInUser);
                     UserContainer.getInstance().setUser(loggedInUser);
                 }
-                ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-                updateUserTask.execute(loggedInUser);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+            ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+            updateUserTask.execute(loggedInUser);
+            Intent intent = new Intent(getApplicationContext(), FindFriendsActivity.class);
+            startActivity(intent);
     }
 }

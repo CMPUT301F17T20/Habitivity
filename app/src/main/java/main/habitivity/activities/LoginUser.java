@@ -44,7 +44,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         resolveDependencies();
-        AllUsersController.getAllUsers();
+        allUsers = UserContainer.getInstance().getAllUsers();
 
     }
 
@@ -59,6 +59,16 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
 
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         UserContainer.getInstance().setUser(user);
+
+        String currentUserName =  UserContainer.getInstance().getUser().getUserName();
+        for(User users: allUsers){
+            if(users.getUserName().equals(currentUserName)){
+                allUsers.remove(users);
+                break;
+            }
+        }
+         UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
+
         if(user.getHabits().size() != 0) {
             addHabitController.setHabits(user.getHabits());
         }
@@ -70,7 +80,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
     }
 
     private void registerUser(String username){
-        User user = new User(username, new ArrayList<Habit>(), new ArrayList<HabitEvent>(), new ArrayList<User>(), new ArrayList<User>());
+        User user = new User(username, new ArrayList<Habit>(), new ArrayList<HabitEvent>(), new ArrayList<String>(), new ArrayList<String>());
 
         ElasticsearchController.AddUsersTask addUsersTask
                 = new ElasticsearchController.AddUsersTask();
@@ -83,17 +93,24 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
 
     public void onClick(View view){
         currentUserName = (EditText) findViewById(R.id.userName);
+        if(currentUserName == null){
+            emptyUsernameDialog();
+        }
         CurrentUser.getInstance().setCurrentUser(currentUserName.getText().toString());
         String username = currentUserName.getText().toString();
+
+        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
+        Boolean found = true;
 
         for(User user: UserContainer.getInstance().getAllUsers()){
             if(user.getUserName().equals(username)){
                 loginUser(user);
+                found = false;
                 break;
             }
-            else{
-                registerUser(username);
-            }
+        }
+        if(found) {
+            registerUser(username);
         }
 
         String query = "{\n" +
