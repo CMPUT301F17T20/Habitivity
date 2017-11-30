@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="main.habitivity.activities.EventDetailsNonEditable">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/habitDetail"
+        android:layout_width="match_parent"
+        android:layout_height="164dp">
+
+        <TextView
+            android:id="@+id/habitName"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_margin="8dp"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            tools:text="ExampleHabit 20Chars" />
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="85dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="e.i. Start: 11/22/33" />
+
+        <TextView
+            android:id="@+id/reason"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="50dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="Reason; Here's one reason that I have." />
+
+        <TextView
+            android:id="@+id/days"
+            android:layout_width="198dp"
+            android:layout_height="49dp"
+            android:layout_gravity="bottom|end"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="Days: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday" />
+
+        <ImageView
+            android:id="@+id/graph"
+            android:layout_width="182dp"
+            android:layout_height="111dp"
+            android:layout_gravity="start|bottom"
+            android:contentDescription="graphic"
+            app:srcCompat="?android:attr/textSelectHandle"
+            tools:layout_editor_absoluteY="89dp" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/habitEventDetail"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        app:layout_constraintTop_toBottomOf="@+id/habitDetail">
+
+        <TextView
+            android:id="@+id/HabitEvent"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_margin="8dp"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            tools:text="Habit Event" />
+
+        <TextView
+            android:id="@+id/latestCompletion"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="85dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="e.i. Start: 11/22/33" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="198dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="50dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="186dp"
+            tools:text="Reason; Here's one reason that I have." />
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="182dp"
+            android:layout_height="111dp"
+            android:layout_gravity="start|bottom"
+            android:contentDescription="graphic"
+            app:srcCompat="?android:attr/textSelectHandle"
+            tools:layout_editor_absoluteY="89dp" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</android.support.constraint.ConstraintLayout>

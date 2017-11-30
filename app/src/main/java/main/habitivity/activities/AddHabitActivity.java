@@ -231,6 +231,22 @@ public class AddHabitActivity extends BaseActivity {
     public void onAdd(View view) {
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         title = (EditText) findViewById(R.id.habitInput);
+        for(Habit habit: UserContainer.getInstance().getUser().getHabits()){
+            if(habit.getTitle().equals(title.getText().toString())){
+                AlertDialog.Builder builder =new AlertDialog.Builder(this);
+
+                builder.setMessage("A habit with that title already exists! Pick another title")
+                        .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setTitle("Duplicate Title");
+                builder.show();
+                return;
+            }
+        }
+        title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
 
         //add for local services
