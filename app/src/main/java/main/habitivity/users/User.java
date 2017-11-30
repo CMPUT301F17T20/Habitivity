@@ -17,6 +17,7 @@ public class User implements Serializable, Parcelable{
     private ArrayList<String> followers;
     private ArrayList<HabitEvent> habitEvents;
     private ArrayList<String> following;
+    private ArrayList<String> followerRequests;
 
     @JestId
     private String uid;
@@ -27,7 +28,28 @@ public class User implements Serializable, Parcelable{
         this.habitEvents = habitEvents;
         this.followers = followers;
         this.following = following;
+        this.followerRequests = new ArrayList<String>();
     }
+
+    protected User(Parcel in) {
+        username = in.readString();
+        followers = in.createStringArrayList();
+        following = in.createStringArrayList();
+        followerRequests = in.createStringArrayList();
+        uid = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     /**
      * Set the userID of the User
@@ -101,16 +123,16 @@ public class User implements Serializable, Parcelable{
      * Adds the specified user to the user's follower's list
      * @param followerToAdd - the user to add to the follower's list
      */
-    public void addFollower(User followerToAdd){
+    public void addFollower(String followerToAdd){
 
         if(this.followers.size() == 0){
-            this.followers.add(followerToAdd.getUserName());
+            this.followers.add(followerToAdd);
             return;
         }
 
         for(String userInFollowerList: this.followers){
-            if(!userInFollowerList.equals(followerToAdd.getUserName())){
-                this.followers.add(followerToAdd.getUserName());
+            if(!userInFollowerList.equals(followerToAdd)){
+                this.followers.add(followerToAdd);
             }
         }
     }
@@ -119,8 +141,8 @@ public class User implements Serializable, Parcelable{
      * Remove the specified user from the user's follower's list
      * @param followerToRemove - the user to remove from the follower's list
      */
-    public void deleteFollower(User followerToRemove){
-        this.followers.remove(followerToRemove.getUserName());
+    public void deleteFollower(String followerToRemove){
+        this.followers.remove(followerToRemove);
 
     }
 
@@ -128,39 +150,46 @@ public class User implements Serializable, Parcelable{
      * Gets the list of followers for the user
      * @return - the list of followers of the user
      */
-    public ArrayList<User> getFollowers(){
-        ArrayList<User> allUsers = UserContainer.getInstance().getAllUsers();
-        Boolean userInFollowers = false;
-        for(User user: allUsers){
-            for(String followers: this.followers){
-                if(user.getUserName().equals(followers)){
-                    userInFollowers = true;
-                    break;
-                }
-            }
-            if(userInFollowers == false){
-                allUsers.remove(user);
-            }
-            else{
-                userInFollowers = true;
+    public ArrayList<String> getFollowers(){
+        return this.followers;
+    }
+
+    public ArrayList<String> getFollowerRequests(){
+        return this.followerRequests;
+    }
+
+    public void addFollowerRequest(String follower){
+        if(this.followerRequests.size() == 0){
+            this.followerRequests.add(follower);
+            return;
+        }
+        for(String followerInList: this.followerRequests){
+            //the follower is already in the request list
+            if(followerInList.equals(follower)){
+                return;
             }
         }
-        return allUsers;
+        this.followerRequests.add(follower);
+    }
+
+    public ArrayList<String> getFollowersAsString(){
+        return this.followers;
     }
 
     /**
      * Adds the user to the list of users that we're following
      * @param user - the user to add to our following list
      */
-    public void addFollowing(User user){
+    public void addFollowing(String user){
         if(this.following.size() == 0){
-            this.following.add(user.getUserName());
+            this.following.add(user);
             return;
         }
 
         for(String userInFollowerList: this.following){
-            if(!userInFollowerList.equals(user.getUserName())){
-                this.following.add(user.getUserName());
+            if(!userInFollowerList.equals(user)){
+                this.following.add(user);
+                return;
             }
         }
     }
@@ -169,8 +198,8 @@ public class User implements Serializable, Parcelable{
      * Removes the specified user from the list of users that we're following
      * @param user - the user to remove from our following list
      */
-    public void deleteFollowing(User user){
-        this.following.remove(user.getUserName());
+    public void deleteFollowing(String user){
+        this.following.remove(user);
 
     }
 
@@ -251,6 +280,10 @@ public class User implements Serializable, Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeString(username);
+        parcel.writeStringList(followers);
+        parcel.writeStringList(following);
+        parcel.writeStringList(followerRequests);
+        parcel.writeString(uid);
     }
 }
