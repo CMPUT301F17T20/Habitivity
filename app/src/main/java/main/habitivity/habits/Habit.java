@@ -7,8 +7,16 @@ package main.habitivity.habits;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Habit Model Class
@@ -23,6 +31,8 @@ public class Habit {
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
     private Date lastComplete = null;
+    private TreeMap<Date, List<Integer>> prevSchedules = new TreeMap<>(Collections.<Date>reverseOrder());
+    private List<Date> curCompEvents;
 
     public Habit() {
     }
@@ -167,6 +177,98 @@ public class Habit {
      */
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
         this.daysOfTheWeekToComplete = daysToComplete;
+        this.prevSchedules.put(new Date(), daysToComplete);
+
+    }
+
+    public int[] getChartCount(){
+        Date today = new Date();
+        Date endEdit;
+        Date startEdit;
+        //completed and incompleted count, add days off schedule?
+        int[] compIncompCount = {0,0};
+        Boolean isComplete;
+        Calendar week = Calendar.getInstance();
+        Calendar day = Calendar.getInstance();
+        Calendar event = Calendar.getInstance();
+        Set editKeys = prevSchedules.entrySet();
+        Iterator it = editKeys.iterator();
+        this.curCompEvents = new ArrayList<Date>();
+        //See if events on schedules, adding completed events so far.
+        for (int i = 0; i < completions.size(); i++){
+            curCompEvents.add(completions.get(i).getCompletionDate());
+        }
+        //initializing the end value for each looped schedule section:
+        endEdit = today;
+        while(it.hasNext()){
+            Map.Entry cur = (Map.Entry) it.next();
+            //skip repeat edits
+            if (cur.getKey() == ((Map.Entry) it.next()).getKey()){
+                continue;
+            }
+
+            startEdit = (Date) cur.getKey();
+            //If edit below start date stop counting events
+            if ( ( startEdit.compareTo(this.getStartDate()) < 0 ) ){
+                startEdit = this.getStartDate();
+            }
+            ArrayList<Integer> schedule = (ArrayList<Integer>) cur.getValue();
+            week.setTime(startEdit);
+            week.set(Calendar.HOUR_OF_DAY, 0);
+            week.set(Calendar.MINUTE, 0);
+            week.set(Calendar.SECOND, 0);
+            week.set(Calendar.MILLISECOND, 0);
+
+            outerLoop:
+            while(true){
+                for (int j = 0; j < schedule.size(); j++) {
+                    //May need to increase first week of edit by one day?
+                    for (int i = 0; i <= 7 - week.DAY_OF_WEEK; i++) {
+                        day = week;
+                        //Checking if this day of the week  in this current schedule:
+                        if (week.DAY_OF_WEEK + i == schedule.get(j)) {
+                            isComplete = false;
+                            day.add(Calendar.DATE, i);
+                            //Inclusive to day when changed to new schedule--change edit to start +1 day?
+                            if ( ( day.getTime().compareTo(endEdit) > 0 ) ){
+                                break outerLoop;
+                            }
+                            //Checking if this scheduled day was completed correctly add count:
+                            for (int k = curCompEvents.size() - 1; k >= 0; k--) {
+                                event.setTime(curCompEvents.get(k));
+                                event.set(Calendar.HOUR_OF_DAY, 0);
+                                event.set(Calendar.MINUTE, 0);
+                                event.set(Calendar.SECOND, 0);
+                                event.set(Calendar.MILLISECOND, 0);
+                                if (event.getTime().compareTo(day.getTime()) == 0) {
+                                    compIncompCount[0] += 1;
+                                    isComplete = true;
+                                    curCompEvents.remove(k);
+                                }
+                            }
+                            //If this scheduled day was not found as event, incomplete then:
+                            if (!isComplete){
+                                compIncompCount[1] += 1;
+                            }
+
+                        }
+                    }
+                }
+                week.add(Calendar.DATE, 8 - week.DAY_OF_WEEK );
+                //Inclusive to day when changed to new schedule--change edit to start +1 day?
+                if ( ( week.getTime().compareTo(endEdit) > 0 ) ){
+                    break outerLoop;
+                }
+            }
+            endEdit = startEdit;
+            //If edit below start date stop counting events
+            if ( ( startEdit.compareTo(this.getStartDate()) <= 0 ) ){
+                break;
+            }
+        }
+        //compIncompCount[0] = 15;
+        //compIncompCount[1] = 9;//TESTLINE;
+        return compIncompCount;
     }
     
     /**
