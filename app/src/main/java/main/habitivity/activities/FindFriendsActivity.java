@@ -48,14 +48,23 @@ public class FindFriendsActivity extends BaseActivity {
                 String user = friends.get(position);
                 String userName = UserContainer.getInstance().getUser().getPotentialFriends().get(position);
                 User userToView = UserContainer.getInstance().findUser(userName);
+                User curUser = UserContainer.getInstance().getUser();
+                if(userToView == null){
+                    //something went wrong. Need to fix
+                    return;
+                }
                 userToView.addFollowerRequest(user);
-                UserContainer.getInstance().getUser().removePotentialFriend(position);
+                curUser.removePotentialFriend(position);
+                curUser.addToPendingRequest(userToView.getUserName());
 
                 ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-                updateUserTask.execute(UserContainer.getInstance().getUser());
+                updateUserTask.execute(curUser);
 
-                ElasticsearchController.UpdateUserTask updateUserTask2 = new ElasticsearchController.UpdateUserTask();
-                updateUserTask2.execute(userToView);
+                ElasticsearchController.UpdateUserTask updateUserToViewTask = new ElasticsearchController.UpdateUserTask();
+                updateUserToViewTask.execute(userToView);
+
+                UserContainer.getInstance().setUser(curUser);
+                UserContainer.getInstance().setUserToView(userToView);
 
                 adapter.notifyItemRemoved(position);
 

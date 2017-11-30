@@ -19,6 +19,7 @@ public class User implements Serializable, Parcelable{
     private ArrayList<String> following;
     private ArrayList<String> followerRequests;
     private ArrayList<String> potentialFriends;
+    private ArrayList<String> pendingRequest;
 
     @JestId
     private String uid;
@@ -31,6 +32,7 @@ public class User implements Serializable, Parcelable{
         this.following = following;
         this.followerRequests = new ArrayList<String>();
         this.potentialFriends = new ArrayList<String>();
+        this.pendingRequest = new ArrayList<String>();
     }
 
     protected User(Parcel in) {
@@ -111,15 +113,9 @@ public class User implements Serializable, Parcelable{
 
     public void findAllPotentialFriends(){
         ArrayList<User> allUsersExcludingUser = UserContainer.getInstance().getAllUsersExcludingUser();
-        if(this.potentialFriends.size() == 0){
-            for(User potentialFriend: allUsersExcludingUser){
-                this.potentialFriends.add(potentialFriend.getUserName());
-            }
-            return;
-        }
 
         for(User potentialFriend: allUsersExcludingUser){
-            if(!this.potentialFriends.contains(potentialFriend.getUserName()) && !this.followerRequests.contains(potentialFriend.getUserName())
+            if(!this.potentialFriends.contains(potentialFriend.getUserName()) && !this.pendingRequest.contains(potentialFriend.getUserName())
                     && !this.following.contains(potentialFriend.getUserName())){
                 this.potentialFriends.add(potentialFriend.getUserName());
             }
@@ -171,6 +167,13 @@ public class User implements Serializable, Parcelable{
 
     }
 
+    public void addToPendingRequest(String user){
+        this.pendingRequest.add(user);
+    }
+
+    public ArrayList<String> getPendingRequests(){
+        return this.pendingRequest;
+    }
     /**
      * Gets the list of followers for the user
      * @return - the list of followers of the user

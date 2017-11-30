@@ -37,13 +37,23 @@ public class RequestList extends AppCompatActivity {
                 User curUser = UserContainer.getInstance().getUser();
                 String userName = followerRequests.get(position);
                 User userToView = UserContainer.getInstance().findUser(userName);
+                if(userToView == null){
+                    //something went wrong don't do anything
+                    return;
+                }
                 curUser.addFollower(userName);
                 userToView.addFollowing(curUser.getUserName());
                 curUser.removeFollowerRequest(position);
                 adapter.notifyItemRemoved(position);
 
                 ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-                updateUserTask.execute(UserContainer.getInstance().getUser());
+                updateUserTask.execute(curUser);
+
+                ElasticsearchController.UpdateUserTask updateUserToViewTask = new ElasticsearchController.UpdateUserTask();
+                updateUserToViewTask.execute(userToView);
+
+                UserContainer.getInstance().setUser(curUser);
+                UserContainer.getInstance().setUserToView(userToView);
             }
         });
         followerRequests = UserContainer.getInstance().getUser().getFollowerRequests();
