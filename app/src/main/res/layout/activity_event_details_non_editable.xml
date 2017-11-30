@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
             android:layout_margin="8dp"
+            android:text="Most Habit Event:"
             android:textSize="24sp"
             android:textStyle="italic"
             tools:text="Habit Event" />

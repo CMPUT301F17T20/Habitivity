@@ -22,7 +22,7 @@ import main.habitivity.users.User;
 import main.habitivity.users.UserList;
 
 public class ElasticsearchController {
-    private static final String indexString = "cmput301f17t20_test13";
+    private static final String indexString = "cmput301f17t20_test16";
     private static JestDroidClient client;
     private static String userTypeString = "users";
 

@@ -40,6 +40,7 @@ public class HabitListController {
         ArrayList<User> getFollowing = new ArrayList<>();
         allUsers = UserContainer.getInstance().getAllUsers();
         User currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        usersAndFollowingHabits.addAll(currentlyLoggedInUser.getHabits());
         getFollowing = currentlyLoggedInUser.getFollowing();
         for(User user: allUsers) {
             for(User following: getFollowing){
