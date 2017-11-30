@@ -53,7 +53,7 @@ public class FindFriendsActivity extends BaseActivity {
                     //something went wrong. Need to fix
                     return;
                 }
-                userToView.addFollowerRequest(user);
+                userToView.addFollowerRequest(curUser.getUserName());
                 curUser.removePotentialFriend(position);
                 curUser.addToPendingRequest(userToView.getUserName());
 
