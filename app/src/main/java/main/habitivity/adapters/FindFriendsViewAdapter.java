@@ -1,6 +1,7 @@
 package main.habitivity.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,26 +15,25 @@ import java.util.List;
 import main.habitivity.R;
 
 /**
- * Created by Shally on 2017-11-28.
+ * Created by Shally on 2017-11-29.
  */
 
-public class FollowRequestViewAdapter extends RecyclerView.Adapter<FollowRequestViewAdapter.ViewHolder> {
-
+public class FindFriendsViewAdapter extends RecyclerView.Adapter<FindFriendsViewAdapter.ViewHolder>{
     private List<String> mFeed;
     private final ClickListener listener;
     private Context mContext;
 
-    public FollowRequestViewAdapter(Context context, ClickListener listener) {
+    public FindFriendsViewAdapter(Context context, ClickListener listener) {
         mContext = context;
         this.listener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FindFriendsViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext(); //returns the context the view is running in, gets access to the resources
         LayoutInflater inflater = LayoutInflater.from(context);
-        View requestView = inflater.inflate(R.layout.follower_requests, parent, false);
-        ViewHolder viewHolder = new ViewHolder(requestView, this.listener);
+        View requestView = inflater.inflate(R.layout.find_friend_item, parent, false);
+        FindFriendsViewAdapter.ViewHolder viewHolder = new FindFriendsViewAdapter.ViewHolder(requestView, this.listener);
 
         return viewHolder;
     }
@@ -44,7 +44,7 @@ public class FollowRequestViewAdapter extends RecyclerView.Adapter<FollowRequest
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final FindFriendsViewAdapter.ViewHolder holder, int position) {
         String userName = mFeed.get(position);
         TextView name = holder.name;
         name.setText(userName);
@@ -61,16 +61,16 @@ public class FollowRequestViewAdapter extends RecyclerView.Adapter<FollowRequest
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView name;
-        public Button accept;
+        public Button follow;
         private WeakReference<ClickListener> listenerRef;
 
         public ViewHolder(final View itemView, ClickListener listener) {
             super(itemView);
             listenerRef = new WeakReference<>(listener);
-            name = (TextView) itemView.findViewById(R.id.requestUserName);
-            accept = (Button) itemView.findViewById(R.id.allowbutton);
+            name = (TextView) itemView.findViewById(R.id.friend);
+            follow = (Button) itemView.findViewById(R.id.followButton);
 
-            accept.setOnClickListener(this);
+            follow.setOnClickListener(this);
         }
 
         @Override

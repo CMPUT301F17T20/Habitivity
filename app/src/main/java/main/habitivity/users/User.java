@@ -18,6 +18,7 @@ public class User implements Serializable, Parcelable{
     private ArrayList<HabitEvent> habitEvents;
     private ArrayList<String> following;
     private ArrayList<String> followerRequests;
+    private ArrayList<String> potentialFriends;
 
     @JestId
     private String uid;
@@ -29,6 +30,7 @@ public class User implements Serializable, Parcelable{
         this.followers = followers;
         this.following = following;
         this.followerRequests = new ArrayList<String>();
+        this.potentialFriends = new ArrayList<String>();
     }
 
     protected User(Parcel in) {
@@ -107,6 +109,29 @@ public class User implements Serializable, Parcelable{
         return this.habits;
     }
 
+    public void findAllPotentialFriends(){
+        ArrayList<User> allUsersExcludingUser = UserContainer.getInstance().getAllUsersExcludingUser();
+        if(this.potentialFriends.size() == 0){
+            for(User potentialFriend: allUsersExcludingUser){
+                this.potentialFriends.add(potentialFriend.getUserName());
+            }
+            return;
+        }
+
+        for(User potentialFriend: allUsersExcludingUser){
+            if(!this.potentialFriends.contains(potentialFriend.getUserName()) && !this.followerRequests.contains(potentialFriend.getUserName())
+                    && !this.following.contains(potentialFriend.getUserName())){
+                this.potentialFriends.add(potentialFriend.getUserName());
+            }
+        }
+
+    }
+
+    public ArrayList<String> getPotentialFriends(){
+        this.findAllPotentialFriends();
+        return this.potentialFriends;
+    }
+
     /**
      * Removes the habit event from the user's habit event list
      * @param id - id of the habitEvent to remove
@@ -154,6 +179,10 @@ public class User implements Serializable, Parcelable{
         return this.followers;
     }
 
+    public void removePotentialFriend(int pos){
+        this.potentialFriends.remove(pos);
+    }
+
     public ArrayList<String> getFollowerRequests(){
         return this.followerRequests;
     }
@@ -170,6 +199,10 @@ public class User implements Serializable, Parcelable{
             }
         }
         this.followerRequests.add(follower);
+    }
+
+    public void removeFollowerRequest(int pos){
+        this.followerRequests.remove(pos);
     }
 
     public ArrayList<String> getFollowersAsString(){

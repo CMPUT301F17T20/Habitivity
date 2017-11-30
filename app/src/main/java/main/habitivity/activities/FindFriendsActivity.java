@@ -3,41 +3,80 @@
  */
 package main.habitivity.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import main.habitivity.R;
+import main.habitivity.adapters.ClickListener;
+import main.habitivity.adapters.FindFriendsViewAdapter;
+import main.habitivity.adapters.FollowRequestViewAdapter;
 import main.habitivity.controllers.AllUsersController;
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
 
 public class FindFriendsActivity extends BaseActivity {
-    private ArrayAdapter<User> adapter;
-    private ListView listView;
+    private RecyclerView recyclerView;
+    private FindFriendsViewAdapter adapter;
+    private ArrayList<String> friends = new ArrayList<>();
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_friends);
 
-        listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, UserContainer.getInstance().getAllUsersExcludingUser() );
-        listView.setAdapter(adapter);
-        //Listens for when a record in the list is pressed
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewFriends);
+
+        builder =new AlertDialog.Builder(this);
+
+        adapter = new FindFriendsViewAdapter(this, new ClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), UserInformationActivity.class);
-                UserContainer.getInstance().setUserToView((User)listView.getAdapter().getItem(position));
-                startActivity(intent);
+            public void onPositionClicked(int position) {
+                String user = friends.get(position);
+                String userName = UserContainer.getInstance().getUser().getPotentialFriends().get(position);
+                User userToView = UserContainer.getInstance().findUser(userName);
+                userToView.addFollowerRequest(user);
+                UserContainer.getInstance().getUser().removePotentialFriend(position);
+
+                ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+                updateUserTask.execute(UserContainer.getInstance().getUser());
+
+                ElasticsearchController.UpdateUserTask updateUserTask2 = new ElasticsearchController.UpdateUserTask();
+                updateUserTask2.execute(userToView);
+
+                adapter.notifyItemRemoved(position);
+
+                builder.setMessage("You've requested to follow: " + user)
+                        .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setTitle("Follow Request");
+                builder.show();
             }
         });
+        friends = UserContainer.getInstance().getUser().getPotentialFriends();
+        adapter.setRequestList(friends);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
     }
 
     @Override

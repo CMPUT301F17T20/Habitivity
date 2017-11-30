@@ -34,9 +34,12 @@ public class RequestList extends AppCompatActivity {
         adapter = new FollowRequestViewAdapter(this, new ClickListener() {
             @Override
             public void onPositionClicked(int position) {
-                String user = followerRequests.get(position);
-                UserContainer.getInstance().getUser().addFollower(user);
-                UserContainer.getInstance().getUser().getFollowerRequests().remove(position);
+                User curUser = UserContainer.getInstance().getUser();
+                String userName = followerRequests.get(position);
+                User userToView = UserContainer.getInstance().findUser(userName);
+                curUser.addFollower(userName);
+                userToView.addFollowing(curUser.getUserName());
+                curUser.removeFollowerRequest(position);
                 adapter.notifyItemRemoved(position);
 
                 ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
