@@ -3,13 +3,50 @@
  */
 package main.habitivity.services;
 
+import main.habitivity.controllers.ElasticsearchController;
+import main.habitivity.exceptions.ElasticSearchConnectivityException;
+import main.habitivity.users.UserContainer;
+
 /**
  * TODO. WILL BE IMPLEMENTED WHEN WE DO ELASTIC SEARCH
  */
 public class WhichHabitService {
+    private IConnectivityService connectivityService;
+    public WhichHabitService(IConnectivityService connectivityService) {
+        this.connectivityService = connectivityService;
+    }
 
-    public WhichHabitService() {
-    
+    public void addHabitEventRequest(){
+        try {
+            ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+            updateUserTask.execute(UserContainer.getInstance().getUser());
+        }
+        catch(ElasticSearchConnectivityException e){
+
+        }
+
+    }
+
+    public void deleteHabitEventRequest(){
+        try {
+            ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+            updateUserTask.execute(UserContainer.getInstance().getUser());
+        }
+        catch(ElasticSearchConnectivityException e){
+
+        }
+
+    }
+
+    public void updateHabitEventRequest(){
+        try {
+            ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+            updateUserTask.execute(UserContainer.getInstance().getUser());
+        }
+        catch(ElasticSearchConnectivityException e){
+
+        }
+
     }
 
 }
