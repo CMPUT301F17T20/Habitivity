@@ -17,11 +17,14 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 public class JustHabitDetails extends BaseActivity {
 
@@ -31,7 +34,8 @@ public class JustHabitDetails extends BaseActivity {
     private Habit curHabit;
     private TextView dayToOccur;
     private static String TAG = "JustHabitDetails"; //testing
-    private int[] statusEntries;
+    private User loggedInUser;
+    private Date today = new Date();
     private final String[] statusNames = {"Completed", "Uncompleted"};
     /**
      * import added to gradle MPAndroid chart by PhilJay
@@ -96,26 +100,25 @@ public class JustHabitDetails extends BaseActivity {
         statusChart.setUsePercentValues(true);
         statusChart.setHoleRadius(10f);
         statusChart.setTransparentCircleAlpha(0);
-        statusChart.setCenterText("All Time Status");
-        statusChart.setCenterTextSize(5);
+        statusChart.setCenterText("On Time and Missed Events");
+        statusChart.setCenterTextSize(10);
         //statusChart.setDrawEntryLabels(true);
         //statusChart.setEntryLabelTextSize(10);
 
-        //DEBUG
-        statusEntries[0] = 15;
-        statusEntries[1] = 9;
-
-        //Actual
-        //statusEntries = curHabit.getChartCount();
-        addDataSet();
+        //Setup data
+        loggedInUser = UserContainer.getInstance().getUser();
+        if ( loggedInUser.getLastLogin() != null ) {
+            curHabit.addPassedDayCount(loggedInUser.getLastLogin(), today, false);
+        }
+        addDataSet(curHabit.getOnSchedCount(), curHabit.getPassedDayCount() + curHabit.getFakeAddDays());
 
     }
 
-    private void addDataSet() {
-        Log.d(TAG, "data Chart"); //Checking
+    private void addDataSet(int completed, int uncompleted) {
+        Log.d(TAG, "data Chart" + completed + " " + uncompleted); //Checking
         ArrayList<PieEntry> sEntries = new ArrayList<>();
         ArrayList<String> sNames = new ArrayList<>();
-
+        int[] statusEntries = {completed, uncompleted};
 
         for(int i = 0; i < statusEntries.length; i++) {
             sEntries.add(new PieEntry(statusEntries[i], i));
@@ -126,7 +129,7 @@ public class JustHabitDetails extends BaseActivity {
         }
 
         //Creating data structure for entries
-        PieDataSet statusSet = new PieDataSet(sEntries, "All Time Status");
+        PieDataSet statusSet = new PieDataSet(sEntries, "On Time and Missed Events");
         statusSet.setSliceSpace(2);
         statusSet.setValueTextSize(10);
 

@@ -50,8 +50,9 @@
             tools:layout_editor_absoluteX="186dp"
             tools:text="Days: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday" />
 
-        <ImageView
+        <include
             android:id="@+id/graph"
+            layout="@layout/content_status_chart"
             android:layout_width="182dp"
             android:layout_height="111dp"
             android:layout_gravity="start|bottom"

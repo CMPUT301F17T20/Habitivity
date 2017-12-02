@@ -24,6 +24,7 @@ public class HabitEvent {
     private transient Bitmap photograph;
     private Location location;
     private String thumbnail;
+    private Boolean onSched = false;
 
     public HabitEvent(Date completionDate) {
         /* This path is going to need testing. I couldn't find the assumed source file online so I
@@ -100,10 +101,24 @@ public class HabitEvent {
     }
 
     /**
+    * Set if completed on the day of the event
+    */
+    public Boolean getOnSched() {
+        return onSched;
+    }
+
+    public void setOnSched(Boolean onSched) {
+        this.onSched = onSched;
+    }
+
+    /**
     * Gets the photo associated with the HabitEvent
     *
     * @return photograph - photo associated with the HabitEvent
     */
+
+
+
     public Bitmap getPhoto() {
         if (this.photograph == null && thumbnail == null) {
             return null;

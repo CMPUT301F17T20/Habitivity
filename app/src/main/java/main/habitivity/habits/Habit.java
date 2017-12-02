@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeMap;
+
+import static org.apache.commons.lang3.ObjectUtils.max;
 
 /**
  * Habit Model Class
@@ -31,8 +32,9 @@ public class Habit {
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
     private Date lastComplete = null;
-    private TreeMap<Date, List<Integer>> prevSchedules = new TreeMap<>(Collections.<Date>reverseOrder());
-    private List<Date> curCompEvents;
+    private int onSchedCount = 0;
+    private int passedDayCount = 0;
+    private int fakeAddDays = 0;
 
     public Habit() {
     }
@@ -174,103 +176,15 @@ public class Habit {
      * the array will contain [1,3]. Days of the week are represented by integers.
      *
      * @param[in] daysToComplete - list of integers contains the days of the week we want to complete the habit
+     *
      */
     public void setDaysOfTheWeekToComplete(List<Integer> daysToComplete) {
         this.daysOfTheWeekToComplete = daysToComplete;
-        this.prevSchedules.put(new Date(), daysToComplete);
+
+        //this.prevSchedules.put(new Date(), daysToComplete);
 
     }
 
-    public int[] getChartCount(){
-        Date today = new Date();
-        Date endEdit;
-        Date startEdit;
-        //completed and incompleted count, add days off schedule?
-        int[] compIncompCount = {0,0};
-        Boolean isComplete;
-        Calendar week = Calendar.getInstance();
-        Calendar day = Calendar.getInstance();
-        Calendar event = Calendar.getInstance();
-        Set editKeys = prevSchedules.entrySet();
-        Iterator it = editKeys.iterator();
-        this.curCompEvents = new ArrayList<Date>();
-        //See if events on schedules, adding completed events so far.
-        for (int i = 0; i < completions.size(); i++){
-            curCompEvents.add(completions.get(i).getCompletionDate());
-        }
-        //initializing the end value for each looped schedule section:
-        endEdit = today;
-        while(it.hasNext()){
-            Map.Entry cur = (Map.Entry) it.next();
-            //skip repeat edits
-            if (cur.getKey() == ((Map.Entry) it.next()).getKey()){
-                continue;
-            }
-
-            startEdit = (Date) cur.getKey();
-            //If edit below start date stop counting events
-            if ( ( startEdit.compareTo(this.getStartDate()) < 0 ) ){
-                startEdit = this.getStartDate();
-            }
-            ArrayList<Integer> schedule = (ArrayList<Integer>) cur.getValue();
-            week.setTime(startEdit);
-            week.set(Calendar.HOUR_OF_DAY, 0);
-            week.set(Calendar.MINUTE, 0);
-            week.set(Calendar.SECOND, 0);
-            week.set(Calendar.MILLISECOND, 0);
-
-            outerLoop:
-            while(true){
-                for (int j = 0; j < schedule.size(); j++) {
-                    //May need to increase first week of edit by one day?
-                    for (int i = 0; i <= 7 - week.DAY_OF_WEEK; i++) {
-                        day = week;
-                        //Checking if this day of the week  in this current schedule:
-                        if (week.DAY_OF_WEEK + i == schedule.get(j)) {
-                            isComplete = false;
-                            day.add(Calendar.DATE, i);
-                            //Inclusive to day when changed to new schedule--change edit to start +1 day?
-                            if ( ( day.getTime().compareTo(endEdit) > 0 ) ){
-                                break outerLoop;
-                            }
-                            //Checking if this scheduled day was completed correctly add count:
-                            for (int k = curCompEvents.size() - 1; k >= 0; k--) {
-                                event.setTime(curCompEvents.get(k));
-                                event.set(Calendar.HOUR_OF_DAY, 0);
-                                event.set(Calendar.MINUTE, 0);
-                                event.set(Calendar.SECOND, 0);
-                                event.set(Calendar.MILLISECOND, 0);
-                                if (event.getTime().compareTo(day.getTime()) == 0) {
-                                    compIncompCount[0] += 1;
-                                    isComplete = true;
-                                    curCompEvents.remove(k);
-                                }
-                            }
-                            //If this scheduled day was not found as event, incomplete then:
-                            if (!isComplete){
-                                compIncompCount[1] += 1;
-                            }
-
-                        }
-                    }
-                }
-                week.add(Calendar.DATE, 8 - week.DAY_OF_WEEK );
-                //Inclusive to day when changed to new schedule--change edit to start +1 day?
-                if ( ( week.getTime().compareTo(endEdit) > 0 ) ){
-                    break outerLoop;
-                }
-            }
-            endEdit = startEdit;
-            //If edit below start date stop counting events
-            if ( ( startEdit.compareTo(this.getStartDate()) <= 0 ) ){
-                break;
-            }
-        }
-        //compIncompCount[0] = 15;
-        //compIncompCount[1] = 9;//TESTLINE;
-        return compIncompCount;
-    }
-    
     /**
     * Gets our list of habitEvents
     *
@@ -296,9 +210,70 @@ public class Habit {
     * @param[in] habitEvent - event to add to our list of completed HabitEvents
     */
     public void addHabitEvent(HabitEvent habitEvent){
+        Calendar compCal = Calendar.getInstance();
+        Calendar todayCal = Calendar.getInstance();
+        Calendar startCal = Calendar.getInstance();
+
+        //Getting completion date and start date to check if done on schedule today with todayCal
+        compCal.setTime(habitEvent.getCompletionDate());
+        startCal.setTime(this.getStartDate());
+
+        //Completed today?
+        boolean sameDay = compCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
+                compCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
+
+        //Completed after the start date?
+        boolean afterStart = compCal.get(Calendar.YEAR) == startCal.get(Calendar.YEAR) &&
+                compCal.get(Calendar.DAY_OF_YEAR) >= startCal.get(Calendar.DAY_OF_YEAR)
+                || compCal.get(Calendar.YEAR) > startCal.get(Calendar.YEAR);
+
+        //if those and on schedule, then done on time!!!
+        if ( this.checkDay(compCal.DAY_OF_WEEK) && sameDay && afterStart){
+            this.onSchedCount += 1;
+            habitEvent.setOnSched(true);
+        }
+
         this.completions.add(habitEvent);
     }
 
+    public int getFakeAddDays() { return this.fakeAddDays; }
+
+    public int getPassedDayCount() { return this.passedDayCount; }
+
+    public void addPassedDayCount(Date start, Date end, Boolean real){
+        Calendar endCal = Calendar.getInstance();
+        Calendar curCal = Calendar.getInstance();
+        Boolean beforeEnd = true;
+        int days = 0;
+        Double yDays;
+        int weeks;
+        int remaindays;
+        this.fakeAddDays = days;
+
+        endCal.setTime(end);
+        //Choose user inpued start from previous login
+        curCal.setTime(max(start,this.startDate, this.lastComplete));
+        beforeEnd = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
+                curCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
+                || curCal.get(Calendar.YEAR) < endCal.get(Calendar.YEAR);
+        if (beforeEnd){
+            yDays = 365.25*(endCal.get(Calendar.YEAR) - curCal.get(Calendar.YEAR));
+            weeks = (endCal.get(Calendar.DAY_OF_YEAR) - curCal.get(Calendar.DAY_OF_YEAR) + yDays.intValue() - 1 ) / 7;
+            remaindays = (endCal.get(Calendar.DAY_OF_YEAR) - curCal.get(Calendar.DAY_OF_YEAR) + yDays.intValue() - 1 )%7;
+            //Use count in schedule to get days missed in weeks
+            days = weeks*this.daysOfTheWeekToComplete.size();
+            //Go over scheduled days, count scheduled days within remaining days
+            for ( int i = 0; i < this.daysOfTheWeekToComplete.size(); i++){
+                if ( ((this.daysOfTheWeekToComplete.get(i)-curCal.DAY_OF_WEEK)%7) < remaindays){
+                    days += 1;
+                }
+            }
+
+        }
+        this.fakeAddDays = days;
+        if (real){ this.passedDayCount += days; }
+
+    }
     /**
     * Remove the habitEvent from our list of habitEvents 
     *
@@ -342,6 +317,14 @@ public class Habit {
      */
     public void setLastComplete(Date lastComplete) {
         this.lastComplete = lastComplete;
+    }
+
+    public void addOnSchedCount() {
+        onSchedCount += 1;
+    }
+
+    public int getOnSchedCount() {
+        return onSchedCount;
     }
 
     @Override
