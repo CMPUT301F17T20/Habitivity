@@ -106,6 +106,19 @@ public class User implements Serializable, Parcelable{
         this.habits.add(habit);
     }
 
+    public void updateHabit(Habit oldHabit, Habit newHabit){
+        if(this.habits.contains(oldHabit)){
+            int index = this.habits.indexOf(oldHabit);
+            this.habits.set(index, newHabit);
+        }
+    }
+    public void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent){
+        if(this.habitEvents.contains(oldHabitEvent)){
+            int index = this.habitEvents.indexOf(oldHabitEvent);
+            this.habitEvents.set(index, newHabitEvent);
+        }
+    }
+
     /**
      * Gets the habits of the user
      * @return - The list of habits of the user
@@ -133,11 +146,11 @@ public class User implements Serializable, Parcelable{
 
     /**
      * Removes the habit event from the user's habit event list
-     * @param id - id of the habitEvent to remove
+     * @param  - id of the habitEvent to remove
      */
-    public void removeHabitEvent(String id){
+    public void removeHabitEvent(HabitEvent habitEventToRemove){
         for(HabitEvent habitEvent: this.habitEvents){
-            if(habitEvent.getId() == id){
+            if(habitEvent.getId().equals(habitEventToRemove.getId())){
                 this.habitEvents.remove(habitEvent);
             }
         }
@@ -269,11 +282,11 @@ public class User implements Serializable, Parcelable{
 
     /**
      * Removes the habit from the user's habit's list
-     * @param id - id of habit to remove
+     * @param  - id of habit to remove
      */
-    public void removeHabit(String id){
+    public void removeHabit(Habit habitToRemove){
         for(Habit habit: this.habits){
-            if(habit.getId() == id){
+            if(habit.getId().equals(habitToRemove.getId())){
                 this.habits.remove(habit);
             }
         }

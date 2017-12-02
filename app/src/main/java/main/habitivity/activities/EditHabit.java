@@ -42,7 +42,7 @@ public class EditHabit extends BaseActivity {
     private EditText reason;
     private List<Integer> dayOfTheWeek = new ArrayList<Integer>();
     private Habit curHabit = HabitSingletonContainer.getInstance().getHabit();
-    private String oldId;
+    private Habit oldId;
 
     //should move these toggles into a separate class which will handle them. But this will do for now
     private ToggleButton monday;
@@ -118,7 +118,7 @@ public class EditHabit extends BaseActivity {
 
         //add the original values,
         title = (EditText) findViewById(R.id.habitInput);
-        oldId = curHabit.getTitle();
+        oldId = curHabit;
         title.setText(curHabit.getTitle());
         reason = (EditText) findViewById(R.id.addComment);
         reason.setText(curHabit.getReason());
@@ -281,6 +281,7 @@ public class EditHabit extends BaseActivity {
         reason = (EditText) findViewById(R.id.addComment);
 
         UpdateHabitRequest updateHabitRequest = new UpdateHabitRequest();
+        updateHabitRequest.setOldHabit(curHabit);
         updateHabitRequest.setOldId(this.oldId);
         updateHabitRequest.setId(title.getText().toString());
         updateHabitRequest.setHabitType(habitTypeString);

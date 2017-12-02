@@ -2,6 +2,8 @@ package main.habitivity.controllers;
 
 import java.util.Date;
 import java.util.List;
+
+import main.habitivity.habits.Habit;
 /*
  * Copyright (c) 2017. Team CMPUT301F17T20, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behaviour at University of Alberta.
  */
@@ -12,18 +14,25 @@ import java.util.List;
  */
 public class UpdateHabitRequest {
     private String id;
-    private String oldId;
+    private Habit oldId;
     private String reason;
     private Date startDate;
     private String habitType;
+    private Habit oldHabit;
     private List<Integer> daysOfTheWeek;
 
+    public void setOldHabit(Habit habit){
+        this.oldHabit = habit;
+    }
+    public Habit getOldHabit(){
+        return this.oldHabit;
+    }
     /**
      * Sets the id of the old habit (i.e habit before editing). This is mainly used for when the user is editing
      * the habit and changes the title since we're using the title as the habit's unique identifier
      * @param id - id of the old habit
      */
-    public void setOldId(String id) {
+    public void setOldId(Habit id) {
         this.oldId = id;
     }
 
@@ -32,7 +41,7 @@ public class UpdateHabitRequest {
      * the habit and changes the title since we're using the title as the habit's unique identifier
      * @return - the id of the old habit
      */
-    public String getOldId() {
+    public Habit getOldId() {
         return oldId;
     }
 

@@ -25,14 +25,14 @@ public class RemoveHabitEvent {
      * Remove the habitEvent from our habit repo
      * @param habitEventId of habitEvent to remove
      */
-    public void remove(String habitEventId){
-        habitRepository.removeHabitEvent(habitEventId);
-
+    public void remove(HabitEvent habitEventId){
         //Update the user on the server
         User currentlylogged = UserContainer.getInstance().getUser();
         currentlylogged.removeHabitEvent(habitEventId);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlylogged);
+        habitRepository.removeHabitEvent(habitEventId);
+
+//        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+//        updateUserTask.execute(currentlylogged);
     }
 
 }

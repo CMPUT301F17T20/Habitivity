@@ -36,9 +36,9 @@ public class AddHabitEvent {
     public void complete(String id) {
         Habit habit = habitRepository.getHabit(id);
 
-        if (habit != null) {
-            habitRepository.updateHabit(this.getHabitUpdatedWithEvent(habit));
-        }
+//        if (habit != null) {
+//            habitRepository.updateHabit(this.getHabitUpdatedWithEvent(habit));
+//        }
     }
 
     /**
@@ -57,10 +57,8 @@ public class AddHabitEvent {
 
         habitRepository.addHabitEvent(habitEvent);
 
-        User currentlylogged = UserContainer.getInstance().getUser();
-        currentlylogged.addHabitEvent(habitEvent);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlylogged);
+//        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+//        updateUserTask.execute(currentlylogged);
     }
 
     /**

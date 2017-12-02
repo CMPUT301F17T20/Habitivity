@@ -16,7 +16,15 @@ public class AddHabitRequest {
     private Date startDate;
     private String habitType;
     private List<Integer> daysOfTheWeek;
+    private String userName;
 
+    public String getUserName(){
+        return this.userName;
+    }
+
+    public void setUserName(String username){
+        this.userName = username;
+    }
     /**
      * Get the id of the habit
      * @return id of the habit

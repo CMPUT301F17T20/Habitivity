@@ -30,26 +30,23 @@ public class UpdateHabit {
      * @param reason of habit to update
      * @param days of habit to update
      */
-    public void update(String id, String oldId, Date startDate, String reason, List<Integer> days, String habitType) {
+    public void update(String id, Habit oldHabit, Date startDate, String reason, List<Integer> days, String habitType) {
         Habit habit = new Habit();
+        currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        habit.setUserName(currentlyLoggedInUser.getUserName());
         habit.setId(id);
         habit.setTitle(id);
         habit.setStartDate(startDate);
         habit.setReason(reason);
         habit.setDaysOfTheWeekToComplete(days);
         habit.setHabitType(habitType);
-        currentlyLoggedInUser = UserContainer.getInstance().getUser();
 
-        //indicates that the user changed the habit title which is what we're using as a unique identifier so we need to delete the old one
-        if(id != oldId){
-            habitRepository.removeHabit(oldId);
-            currentlyLoggedInUser.removeHabit(oldId);
-        }
-        habitRepository.updateHabit(habit);
+
+        currentlyLoggedInUser.updateHabit(oldHabit, habit);
+        habitRepository.updateHabit(oldHabit, habit);
 
         //Update on the server
-        currentlyLoggedInUser.addHabit(habit);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlyLoggedInUser);
+//        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
+//        updateUserTask.execute(currentlyLoggedInUser);
     }
 }

@@ -35,7 +35,7 @@ public class UpdateHabitEvent {
      * @param startDate id of habit to update
      * @param comment id of habit to update
      */
-    public void update(String id, Date startDate, String comment, Bitmap photo, Location location) {
+    public void update(HabitEvent oldHabitEvent, String id, Date startDate, String comment, Bitmap photo, Location location) {
         HabitEvent habitEvent = new HabitEvent(new Date());
         habitEvent.setId(id);
         habitEvent.setComment(comment);
@@ -44,6 +44,7 @@ public class UpdateHabitEvent {
         habitEvent.setPhoto(photo);
 
         currentlyLoggedInUser = UserContainer.getInstance().getUser();
-        habitRepository.updateHabitEvent(habitEvent);
+        currentlyLoggedInUser.updateHabitEvent(oldHabitEvent, habitEvent);
+        habitRepository.updateHabitEvent(oldHabitEvent, habitEvent);
     }
 }

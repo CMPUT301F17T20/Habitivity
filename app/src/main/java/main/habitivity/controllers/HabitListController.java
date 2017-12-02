@@ -47,6 +47,7 @@ public class HabitListController {
         ArrayList<User> getFollowing = new ArrayList<>();
         allUsers = UserContainer.getInstance().getAllUsers();
         User currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        usersAndFollowingHabits.addAll(currentlyLoggedInUser.getHabits());
         getFollowing = currentlyLoggedInUser.getFollowing();
         for(User user: allUsers) {
             for(User following: getFollowing){
@@ -72,7 +73,7 @@ public class HabitListController {
      * @param habit to remove
      */
     public void removeHabit(Habit habit){
-        habitInteractionsFactory.deleteHabit().delete(habit.getId());
+        habitInteractionsFactory.deleteHabit().delete(habit);
     }
 
     /**
@@ -80,7 +81,7 @@ public class HabitListController {
      * @param habitEvent to remove
      */
     public void removeHabitEvent(HabitEvent habitEvent){
-        habitInteractionsFactory.removeHabitEvent().remove(habitEvent.getId());
+        habitInteractionsFactory.removeHabitEvent().remove(habitEvent);
     }
 
     /**

@@ -30,7 +30,7 @@ public class AddHabit {
      * @param startDate of habit
      * @param days of habit
      */
-    public void add(String id, Date startDate, List<Integer> days, String habitType) {
+    public void add(String id, Date startDate, List<Integer> days, String habitType, String userName) {
         Habit habit = new Habit();
         habit.setHabitType(habitType);
         //need a way to unqiuely identify a habit. TODO i have an idea but implment later
@@ -38,12 +38,9 @@ public class AddHabit {
         habit.setTitle(id);
         habit.setStartDate(startDate);
         habit.setDaysOfTheWeekToComplete(days);
+        habit.setUserName(userName);
 
         habitRepository.addHabit(habit);
 
-        User currentlylogged = UserContainer.getInstance().getUser();
-        currentlylogged.addHabit(habit);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlylogged);
     }
 }

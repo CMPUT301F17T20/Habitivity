@@ -24,10 +24,10 @@ import main.habitivity.services.WhichHabitService;
  * of habits.
  */
 public class HabitRepository implements IHabitRepository{
-    private LocalHabitService habitService;
-    private Map<String, Habit> habits;
+    private WhichHabitService habitService;
+    private ArrayList<Habit> habits;
     private Map<String, Location> habitLocations;
-    private Map<String, HabitEvent> habitEvents;
+    private ArrayList<HabitEvent> habitEvents;
     private String userID;
     private String ID;
 
@@ -55,10 +55,10 @@ public class HabitRepository implements IHabitRepository{
         this.ID = ID;
     }
 
-    public HabitRepository(LocalHabitService habitService) {
+    public HabitRepository(WhichHabitService habitService) {
         this.habitService = habitService;
-        this.habits = new HashMap<>();
-        this.habitEvents = new HashMap<>();
+        this.habits = new ArrayList<Habit>();
+        this.habitEvents = new ArrayList<HabitEvent>();
         this.habitLocations = new HashMap<>();
     }
 
@@ -74,13 +74,13 @@ public class HabitRepository implements IHabitRepository{
 
     public void setHabits(ArrayList<Habit> habits){
         for(Habit habit: habits){
-            this.habits.put(habit.getId(), habit);
+            this.habits.add(habit);
         }
     }
 
     public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
         for(HabitEvent habitEvent: habitEvents){
-            this.habitEvents.put(habitEvent.getId(), habitEvent);
+            this.habitEvents.add(habitEvent);
         }
     }
 
@@ -90,7 +90,7 @@ public class HabitRepository implements IHabitRepository{
      */
     public List<HabitEvent> getHabitEvents() {
         //ensureHabitEvents();
-        List<HabitEvent> events = new ArrayList<>(habitEvents.values());
+        List<HabitEvent> events = new ArrayList<>(habitEvents);
         return events;
     }
 
@@ -98,11 +98,11 @@ public class HabitRepository implements IHabitRepository{
      * Grabs habit events locations that are saved locally since we don't have elastic search yet
      */
     public void ensureHabitLocations(){
-        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
-            if(habitEvent.getLocation() != null){
-                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
-            }
-        }
+//        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
+//            if(habitEvent.getLocation() != null){
+//                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
+//            }
+//        }
     }
 
     /**
@@ -129,10 +129,11 @@ public class HabitRepository implements IHabitRepository{
      *
      * @param[in] - the habit to update in our local disk/server
      */
-    public void updateHabitEvent(HabitEvent habitEvent){
-        ensureHabitEvents();
-        habitService.updateHabitEvent(habitEvent);
-        habitEvents.put(habitEvent.getId(), habitEvent);
+    public void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent){
+//        ensureHabitEvents();
+        habitService.updateHabitEventRequest(oldHabitEvent, newHabitEvent);
+        int index = habitEvents.indexOf(oldHabitEvent);
+        habitEvents.set(index, newHabitEvent);
     }
 
     /**
@@ -141,9 +142,9 @@ public class HabitRepository implements IHabitRepository{
      * @param[in] - the habit to update in our local disk/server
      */
     public void addHabitEvent(HabitEvent habitEvent){
-        ensureHabitEvents();
-        habitService.addHabitEvent(habitEvent);
-        habitEvents.put(habitEvent.getId(), habitEvent);
+       // ensureHabitEvents();
+        habitService.addHabitEventRequest(habitEvent);
+        habitEvents.add(habitEvent);
     }
 
     /**
@@ -151,10 +152,9 @@ public class HabitRepository implements IHabitRepository{
      *
      * @param[in] - the habit to update in our local disk/server
      */
-    public void removeHabitEvent(String id){
-        ensureHabitEvents();
-        habitService.deleteHabitEvent(id);
-        habitEvents.remove(id);
+    public void removeHabitEvent(HabitEvent event){
+        habitService.deleteHabitEventRequest(event);
+        habitEvents.remove(event);
     }
 
     /**
@@ -163,7 +163,7 @@ public class HabitRepository implements IHabitRepository{
     private void ensureHabits() {
         if (habits.isEmpty()) {
             for (Habit habit: habitService.getHabits()) {
-                habits.put(habit.getId(), habit);
+                habits.add(habit);
             }
         }
     }
@@ -172,11 +172,11 @@ public class HabitRepository implements IHabitRepository{
      * Grabs all the habitEvent that are saved locally
      */
     private void ensureHabitEvents() {
-        if (habitEvents.isEmpty()) {
-            for (HabitEvent habitEvent: habitService.getHabitEvents()) {
-                habitEvents.put(habitEvent.getId(), habitEvent);
-            }
-        }
+//        if (habitEvents.isEmpty()) {
+//            for (HabitEvent habitEvent: habitService.getHabitEvents()) {
+//                habitEvents.put(habitEvent.getId(), habitEvent);
+//            }
+//        }
     }
 
     /**
@@ -187,10 +187,11 @@ public class HabitRepository implements IHabitRepository{
      * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
-    public void updateHabit(Habit habit) {
+    public void updateHabit(Habit oldHabit, Habit newHabit) {
         //ensureHabits();
-        habitService.updateHabit(habit);
-        habits.put(habit.getId(), habit);
+        habitService.updateHabitRequest(oldHabit, newHabit);
+        int index = habits.indexOf(oldHabit);
+        habits.set(index, newHabit);
     }
 
     /**
@@ -204,8 +205,8 @@ public class HabitRepository implements IHabitRepository{
     public void addHabit(Habit habit) {
         //ensureHabits();
 
-        habitService.addHabit(habit);
-        habits.put(habit.getId(), habit);
+        habitService.addHabitRequest(habit);
+        habits.add(habit);
     }
 
     /**
@@ -216,10 +217,10 @@ public class HabitRepository implements IHabitRepository{
      * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
      * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
-    public void removeHabit(String id) {
+    public void removeHabit(Habit habit) {
         //ensureHabits();
-        habitService.deleteHabit(id);
-        habits.remove(id);
+        habitService.deleteHabitRequest(habit);
+        habits.remove(habit);
     }
 
     /**
@@ -229,7 +230,7 @@ public class HabitRepository implements IHabitRepository{
      */
     private ArrayList<Habit> getSortedHabits() {
 
-        ArrayList<Habit> sortedHabits = new ArrayList<>(habits.values());
+        ArrayList<Habit> sortedHabits = new ArrayList<>(habits);
         //TODO LATER
         //Collections.sort(sortedHabits, reverseChronologicalHabitComparator);
 
@@ -237,7 +238,7 @@ public class HabitRepository implements IHabitRepository{
     }
 
     public ArrayList<HabitEvent> getSortedEvents() {
-        ArrayList<HabitEvent> sortedEvents = new ArrayList<>(habitEvents.values());
+        ArrayList<HabitEvent> sortedEvents = new ArrayList<>(habitEvents);
 
         Collections.sort(sortedEvents, reverseChronologicalEventComparator);
 

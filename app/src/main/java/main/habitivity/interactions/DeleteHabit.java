@@ -5,6 +5,7 @@
 package main.habitivity.interactions;
 
 import main.habitivity.controllers.ElasticsearchController;
+import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
 import main.habitivity.users.User;
@@ -22,14 +23,11 @@ public class DeleteHabit {
 
     /**
      * Delete a habit from the habit repo
-     * @param habitId of habit to delete
+     * @param - of habit to delete
      */
-    public void delete(String habitId) {
-        habitRepository.removeHabit(habitId);
-
+    public void delete(Habit habit) {
         User currentlylogged = UserContainer.getInstance().getUser();
-        currentlylogged.removeHabit(habitId);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlylogged);
+        currentlylogged.removeHabit(habit);
+        habitRepository.removeHabit(habit);
     }
 }

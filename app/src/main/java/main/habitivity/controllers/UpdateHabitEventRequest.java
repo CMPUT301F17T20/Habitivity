@@ -8,6 +8,8 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
+import main.habitivity.habits.HabitEvent;
+
 /**
  * Created by Shally on 2017-11-25.
  */
@@ -15,10 +17,19 @@ import java.util.Date;
 public class UpdateHabitEventRequest {
     private String id;
     private String oldId;
+    private HabitEvent oldHabitEvent;
     private Date completionDate;
     private String comment;
     private transient Bitmap photograph;
     private Location location;
+
+    public void setOldHabitEvent(HabitEvent habitEvent){
+        this.oldHabitEvent = habitEvent;
+    }
+
+    public HabitEvent getOldHabitEvent(){
+        return this.oldHabitEvent;
+    }
 
     /**
      * Gets the geo location of the event

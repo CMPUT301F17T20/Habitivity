@@ -31,8 +31,8 @@ public class UpdateHabitController {
      * Updates a habit event
      * @param habitEvent to update
      */
-    public void updateHabitEvent(HabitEvent habitEvent) {
-        habitInteractionsFactory.updateHabitEvent().update(habitEvent.getId(), habitEvent.getCompletionDate(), habitEvent.getComment(), habitEvent.getPhoto(), habitEvent.getLocation());
+    public void updateHabitEvent(UpdateHabitEventRequest habitEvent) {
+        habitInteractionsFactory.updateHabitEvent().update(habitEvent.getOldHabitEvent(), habitEvent.getId(), habitEvent.getCompletionDate(), habitEvent.getComment(), habitEvent.getPhoto(), habitEvent.getLocation());
     }
 
 }

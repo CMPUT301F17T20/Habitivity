@@ -63,11 +63,11 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         String currentUserName =  UserContainer.getInstance().getUser().getUserName();
         for(User users: allUsers){
             if(users.getUserName().equals(currentUserName)){
-                allUsers.remove(users);
+                //allUsers.remove(users);
                 break;
             }
         }
-         UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
+        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
 
         if(user.getHabits().size() != 0) {
             //for all habits add missed days while offline to habits;
@@ -89,6 +89,10 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
                 = new ElasticsearchController.AddUsersTask();
 
         addUsersTask.execute(user);
+        ArrayList<User> allusers = UserContainer.getInstance().getAllUsers();
+        allusers.add(user);
+        UserContainer.getInstance().setAllUsers(allusers);
+        this.allUsers = UserContainer.getInstance().getAllUsers();
         System.out.println("Successfully added new user");
         loginUser(user);
 

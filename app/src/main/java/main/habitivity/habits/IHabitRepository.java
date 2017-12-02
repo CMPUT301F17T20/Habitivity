@@ -19,13 +19,13 @@ public interface IHabitRepository {
     List<HabitEvent> getHabitEvents();
     List<Location> getHabitLocations();
 
-    void removeHabit(String id);
+    void removeHabit(Habit habit);
     void addHabit(Habit habit);
-    void updateHabit(Habit habit);
+    void updateHabit(Habit oldHabit, Habit habit);
     void setHabits(ArrayList<Habit> habits);
 
-    void updateHabitEvent(HabitEvent habitEvent);
-    void removeHabitEvent(String id);
+    void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent);
+    void removeHabitEvent(HabitEvent habitEvent);
     void addHabitEvent(HabitEvent habitEvent);
     void setHabitEvents(ArrayList<HabitEvent> habitEvents);
 
