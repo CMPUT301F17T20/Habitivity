@@ -18,6 +18,8 @@ import java.util.Set;
 
 import main.habitivity.services.LocalHabitService;
 import main.habitivity.services.WhichHabitService;
+import main.habitivity.users.User;
+import main.habitivity.users.UserContainer;
 
 /*
  * This class implements IHabitRepository and provides an in memory store
@@ -98,11 +100,22 @@ public class HabitRepository implements IHabitRepository{
      * Grabs habit events locations that are saved locally since we don't have elastic search yet
      */
     public void ensureHabitLocations(){
-//        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
-//            if(habitEvent.getLocation() != null){
-//                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
-//            }
-//        }
+        User currentUser = UserContainer.getInstance().getUser();
+        //add habit events of other users
+        for(User user: currentUser.getFollowing()){
+            for(HabitEvent habitEvent: user.getHabitEvents()){
+                if(habitEvent.getLocation() != null){
+                    habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
+                }
+            }
+        }
+
+        //add habit events of other users;
+        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
+            if(habitEvent.getLocation() != null){
+                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
+            }
+        }
     }
 
     /**
