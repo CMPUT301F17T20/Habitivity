@@ -24,6 +24,8 @@ import java.util.Date;
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.UpdateHabitController;
+import main.habitivity.controllers.UpdateHabitEventRequest;
+import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 
@@ -172,13 +174,16 @@ public class HabitEventDetailsActivity extends BaseActivity {
         completionDate = (TextView) findViewById(R.id.dateChoice);
         comment = (TextView) findViewById(R.id.addComment);
 
-        HabitEvent habitEvent = new HabitEvent(new Date());
-        habitEvent.setId(habitEventTitle.getText().toString());
-        habitEvent.setCompletionDate(this.compDate);
-        habitEvent.setComment(comment.getText().toString());
+        UpdateHabitEventRequest updateHabitEventRequest = new UpdateHabitEventRequest();
+        updateHabitEventRequest.setLocation(curHabitEvent.getLocation());
+        updateHabitEventRequest.setPhoto(bitmap);
+        updateHabitEventRequest.setOldHabitEvent(curHabitEvent);
+        updateHabitEventRequest.setCompletionDate(compDate);
+        updateHabitEventRequest.setId(habitEventTitle.getText().toString());
+        updateHabitEventRequest.setComment(comment.getText().toString());
 
-        updateHabitController.updateHabitEvent(habitEvent);
-        HabitSingletonContainer.getInstance().setHabitEvent(habitEvent);
+        updateHabitController.updateHabitEvent(updateHabitEventRequest);
+        //HabitSingletonContainer.getInstance().setHabitEvent(habitEvent);
         startActivity(intent);
     }
 

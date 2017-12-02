@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import main.habitivity.R;
+import main.habitivity.controllers.AddHabitRequest;
 import main.habitivity.users.User;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.controllers.ElasticsearchController;
@@ -250,27 +251,14 @@ public class AddHabitActivity extends BaseActivity {
         reason = (EditText) findViewById(R.id.addComment);
 
         //add for local services
-//        AddHabitRequest addHabitRequest = new AddHabitRequest();
-//        addHabitRequest.setHabitType(habitTypeString);
-//        addHabitRequest.setId(title.getText().toString());
-//        addHabitRequest.setStartDate(startingDate);
-//        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
-//
-//        addHabitController.addHabit(addHabitRequest);
+        AddHabitRequest addHabitRequest = new AddHabitRequest();
+        addHabitRequest.setHabitType(habitTypeString);
+        addHabitRequest.setId(title.getText().toString());
+        addHabitRequest.setStartDate(startingDate);
+        addHabitRequest.setDaysOfTheWeek(dayOfTheWeek);
+        addHabitRequest.setUserName(currentlylogged.getUserName());
 
-
-        //add for elastic search server
-        Habit testHabit = new Habit();
-        testHabit.setHabitType(habitTypeString);
-        testHabit.setId(title.getText().toString());
-        testHabit.setTitle(title.getText().toString());
-        testHabit.setStartDate(startingDate);
-        testHabit.setDaysOfTheWeekToComplete(dayOfTheWeek);
-        testHabit.setUserName(currentlylogged.getUserName());
-
-        currentlylogged.addHabit(testHabit);
-        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-        updateUserTask.execute(currentlylogged);
+        addHabitController.addHabit(addHabitRequest);
 
         startActivity(intent);
     }

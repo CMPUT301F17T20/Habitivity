@@ -66,7 +66,7 @@ public class HabitListController {
      * @param habit to remove
      */
     public void removeHabit(Habit habit){
-        habitInteractionsFactory.deleteHabit().delete(habit.getId());
+        habitInteractionsFactory.deleteHabit().delete(habit);
     }
 
     /**
@@ -74,7 +74,7 @@ public class HabitListController {
      * @param habitEvent to remove
      */
     public void removeHabitEvent(HabitEvent habitEvent){
-        habitInteractionsFactory.removeHabitEvent().remove(habitEvent.getId());
+        habitInteractionsFactory.removeHabitEvent().remove(habitEvent);
     }
 
     /**

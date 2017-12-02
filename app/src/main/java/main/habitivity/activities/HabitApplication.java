@@ -15,7 +15,9 @@ import main.habitivity.habits.HabitRepository;
 import main.habitivity.interactions.Clock;
 import main.habitivity.interactions.HabitInteractionsFactory;
 import main.habitivity.services.AndroidFileHandler;
+import main.habitivity.services.ConnectivityService;
 import main.habitivity.services.LocalHabitService;
+import main.habitivity.services.WhichHabitService;
 
 
 /**
@@ -35,7 +37,7 @@ public class HabitApplication extends Application {
     private void ensureHabitRepository() {
         if (habitRepository == null) {
             AndroidFileHandler fileHandler = new AndroidFileHandler(this);
-            LocalHabitService habitService = new LocalHabitService(fileHandler);
+            WhichHabitService habitService = new WhichHabitService(new ConnectivityService(getApplicationContext()), fileHandler);
             habitRepository = new HabitRepository(habitService);
         }
     }
