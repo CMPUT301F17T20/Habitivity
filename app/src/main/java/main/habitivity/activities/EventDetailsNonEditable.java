@@ -85,6 +85,7 @@ public class EventDetailsNonEditable extends AppCompatActivity {
         String startingDate = "Starting Date: " + curHabit.getStartDate().toString();
         startDate.setText(startingDate);
 
+        /**
         Log.d(TAG, "StartChart"); //Checking
 
         //Creating the pie chart from the Habit's 'data/events'
@@ -104,9 +105,11 @@ public class EventDetailsNonEditable extends AppCompatActivity {
             curHabit.addPassedDayCount(user.getLastLogin(), today, false);
         }
         addDataSet(curHabit.getOnSchedCount(), curHabit.getPassedDayCount() + curHabit.getFakeAddDays());
+         */
 
     }
 
+    /**
     private void addDataSet(int completed, int uncompleted) {
         Log.d(TAG, "data Chart" + completed + " " + uncompleted); //Checking
         ArrayList<PieEntry> sEntries = new ArrayList<>();
@@ -142,5 +145,5 @@ public class EventDetailsNonEditable extends AppCompatActivity {
         PieData statusData = new PieData(statusSet);
         statusChart.setData(statusData);
         statusChart.invalidate();
-    }
+    }*/
 }

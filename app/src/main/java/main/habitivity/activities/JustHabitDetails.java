@@ -120,6 +120,10 @@ public class JustHabitDetails extends BaseActivity {
         ArrayList<String> sNames = new ArrayList<>();
         int[] statusEntries = {completed, uncompleted};
 
+        //TESTING
+        statusEntries[0] = 15;
+        statusEntries[1] = 25;
+
         for(int i = 0; i < statusEntries.length; i++) {
             sEntries.add(new PieEntry(statusEntries[i], i));
         }
