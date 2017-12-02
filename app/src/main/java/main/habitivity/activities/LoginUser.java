@@ -61,13 +61,14 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         UserContainer.getInstance().setUser(user);
 
         String currentUserName =  UserContainer.getInstance().getUser().getUserName();
-        for(User users: allUsers){
+        ArrayList<User> copyOfAllUsers = new ArrayList<>(allUsers);
+        for(User users: copyOfAllUsers){
             if(users.getUserName().equals(currentUserName)){
-                //allUsers.remove(users);
+                copyOfAllUsers.remove(users);
                 break;
             }
         }
-        UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
+        UserContainer.getInstance().setAllUsersExcludingUser(copyOfAllUsers);
 
         if(user.getHabits().size() != 0) {
             //for all habits add missed days while offline to habits;
