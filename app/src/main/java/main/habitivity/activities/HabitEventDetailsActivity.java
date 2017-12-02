@@ -3,7 +3,9 @@
  */
 package main.habitivity.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,6 +28,7 @@ import main.habitivity.controllers.HabitListController;
 import main.habitivity.controllers.UpdateHabitController;
 import main.habitivity.controllers.UpdateHabitEventRequest;
 import main.habitivity.controllers.UpdateHabitRequest;
+import main.habitivity.exceptions.ImageTooLargeException;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 
@@ -158,8 +161,27 @@ public class HabitEventDetailsActivity extends BaseActivity {
                 "Select Picture"), SELECTED_PICTURE);
     }
 
+    public void imageTooLargeDialog() {
+
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setMessage("Image Is Too Large!")
+                .setNegativeButton("Return", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setTitle("Image Is Too Large!");
+
+        builder.show();
+    }
+
     private void setImage(Bitmap photo) {
-        userImage.setImageBitmap(photo);
+        if(photo.getByteCount() >= 65536){
+            this.imageTooLargeDialog();
+        }
+        else {
+            userImage.setImageBitmap(photo);
+        }
     }
 
     private void resolveDependencies() {
@@ -182,7 +204,11 @@ public class HabitEventDetailsActivity extends BaseActivity {
         updateHabitEventRequest.setId(habitEventTitle.getText().toString());
         updateHabitEventRequest.setComment(comment.getText().toString());
 
-        updateHabitController.updateHabitEvent(updateHabitEventRequest);
+        try {
+            updateHabitController.updateHabitEvent(updateHabitEventRequest);
+        } catch (ImageTooLargeException e) {
+            e.printStackTrace();
+        }
         //HabitSingletonContainer.getInstance().setHabitEvent(habitEvent);
         startActivity(intent);
     }

@@ -126,33 +126,6 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
                 "    }\n" +
                 "}";
 
-        // ElasticsearchController.GetAllUsersWithUserNameTask getAllUsersWithUserNameTask
-        //         = new ElasticsearchController.GetAllUsersWithUserNameTask();
-
-
-        // try {
-        //     ArrayList<User> users = getAllUsersWithUserNameTask.execute(query).get();;
-
-        //     System.out.println("size: " + users.size());
-        //     if (username.length() == 0){
-        //         emptyUsernameDialog();
-        //     }
-        //     //we found the user login them in
-        //     else if (users.size() == 1){
-        //         loginUser(users.get(0));
-        //     }
-        //     else if (users.size() > 1){
-        //         Log.i("Error", "Username appears more than once in the server");
-        //         loginUser(users.get(0));
-        //     }
-        //     else{
-        //         registerUser(username);
-        //     }
-        // }
-        // catch (Exception e) {
-        //     Log.i("Error", "Failed to get the users from the async object");
-        //     Log.i("Error", e.toString());
-        // }
     }
 
     public void emptyUsernameDialog() {

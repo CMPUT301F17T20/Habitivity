@@ -14,6 +14,8 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.UUID;
 
+import main.habitivity.exceptions.ImageTooLargeException;
+
 /**
  * Habit Event Model Class
  */
@@ -122,7 +124,6 @@ public class HabitEvent {
     public Bitmap getPhoto() {
         if (this.photograph == null && thumbnail == null) {
             return null;
-            //image isn't set. //implement later
         } else {
             if (thumbnail != null) {
                 byte[] decodeString = Base64.decode(thumbnail, Base64.DEFAULT);
@@ -137,7 +138,7 @@ public class HabitEvent {
     *
     * @param[in] photograph - photo associated with the HabitEvent
     */
-    public void setPhoto(Bitmap photograph) {
+    public void setPhoto(Bitmap photograph) throws ImageTooLargeException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         if (photograph == null) {
@@ -145,9 +146,6 @@ public class HabitEvent {
             this.thumbnail = null;
             return;
         }
-//        if (photograph.getByteCount() >= 65536) {
-//            //throw an exception todo later (create an exception class)
-//        }
         else {
             this.photograph = photograph;
             this.photograph.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);

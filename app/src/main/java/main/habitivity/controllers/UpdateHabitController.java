@@ -4,6 +4,7 @@
 
 package main.habitivity.controllers;
 
+import main.habitivity.exceptions.ImageTooLargeException;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.interactions.HabitInteractionsFactory;
 
@@ -31,7 +32,7 @@ public class UpdateHabitController {
      * Updates a habit event
      * @param habitEvent to update
      */
-    public void updateHabitEvent(UpdateHabitEventRequest habitEvent) {
+    public void updateHabitEvent(UpdateHabitEventRequest habitEvent) throws ImageTooLargeException {
         habitInteractionsFactory.updateHabitEvent().update(habitEvent.getOldHabitEvent(), habitEvent.getId(), habitEvent.getCompletionDate(), habitEvent.getComment(), habitEvent.getPhoto(), habitEvent.getLocation());
     }
 

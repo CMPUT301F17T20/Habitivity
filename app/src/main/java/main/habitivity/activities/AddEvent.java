@@ -3,8 +3,10 @@
  */
 package main.habitivity.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -246,8 +248,27 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
                 "Select Picture"), SELECTED_PICTURE);
     }
 
+    public void imageTooLargeDialog() {
+
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setMessage("Image Is Too Large!")
+                .setNegativeButton("Return", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setTitle("Image Is Too Large!");
+
+        builder.show();
+    }
+
     private void setImage(Bitmap photo) {
-        userImage.setImageBitmap(photo);
+        if(photo.getByteCount() >= 65536){
+            this.imageTooLargeDialog();
+        }
+        else {
+            userImage.setImageBitmap(photo);
+        }
     }
 
     private void resolveDependencies() {

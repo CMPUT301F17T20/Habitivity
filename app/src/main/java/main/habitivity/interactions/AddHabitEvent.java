@@ -4,12 +4,16 @@
 
 package main.habitivity.interactions;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Date;
 
 import main.habitivity.controllers.ElasticsearchController;
+import main.habitivity.exceptions.ImageTooLargeException;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
@@ -52,13 +56,15 @@ public class AddHabitEvent {
         habitEvent.setComment(comment);
         habitEvent.setLocation(location);
         habitEvent.setId(id);
-        habitEvent.setPhoto(image);
+        try{
+            habitEvent.setPhoto(image);
+        }
+        catch(ImageTooLargeException e){
+
+        }
         habitEvent.setCompletionDate(completionDate);
 
         habitRepository.addHabitEvent(habitEvent);
-
-//        ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-//        updateUserTask.execute(currentlylogged);
     }
 
     /**
