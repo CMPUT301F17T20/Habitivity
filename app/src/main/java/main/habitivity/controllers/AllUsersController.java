@@ -22,14 +22,8 @@ public class AllUsersController {
      *
      * @return - a list of users that the user is currently following
      */
-    public ArrayList<User> getUsersFollowers() {
-        User currentLoggedInUser = UserContainer.getInstance().getUser();
-        ArrayList<User> userFollowing = new ArrayList<User>();
-
-        for (User following : currentLoggedInUser.getFollowing()) {
-            userFollowing.add(following);
-        }
-        return userFollowing;
+    public ArrayList<String> getUsersFollowers() {
+        return UserContainer.getInstance().getUser().getFollowers();
     }
 
     /**

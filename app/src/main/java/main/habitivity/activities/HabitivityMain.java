@@ -1,5 +1,6 @@
 package main.habitivity.activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import main.habitivity.R;
 import main.habitivity.controllers.AllUsersController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.profiles.CurrentUser;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
@@ -60,6 +62,13 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), EventDetailsNonEditable.class);
+                Habit curHabit = (Habit)listView.getAdapter().getItem(position);
+                //get the owner of the habit
+                User userToView = UserContainer.getInstance().findUser(curHabit.getUserName());
+                HabitSingletonContainer.getInstance().setHabit(curHabit);
+                UserContainer.getInstance().setUserToView(userToView);
+                startActivity(intent);
             }
         });
     }
@@ -152,11 +161,11 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
             startActivity(intent);
         }
         else if(id == R.id.requests){
-            Intent intent = new Intent(getApplicationContext(), FollowRequest.class);
+            Intent intent = new Intent(getApplicationContext(), RequestList.class);
             startActivity(intent);
         }
         else if(id == R.id.log_out){
-            Intent intent = new Intent(getApplicationContext(), LoginUser.class);
+            Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
             startActivity(intent);
         }
         else if(id == R.id.following){

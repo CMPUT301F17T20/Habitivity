@@ -65,6 +65,22 @@ public class UserContainer {
         return this.allUsersExcludingUser;
     }
 
+    public User findUser(String username){
+        for(User user: allUsers){
+            if(user.getUserName().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+//    public ArrayList<String> getPotentialFriendsAsString(){
+//        ArrayList<String> potentialFriendsAsString = new ArrayList<>();
+//        for(User user: this.getAllUsersExcludingUser()){
+//            potentialFriendsAsString.add(user.getUserName());
+//        }
+//        return potentialFriendsAsString;
+//    }
     public ArrayList<User> getAllUsers(){
         return this.allUsers;
     }

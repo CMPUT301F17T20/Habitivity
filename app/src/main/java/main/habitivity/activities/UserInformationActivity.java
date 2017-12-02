@@ -6,6 +6,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.concurrent.ExecutionException;
+
 import main.habitivity.R;
 import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.users.User;
@@ -41,12 +43,12 @@ public class UserInformationActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (buttonView.isChecked()) {
-                    loggedInUser.addFollowing(userToView);
-                    userToView.addFollower(loggedInUser);
+                    //loggedInUser.addFollowerRequest(userToView.getUserName());
+                    userToView.addFollowerRequest(loggedInUser.getUserName());
                     UserContainer.getInstance().setUser(loggedInUser);
                 } else {
-                    loggedInUser.deleteFollowing(userToView);
-                    userToView.deleteFollower(loggedInUser);
+                    loggedInUser.deleteFollowing(userToView.getUserName());
+                    //userToView.deleteFollower(loggedInUser);
                     UserContainer.getInstance().setUser(loggedInUser);
                 }
             }
@@ -56,8 +58,14 @@ public class UserInformationActivity extends BaseActivity {
     @Override
     public void onBackPressed(){
             ElasticsearchController.UpdateUserTask updateUserTask = new ElasticsearchController.UpdateUserTask();
-            updateUserTask.execute(loggedInUser);
-            Intent intent = new Intent(getApplicationContext(), FindFriendsActivity.class);
+        try {
+            updateUserTask.execute(userToView).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(getApplicationContext(), FindFriendsActivity.class);
             startActivity(intent);
     }
 }

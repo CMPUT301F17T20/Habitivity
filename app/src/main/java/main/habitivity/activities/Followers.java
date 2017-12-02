@@ -13,7 +13,7 @@ import main.habitivity.controllers.HabitListController;
 import main.habitivity.users.User;
 
 public class Followers extends BaseActivity {
-    private ArrayAdapter<User> adapter;
+    private ArrayAdapter<String> adapter;
     private ListView listView;
     private AllUsersController allUsersController;
 
@@ -24,7 +24,7 @@ public class Followers extends BaseActivity {
 
         resolveDependencies();
         listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, android.R.id.text1, allUsersController.getUsersFollowers() );
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, allUsersController.getUsersFollowers() );
         listView.setAdapter(adapter);
         //Listens for when a record in the list is pressed
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

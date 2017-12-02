@@ -71,6 +71,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/comment"
+        android:maxLength="20"
         android:inputType="text|textPersonName"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +108,7 @@
             android:layout_margin="8dp"
             android:textSize="18sp"
             android:textStyle="italic"
+            android:maxLength="20"
             tools:layout_editor_absoluteY="16dp"
             tools:text="ExampleHabit 20Chars Event:" />
 
