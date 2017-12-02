@@ -24,6 +24,7 @@ public class HabitEvent {
     private transient Bitmap photograph;
     private Location location;
     private String thumbnail;
+    private Boolean onTime;
 
     public HabitEvent(Date completionDate) {
         /* This path is going to need testing. I couldn't find the assumed source file online so I

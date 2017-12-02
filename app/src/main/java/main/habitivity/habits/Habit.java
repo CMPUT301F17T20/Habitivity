@@ -23,6 +23,8 @@ public class Habit {
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
     private Date lastComplete = null;
+    private int onSchedCount;
+    //private int eventsScheduled;
 
     public Habit() {
     }

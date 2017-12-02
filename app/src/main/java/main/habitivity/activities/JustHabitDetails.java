@@ -5,8 +5,17 @@ package main.habitivity.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
 
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
@@ -20,6 +29,14 @@ public class JustHabitDetails extends BaseActivity {
     private TextView startDate;
     private Habit curHabit;
     private TextView dayToOccur;
+    private HabitListController habitListController;
+    private int[] statusEntries = {0,0};
+    private final String[] statusNames = {"Completed", "Uncompleted"};
+    /**
+     * import added to gradle MPAndroid chart by PhilJay
+     * https://github.com/PhilJay/MPAndroidChart
+     */
+    PieChart statusChart;
     private HabitListController habitListController;
 
     @Override
@@ -70,6 +87,65 @@ public class JustHabitDetails extends BaseActivity {
         String startingDate = "Starting Date: " + curHabit.getStartDate().toString();
         startDate.setText(startingDate);
 
+        Log.d(TAG, "StartChart"); //Checking
+
+        //Creating the pie chart from the Habit's 'data/events'
+        statusChart = (PieChart) findViewById(R.id.graph);
+        statusChart.setDescription(null);
+        statusChart.setRotationEnabled(false);
+        statusChart.setUsePercentValues(true);
+        statusChart.setHoleRadius(10f);
+        statusChart.setTransparentCircleAlpha(0);
+        statusChart.setCenterText("All Time Status");
+        statusChart.setCenterTextSize(5);
+        //statusChart.setDrawEntryLabels(true);
+        //statusChart.setEntryLabelTextSize(10);
+
+        //DEBUG
+        statusEntries[0] = 15;
+        statusEntries[1] = 9;
+
+        //Actual
+        //statusEntries = curHabit.getChartCount();
+        addDataSet();
+
+    }
+
+    private void addDataSet() {
+        Log.d(TAG, "data Chart"); //Checking
+        ArrayList<PieEntry> sEntries = new ArrayList<>();
+        ArrayList<String> sNames = new ArrayList<>();
+
+
+        for(int i = 0; i < statusEntries.length; i++) {
+            sEntries.add(new PieEntry(statusEntries[i], i));
+        }
+
+        for(int i = 0; i < statusEntries.length; i++) {
+            sNames.add(statusNames[i]);
+        }
+
+        //Creating data structure for entries
+        PieDataSet statusSet = new PieDataSet(sEntries, "All Time Status");
+        statusSet.setSliceSpace(2);
+        statusSet.setValueTextSize(10);
+
+        //colorize
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+        //colors.add(Color.GRAY);
+
+        statusSet.setColors(colors);
+
+        Legend mrWayne = statusChart.getLegend();
+        mrWayne.setForm(Legend.LegendForm.NONE);
+        //mrWayne.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
+
+        //Add data to pie mmmmmmmm...
+        PieData statusData = new PieData(statusSet);
+        statusChart.setData(statusData);
+        statusChart.invalidate();
 
     }
 

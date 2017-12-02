@@ -34,7 +34,7 @@ public class AddHabitTests {
         Date newHabitStartDate = new Date(0);
         List<Integer> newHabitDaysToComplete = Arrays.asList(Calendar.MONDAY, Calendar.THURSDAY);
 
-        addHabit.add(newHabitName, newHabitStartDate, newHabitDaysToComplete);
+        addHabit.add(newHabitName, newHabitStartDate, newHabitDaysToComplete,newHabitName + "LOL");
 
         ArgumentCaptor<Habit> habitCaptor = ArgumentCaptor.forClass(Habit.class);
         verify(habitRepository).addHabit(habitCaptor.capture());
