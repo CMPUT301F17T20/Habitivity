@@ -64,9 +64,9 @@
             android:layout_gravity="top|end"
             android:layout_margin="8dp"
             android:background="@drawable/check"
+            android:text="@string/editEvent"
             android:textAllCaps="false"
-            tools:layout_editor_absoluteX="247dp"
-            tools:text="Settings (Mark)" />
+            tools:layout_editor_absoluteX="247dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

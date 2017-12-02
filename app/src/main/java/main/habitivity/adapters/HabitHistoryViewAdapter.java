@@ -53,8 +53,13 @@ public class HabitHistoryViewAdapter extends RecyclerView.Adapter<HabitHistoryVi
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
         holder.eventCompleted.setText(String.format("Completed: %s", df.format(event.getCompletionDate())));
         holder.eventComment.setText(event.getComment());
-        holder.userImage.setImageBitmap(event.getPhoto());
-        holder.settings.setText("Settings");
+
+        if (event.getPhoto() == null) {
+            holder.userImage.setImageResource(R.drawable.ic_menu_camera);
+        }
+        else {
+            holder.userImage.setImageBitmap(event.getPhoto());
+        }
         if (event.getLocation() != null) {
             holder.locImage.setImageResource(R.drawable.ic_location_icon_vector_red_pin);
         }

@@ -37,6 +37,7 @@
     <string name="hint">keywords</string>
     <string name="habithint">Event filter</string>
     <string name="addEvent">Add Event</string>
+    <string name="editEvent">Edit Event</string>
     <string name="locationadd">Add Location</string>
     <string name="comment">Comment</string>
     <string name="userImage">userImage</string>

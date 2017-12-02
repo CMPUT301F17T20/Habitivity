@@ -79,6 +79,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
 
         }
         startActivity(intent);
+        finish();
     }
 
     private void registerUser(String username){

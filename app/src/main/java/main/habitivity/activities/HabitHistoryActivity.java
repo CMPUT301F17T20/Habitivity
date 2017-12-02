@@ -36,10 +36,6 @@ public class HabitHistoryActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private HabitHistoryViewAdapter adapter;
     private List<HabitEvent> habitEvents = new ArrayList<HabitEvent>();
-
-
-    //private ArrayAdapter<HabitEvent> adapter;
-    //private ListView listView;
     private HabitListController habitListController;
 
     @Override
@@ -85,20 +81,6 @@ public class HabitHistoryActivity extends BaseActivity {
                 }
             }
         });
-        /*
-        listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<HabitEvent>(this, android.R.layout.simple_list_item_1, android.R.id.text1, habitListController.getHabitEvents() );
-        listView.setAdapter(adapter);
-        //Listens for when a record in the list is pressed
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), HabitEventDetailsActivity.class);
-                HabitSingletonContainer.getInstance().setHabitEvent((HabitEvent)listView.getAdapter().getItem(position));
-                startActivity(intent);
-            }
-        });
-        */
     }
 
     private void resolveDependencies() {
