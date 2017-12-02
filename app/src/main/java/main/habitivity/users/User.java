@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import io.searchbox.annotations.JestId;
 import main.habitivity.habits.Habit;
@@ -20,6 +21,7 @@ public class User implements Serializable, Parcelable{
     private ArrayList<String> followerRequests;
     private ArrayList<String> potentialFriends;
     private ArrayList<String> pendingRequest;
+    private Date lastLogin;
 
     @JestId
     private String uid;
@@ -33,6 +35,7 @@ public class User implements Serializable, Parcelable{
         this.followerRequests = new ArrayList<String>();
         this.potentialFriends = new ArrayList<String>();
         this.pendingRequest = new ArrayList<String>();
+        this.lastLogin = new Date();
     }
 
     protected User(Parcel in) {
@@ -321,6 +324,16 @@ public class User implements Serializable, Parcelable{
         return "User: " + this.getUserName();
 
     }
+
+    public void updateOfflineDays(){
+        Date today = new Date();
+        for(int i = 0; i < this.habits.size(); i++ ){
+            this.habits.get(i).addPassedDayCount(this.lastLogin, today, true);
+        }
+        this.lastLogin = today;
+    }
+
+    public Date getLastLogin(){ return this.lastLogin; }
 
     @Override
     public int describeContents() {

@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "main.habitivity"
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -68,4 +68,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.jayway.android.robotium:robotium-solo:5.6.3'
     compile files('src/include/jest-droid-2.0.1-SNAPSHOT.jar')
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 }

@@ -25,8 +25,7 @@
             android:layout_height="45dp"
             android:layout_gravity="top|center_horizontal"
             android:layout_margin="8dp"
-            android:contentDescription="LocationAdded"
-            app:srcCompat="@drawable/ic_location_icon_vector_red_pin" />
+            android:contentDescription="LocationAdded" />
 
         <ImageView
             android:id="@+id/userImage"
@@ -65,9 +64,9 @@
             android:layout_gravity="top|end"
             android:layout_margin="8dp"
             android:background="@drawable/check"
+            android:text="@string/editEvent"
             android:textAllCaps="false"
-            tools:layout_editor_absoluteX="247dp"
-            tools:text="Settings (Mark)" />
+            tools:layout_editor_absoluteX="247dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

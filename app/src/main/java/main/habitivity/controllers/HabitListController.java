@@ -5,10 +5,17 @@
 package main.habitivity.controllers;
 
 
+import android.support.annotation.Nullable;
+
 import com.google.common.collect.ArrayTable;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
@@ -84,6 +91,28 @@ public class HabitListController {
     public List<HabitEvent> getHabitEvents() {
         currentlyLoggedInUser = UserContainer.getInstance().getUser();
         return currentlyLoggedInUser.getHabitEvents();
+    }
+
+    public List<HabitEvent> getSortedEvents(final String filter) {
+        currentlyLoggedInUser = UserContainer.getInstance().getUser();
+        List<HabitEvent> list = currentlyLoggedInUser.getHabitEvents();
+        Collections.sort(list, new Comparator<HabitEvent>() {
+            @Override
+            public int compare(HabitEvent habitEvent, HabitEvent t1) {
+                return t1.getCompletionDate().compareTo(habitEvent.getCompletionDate());
+            }
+        });
+        if (!filter.isEmpty()) {
+            list = Lists.newArrayList(Collections2.filter(list, new com.google.common.base.Predicate<HabitEvent>() {
+                        @Override
+                        public boolean apply(@Nullable HabitEvent habitEvent) {
+                            return (habitEvent.getComment().contains(filter) || habitEvent.getId().contains(filter));
+                        }
+                    }
+            ));
+        }
+
+        return list;
     }
 
 }
