@@ -87,6 +87,7 @@
         <activity android:name=".activities.JustHabitDetails" />
         <activity
             android:name=".activities.HabitHistoryActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="Habit History" />
         <activity android:name=".activities.HabitEventDetailsActivity" />
         <!--

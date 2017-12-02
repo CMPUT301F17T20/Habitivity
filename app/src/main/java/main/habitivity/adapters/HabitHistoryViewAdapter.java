@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import main.habitivity.R;
 import main.habitivity.habits.HabitEvent;
@@ -49,7 +50,7 @@ public class HabitHistoryViewAdapter extends RecyclerView.Adapter<HabitHistoryVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         HabitEvent event = mFeed.get(position);
         holder.habitName.setText(event.getId());
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
         holder.eventCompleted.setText(String.format("Completed: %s", df.format(event.getCompletionDate())));
         holder.eventComment.setText(event.getComment());
         holder.userImage.setImageBitmap(event.getPhoto());

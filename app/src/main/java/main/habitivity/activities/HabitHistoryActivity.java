@@ -3,12 +3,14 @@
  */
 package main.habitivity.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,7 +59,7 @@ public class HabitHistoryActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        habitEvents = habitListController.getHabitEvents();
+        habitEvents = habitListController.getSortedEvents("");
         adapter.setRequestList(habitEvents);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(adapter);
@@ -75,6 +77,12 @@ public class HabitHistoryActivity extends BaseActivity {
                 String search = searchText.getText().toString();
                 habitEvents = habitListController.getSortedEvents(search);
                 adapter.setRequestList(habitEvents);
+                adapter.notifyDataSetChanged();
+
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow( view.getWindowToken(), 0);
+                }
             }
         });
         /*

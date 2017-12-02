@@ -3,7 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="login">Login</string>
     <string name="follows">Follows</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_habit">Add Habit</string>
@@ -33,7 +33,7 @@
     <string name="title_activity_login_user">LoginUser</string>
     <string name="NewUser">New User</string>
     <string name="title_activity_habit_events">HabitEvents</string>
-    <string name="search">Search</string>
+    <string name="search">Filter</string>
     <string name="hint">keywords</string>
     <string name="habithint">Event filter</string>
     <string name="addEvent">Add Event</string>

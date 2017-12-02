@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.google.common.collect.ArrayTable;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,23 +98,19 @@ public class HabitListController {
         Collections.sort(list, new Comparator<HabitEvent>() {
             @Override
             public int compare(HabitEvent habitEvent, HabitEvent t1) {
-                return habitEvent.getCompletionDate().compareTo(t1.getCompletionDate());
+                return t1.getCompletionDate().compareTo(habitEvent.getCompletionDate());
             }
         });
-        Collections2.filter(list, new com.google.common.base.Predicate<HabitEvent>() {
-                    @Override
-                    public boolean apply(@Nullable HabitEvent habitEvent) {
-                        return (habitEvent.getComment().contains(filter) | habitEvent.getId().contains(filter));
+        if (!filter.isEmpty()) {
+            list = Lists.newArrayList(Collections2.filter(list, new com.google.common.base.Predicate<HabitEvent>() {
+                        @Override
+                        public boolean apply(@Nullable HabitEvent habitEvent) {
+                            return (habitEvent.getComment().contains(filter) || habitEvent.getId().contains(filter));
+                        }
                     }
-                }
-        );
+            ));
+        }
 
-        list.removeIf(new Predicate<HabitEvent>() {
-            @Override
-            public boolean test(HabitEvent habitEvent) {
-                return !(habitEvent.getComment().contains(filter) | habitEvent.getId().contains(filter));
-            }
-        });
         return list;
     }
 

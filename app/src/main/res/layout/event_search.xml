@@ -14,6 +14,7 @@
         android:ems="10"
         android:hint="@string/hint"
         android:inputType="text"
+        android:maxLength="30"
         app:layout_constraintEnd_toStartOf="@+id/settingsButton2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
