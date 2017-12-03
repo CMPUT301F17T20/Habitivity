@@ -4,153 +4,172 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/woodbg"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/delete2"
-        android:layout_width="0dp"
-        android:layout_height="67dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:onClick="onAdd"
-        android:text="Add Habit"
-        android:textAllCaps="false"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorButton" />
-
-    <Button
-        android:id="@+id/colorButton"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="67dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Habit Type"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="32dp">
 
-    <TextView
-        android:id="@+id/daysofWeek"
-        android:layout_width="194dp"
-        android:layout_height="21dp"
-        android:layout_gravity="start|top"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/daysofWeek"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/addComment" />
-
-    <TextView
-        android:id="@+id/reason"
-        android:layout_width="194dp"
-        android:layout_height="21dp"
-        android:layout_gravity="start|top"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Reason"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/editscoordinator"
-        tools:layout_editor_absoluteX="8dp" />
-
-    <include
-        android:id="@+id/include3"
-        layout="@layout/content_add_edit_days"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysofWeek" />
-
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/editscoordinator"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventEditDelete">
-
-        <Button
-            android:id="@+id/chooseDate"
-            android:layout_width="168dp"
-            android:layout_height="45dp"
-            android:layout_gravity="bottom|end"
-            android:fontFamily="sans-serif"
-            android:text="@string/selectday"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_dark"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteX="200dp"
-            tools:layout_editor_absoluteY="-7dp" />
-
-        <TextView
-            android:id="@+id/dateChoice"
-            android:layout_width="185dp"
-            android:layout_height="34dp"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="8dp"
-            android:textAlignment="viewStart"
-            android:textSize="30sp"
-            tools:layout_editor_absoluteY="71dp"
-            tools:text="11/22/33" />
-
-        <TextView
-            android:id="@+id/starting"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:layout_margin="8dp"
-            android:text="@string/start"
+            android:background="@android:color/white">
+
+            <include
+                android:id="@+id/include3"
+                layout="@layout/content_add_edit_days"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daysofWeek" />
+
+            <TextView
+                android:id="@+id/daysofWeek"
+                android:layout_width="194dp"
+                android:layout_height="21dp"
+                android:layout_gravity="start|top"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/daysofWeek"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintTop_toBottomOf="@+id/addComment" />
+
+            <TextView
+                android:id="@+id/reason"
+                android:layout_width="194dp"
+                android:layout_height="21dp"
+                android:layout_gravity="start|top"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/Reason"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintTop_toBottomOf="@+id/editscoordinator"
+                tools:layout_editor_absoluteX="8dp" />
+
+            <EditText
+                android:id="@+id/addComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:inputType="text|textPersonName"
+                android:maxLength="30"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reason" />
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/editscoordinator"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventEditDelete">
+
+                <Button
+                    android:id="@+id/chooseDate"
+                    android:layout_width="168dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom|end"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/selectday"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="12sp"
+                    tools:layout_editor_absoluteX="200dp"
+                    tools:layout_editor_absoluteY="-7dp" />
+
+                <TextView
+                    android:id="@+id/dateChoice"
+                    android:layout_width="185dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="start|bottom"
+                    android:layout_margin="8dp"
+                    android:textAlignment="viewStart"
+                    android:textSize="30sp"
+                    tools:layout_editor_absoluteY="71dp"
+                    tools:text="11/22/33" />
+
+                <TextView
+                    android:id="@+id/starting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|top"
+                    android:layout_margin="8dp"
+                    android:text="@string/start"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+            </android.support.design.widget.CoordinatorLayout>
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/eventEditDelete"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <EditText
+                    android:id="@+id/habitInput"
+                    android:layout_width="351dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="start|top"
+                    android:layout_margin="8dp"
+                    android:hint="@string/habitName"
+                    android:maxLength="20"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    tools:layout_editor_absoluteY="5dp" />
+
+            </android.support.design.widget.CoordinatorLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/delete2"
+            android:layout_width="0dp"
+            android:layout_height="67dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:onClick="onAdd"
+            android:text="Add Habit"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:textStyle="italic" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/colorButton" />
 
-    </android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/colorButton"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Habit Type"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <EditText
-        android:id="@+id/addComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:maxLength="30"
-        android:inputType="text|textPersonName"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reason" />
-
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/eventEditDelete"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <EditText
-            android:id="@+id/habitInput"
-            android:layout_width="351dp"
-            android:layout_height="44dp"
-            android:layout_gravity="start|top"
-            android:layout_margin="8dp"
-            android:hint="@string/habitName"
-            android:textSize="24sp"
-            android:textStyle="italic"
-            android:maxLength="20"
-            tools:layout_editor_absoluteY="5dp" />
-
-    </android.support.design.widget.CoordinatorLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
