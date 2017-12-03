@@ -1,12 +1,16 @@
 package main.habitivity.activities;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -21,7 +25,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import main.habitivity.R;
+import main.habitivity.adapters.ClickListener;
+import main.habitivity.adapters.FindFriendsViewAdapter;
+import main.habitivity.adapters.HomeFeedViewAdapter;
 import main.habitivity.controllers.AllUsersController;
+import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
@@ -33,7 +41,8 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
 
     private TextView userName;
     private ListView listView;
-    public ArrayAdapter<Habit> adapter;
+    private RecyclerView recyclerView;
+    private HomeFeedViewAdapter adapter;
     private HabitListController habitListController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +68,27 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         String welcomeUser = "Welcome User: " + CurrentUser.getInstance().getCurrentUser();
         userName.setText(welcomeUser);
 
-        listView = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, android.R.id.text1, habitListController.getAllHabitsOfUserAndFollowing() );
-        listView.setAdapter(adapter);
-        //Listens for when a record in the list is pressed
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recyclerView = (RecyclerView) findViewById(R.id.listRecyclerView);
+        adapter = new HomeFeedViewAdapter(this, new ClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onPositionClicked(int position) {
                 Intent intent = new Intent(getApplicationContext(), EventDetailsNonEditable.class);
-                Habit curHabit = (Habit)listView.getAdapter().getItem(position);
+                Habit curHabit = habitListController.getAllHabitsOfUserAndFollowing().get(position);
                 //get the owner of the habit
                 User userToView = UserContainer.getInstance().findUser(curHabit.getUserName());
                 HabitSingletonContainer.getInstance().setHabit(curHabit);
                 UserContainer.getInstance().setUserToView(userToView);
                 startActivity(intent);
             }
+
         });
+        adapter.setRequestList(habitListController.getAllHabitsOfUserAndFollowing());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
         Button searchButton = (Button) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {

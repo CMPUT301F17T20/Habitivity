@@ -24,14 +24,4 @@
         app:layout_constraintVertical_bias="0.033" />
 
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="422dp"
-        android:layout_marginTop="44dp"
-        android:layout_weight="1"
-        app:layout_constraintTop_toBottomOf="@id/User"
-        tools:layout_editor_absoluteX="247dp"></ListView>
-
-
 </android.support.constraint.ConstraintLayout>

@@ -182,6 +182,8 @@
 
             </android.support.constraint.ConstraintLayout>
 
+
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/contentConstraint"
                 android:layout_width="0dp"
@@ -191,6 +193,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/headerConstraint">
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                <android.support.v7.widget.RecyclerView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/listRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/item_main_feed"/>
+            </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/contentLeft"
@@ -207,17 +227,6 @@
                         app:srcCompat="@drawable/content_shadowleft" />
                 </android.support.constraint.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/content"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:background="@android:color/white"
-                    app:layout_constraintLeft_toRightOf="@+id/contentLeft"
-                    app:layout_constraintRight_toLeftOf="@+id/contentRight"
-                    app:layout_constraintTop_toTopOf="parent">
-                </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/contentRight"
