@@ -134,13 +134,12 @@ public class UserTests {
         assertEquals(user.getFollowers().get(0), "test follower");
     }
 
-
     @Test
     public void test_testAddFollowing(){
         User user = new User("newuser", new ArrayList<Habit>(), new ArrayList<HabitEvent>(), new ArrayList<String>(), new ArrayList<String>());
         HabitEvent habitEvent = new HabitEvent(new Date());
         user.addFollowing("test following");
-        assertEquals(user.getFollowing().get(0), "test following");
+        assertEquals(user.getFollowing().size(), 1);
     }
 
     @Test
@@ -150,4 +149,16 @@ public class UserTests {
         user.addFollowerRequest("testRequest");
         assertEquals(user.getFollowerRequests().get(0), "testRequest");
     }
+
+    @Test
+    public void test_testRemoveFollowerRequest(){
+        User user = new User("newuser", new ArrayList<Habit>(), new ArrayList<HabitEvent>(), new ArrayList<String>(), new ArrayList<String>());
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        user.addFollowerRequest("testRequest");
+        assertEquals(user.getFollowers().get(0), "test follower");
+
+        user.removeFollowerRequest(0);
+        assertEquals(user.getFollowers().size(), 0);
+    }
+
 }
