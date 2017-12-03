@@ -34,4 +34,12 @@ public class LocationsController {
         return habitInteractionsFactory.getHabitEvents().getListOfHabitLocations();
     }
 
+    public List<Location> getMyLocations() {
+        return habitInteractionsFactory.getHabitEvents().getListOfMyHabitLocations();
+    }
+
+    public List<Location> getFriendsLocations() {
+        return habitInteractionsFactory.getHabitEvents().getListOfFriendsHabitLocations();
+    }
+
 }

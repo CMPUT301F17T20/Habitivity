@@ -37,4 +37,12 @@ public class GetHabitEvents {
     public List<Location> getListOfHabitLocations(){
         return habitRepository.getHabitLocations();
     }
+
+    public List<Location> getListOfFriendsHabitLocations(){
+        return habitRepository.getHabitLocations();
+    }
+
+    public List<Location> getListOfMyHabitLocations(){
+        return habitRepository.getHabitLocations();
+    }
 }

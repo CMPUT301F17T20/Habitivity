@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import main.habitivity.R;
 import main.habitivity.controllers.LocationsController;
 
@@ -38,6 +41,10 @@ public class MapsActivity extends BaseActivity
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
+    private ArrayList<LatLng> myLocations = new ArrayList<>();
+    private ArrayList<LatLng> friendsLocations = new ArrayList<>();
+    private CheckBox friendsLocationBox;
+    private CheckBox myLocationsBox;
 
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
     private GoogleApiClient mGoogleApiClient;
@@ -74,6 +81,64 @@ public class MapsActivity extends BaseActivity
 
         resolveDependencies();
 
+        myLocationsBox = (CheckBox)findViewById(R.id.displayMyLocation);
+        friendsLocationBox = (CheckBox)findViewById(R.id.displayFollowingLocation);
+
+        myLocationsBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(myLocationsBox.isChecked()){
+                    mMap.clear();
+                    for(LatLng location: myLocations) {
+                        mMap.addMarker(new MarkerOptions().position(location)
+                                .title("stub title"));
+                    }
+                    if(friendsLocationBox.isChecked()){
+                        for(LatLng location: friendsLocations) {
+                            mMap.addMarker(new MarkerOptions().position(location)
+                                    .title("stub title"));
+                        }
+                    }
+                }else{
+                    mMap.clear();
+                    if(friendsLocationBox.isChecked()){
+                        for(LatLng location: friendsLocations) {
+                            mMap.addMarker(new MarkerOptions().position(location)
+                                    .title("stub title"));
+                        }
+                    }
+                }
+            }
+        });
+
+        friendsLocationBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if(friendsLocationBox.isChecked()){
+                    mMap.clear();
+                    for(LatLng location: friendsLocations) {
+                        mMap.addMarker(new MarkerOptions().position(location)
+                                .title("stub title"));
+                    }
+                    if(myLocationsBox.isChecked()){
+                        for(LatLng location: myLocations) {
+                            mMap.addMarker(new MarkerOptions().position(location)
+                                    .title("stub title"));
+                        }
+                    }
+                }else{
+                    mMap.clear();
+                    if(myLocationsBox.isChecked()){
+                        for(LatLng location: myLocations) {
+                            mMap.addMarker(new MarkerOptions().position(location)
+                                    .title("stub title"));
+                        }
+                    }
+                }
+            }
+        });
+
         // Build the Play services client for use by the Fused Location Provider and the Places API.
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -101,6 +166,20 @@ public class MapsActivity extends BaseActivity
     private void resolveDependencies() {
         HabitApplication app = getHabitApplication();
         locationsController = app.getLocationsController();
+
+        //add a marker for each habit location
+        for (Location location : locationsController.getMyLocations()) {
+            if(!myLocations.contains(location)) {
+                LatLng newMarker = new LatLng(location.getLatitude(), location.getLongitude());
+                myLocations.add(newMarker);
+            }
+        }
+
+        for (Location location : locationsController.getFriendsLocations()) {
+            if(!friendsLocations.contains(location)) {
+                friendsLocations.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            }
+        }
     }
 
     /**
@@ -215,12 +294,6 @@ public class MapsActivity extends BaseActivity
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
 
-        //add a marker for each habit location
-        for (Location location : locationsController.getLocations()) {
-                LatLng addMark = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(addMark)
-                        .title("stub title"));
-        }
     }
 
     /**

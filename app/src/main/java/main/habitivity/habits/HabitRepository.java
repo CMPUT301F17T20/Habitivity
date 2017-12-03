@@ -96,28 +96,52 @@ public class HabitRepository implements IHabitRepository{
         return events;
     }
 
-    /**
-     * Grabs habit events locations that are saved locally since we don't have elastic search yet
-     */
-    public void ensureHabitLocations(){
+    public Map<String, Location> ensureFriendsLocations(){
+        Map<String, Location> friendsLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
         //add habit events of other users
         for(User user: currentUser.getFollowing()){
             for(HabitEvent habitEvent: user.getHabitEvents()){
                 if(habitEvent.getLocation() != null){
+                    friendsLocations.put(habitEvent.getId(), habitEvent.getLocation());
                     habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
                 }
             }
         }
-
-        //add habit events of other users;
-        for (HabitEvent habitEvent: habitService.getHabitEvents()) {
-            if(habitEvent.getLocation() != null){
-                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
-            }
-        }
+        return friendsLocations;
     }
 
+    public Map<String, Location> ensureMyLocations(){
+        Map<String, Location> myLocations = new HashMap<>();
+        User currentUser = UserContainer.getInstance().getUser();
+        //add habit events of other users
+        for(User user: currentUser.getFollowing()){
+            for(HabitEvent habitEvent: user.getHabitEvents()){
+                if(habitEvent.getLocation() != null){
+                    myLocations.put(habitEvent.getId(), habitEvent.getLocation());
+                    habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
+                }
+            }
+        }
+        return myLocations;
+    }
+    /**
+     * Grabs habit events locations that are saved locally since we don't have elastic search yet
+     */
+    public void ensureHabitLocations(){
+        ensureMyLocations();
+        ensureFriendsLocations();
+    }
+
+    public List<Location> getListOfMyHabitLocations(){
+        List<Location> location = new ArrayList<>( ensureMyLocations().values());
+        return location;
+    }
+
+    public List<Location> getListOfFriendsHabitLocations(){
+        List<Location> location = new ArrayList<>( ensureFriendsLocations().values());
+        return location;
+    }
     /**
      * Get a list of habit locations
      * @return list of habit locations
