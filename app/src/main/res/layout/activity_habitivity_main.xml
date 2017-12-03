@@ -65,7 +65,7 @@
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/buttonLeftConstraint"
-                        android:layout_width="73dp"
+                        android:layout_width="63dp"
                         android:layout_height="38dp"
                         android:clickable="true"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,7 +93,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:paddingStart="8dp"
                             android:text="History" />
                     </android.support.constraint.ConstraintLayout>
 
@@ -109,7 +108,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            android:paddingStart="16dp"
                             android:text="More" />
                     </android.support.constraint.ConstraintLayout>
 
@@ -214,7 +212,7 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/contentLeft"
-                    android:layout_width="23dp"
+                    android:layout_width="15dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -230,7 +228,7 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/contentRight"
-                    android:layout_width="23dp"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
