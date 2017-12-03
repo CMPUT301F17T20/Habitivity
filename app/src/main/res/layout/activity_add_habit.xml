@@ -68,12 +68,8 @@
         layout="@layout/content_add_edit_days"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/daysofWeek"
-        tools:layout_editor_absoluteY="250dp" />
+        app:layout_constraintTop_toBottomOf="@+id/daysofWeek" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/editscoordinator"
