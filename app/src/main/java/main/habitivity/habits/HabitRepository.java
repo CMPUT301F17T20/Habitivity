@@ -115,12 +115,10 @@ public class HabitRepository implements IHabitRepository{
         Map<String, Location> myLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
         //add habit events of other users
-        for(User user: currentUser.getFollowing()){
-            for(HabitEvent habitEvent: user.getHabitEvents()){
-                if(habitEvent.getLocation() != null){
-                    myLocations.put(habitEvent.getId(), habitEvent.getLocation());
-                    habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
-                }
+        for(HabitEvent habitEvent: currentUser.getHabitEvents()){
+            if(habitEvent.getLocation() != null){
+                myLocations.put(habitEvent.getId(), habitEvent.getLocation());
+                habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
             }
         }
         return myLocations;

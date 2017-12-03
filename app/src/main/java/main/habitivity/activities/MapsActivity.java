@@ -1,6 +1,7 @@
 package main.habitivity.activities;
 
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +21,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -41,10 +45,11 @@ public class MapsActivity extends BaseActivity
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
-    private ArrayList<LatLng> myLocations = new ArrayList<>();
-    private ArrayList<LatLng> friendsLocations = new ArrayList<>();
+    private ArrayList<Location> myLocations = new ArrayList<>();
+    private ArrayList<Location> friendsLocations = new ArrayList<>();
     private CheckBox friendsLocationBox;
     private CheckBox myLocationsBox;
+    private LatLng curLocation = new LatLng(0.0, 0.0);
 
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
     private GoogleApiClient mGoogleApiClient;
@@ -89,22 +94,46 @@ public class MapsActivity extends BaseActivity
             public void onClick(View v) {
                 if(myLocationsBox.isChecked()){
                     mMap.clear();
-                    for(LatLng location: myLocations) {
-                        mMap.addMarker(new MarkerOptions().position(location)
-                                .title("stub title"));
+                    for(Location location: myLocations) {
+                        if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title("stub title")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        }
+                        else{
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title("stub title")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
+                        }
                     }
                     if(friendsLocationBox.isChecked()){
-                        for(LatLng location: friendsLocations) {
-                            mMap.addMarker(new MarkerOptions().position(location)
-                                    .title("stub title"));
+                        for(Location location: friendsLocations) {
+                            if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                        .title("stub title")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            }
+                            else{
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                        .title("stub title")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.2f));
+                            }
                         }
                     }
                 }else{
                     mMap.clear();
                     if(friendsLocationBox.isChecked()){
-                        for(LatLng location: friendsLocations) {
-                            mMap.addMarker(new MarkerOptions().position(location)
-                                    .title("stub title"));
+                        for(Location location: friendsLocations) {
+                            if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                        .title("stub title")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            }
+                            else{
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                        .title("stub title")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.2f));
+                            }
                         }
                     }
                 }
@@ -115,28 +144,57 @@ public class MapsActivity extends BaseActivity
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(friendsLocationBox.isChecked()){
+                if (friendsLocationBox.isChecked()) {
                     mMap.clear();
-                    for(LatLng location: friendsLocations) {
-                        mMap.addMarker(new MarkerOptions().position(location)
-                                .title("stub title"));
-                    }
-                    if(myLocationsBox.isChecked()){
-                        for(LatLng location: myLocations) {
-                            mMap.addMarker(new MarkerOptions().position(location)
-                                    .title("stub title"));
+                    for (Location location : friendsLocations) {
+                        if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title("stub title")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        }
+                        else{
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title("stub title")
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.2f));
                         }
                     }
-                }else{
-                    mMap.clear();
-                    if(myLocationsBox.isChecked()){
-                        for(LatLng location: myLocations) {
-                            mMap.addMarker(new MarkerOptions().position(location)
-                                    .title("stub title"));
+
+                    if (myLocationsBox.isChecked()) {
+                            for (Location location : myLocations) {
+                                if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title("stub title")
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                                }
+                                else{
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title("stub title")
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
+                                }
+                            }
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(mLastKnownLocation.getLatitude() +5, mLastKnownLocation.getLongitude() + 5))
+                                .title("stub title")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
+                        }
+                    }else{
+                        mMap.clear();
+                        if (myLocationsBox.isChecked()) {
+                            for (Location location : myLocations) {
+                                if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title("stub title")
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                                }
+                                else{
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                            .title("stub title")
+                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
+                                }
+                            }
                         }
                     }
+
                 }
-            }
         });
 
         // Build the Play services client for use by the Fused Location Provider and the Places API.
@@ -167,19 +225,9 @@ public class MapsActivity extends BaseActivity
         HabitApplication app = getHabitApplication();
         locationsController = app.getLocationsController();
 
-        //add a marker for each habit location
-        for (Location location : locationsController.getMyLocations()) {
-            if(!myLocations.contains(location)) {
-                LatLng newMarker = new LatLng(location.getLatitude(), location.getLongitude());
-                myLocations.add(newMarker);
-            }
-        }
+        myLocations.addAll(locationsController.getMyLocations());
+        friendsLocations.addAll(locationsController.getFriendsLocations());
 
-        for (Location location : locationsController.getFriendsLocations()) {
-            if(!friendsLocations.contains(location)) {
-                friendsLocations.add(new LatLng(location.getLatitude(), location.getLongitude()));
-            }
-        }
     }
 
     /**
@@ -252,6 +300,7 @@ public class MapsActivity extends BaseActivity
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
     }
 
     /**
@@ -286,7 +335,7 @@ public class MapsActivity extends BaseActivity
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
         } else if (mLastKnownLocation != null) {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(mLastKnownLocation.getLatitude(),
+                    curLocation = new LatLng(mLastKnownLocation.getLatitude(),
                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
         } else {
             Log.d(TAG, "Current location is null. Using defaults.");
