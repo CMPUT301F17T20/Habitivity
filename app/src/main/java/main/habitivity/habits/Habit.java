@@ -4,6 +4,8 @@
 
 package main.habitivity.habits;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Habit {
     private int onSchedCount = 0;
     private int passedDayCount = 0;
     private int fakeAddDays = 0;
+    private static String TAG = "addEvent"; //testing
 
     public Habit() {
     }
@@ -214,6 +217,7 @@ public class Habit {
         Calendar todayCal = Calendar.getInstance();
         Calendar startCal = Calendar.getInstance();
 
+        //Log.d(TAG, "addHabitEvent");
         //Getting completion date and start date to check if done on schedule today with todayCal
         compCal.setTime(habitEvent.getCompletionDate());
         startCal.setTime(this.getStartDate());
@@ -243,6 +247,7 @@ public class Habit {
     public void addPassedDayCount(Date start, Date end, Boolean real){
         Calendar endCal = Calendar.getInstance();
         Calendar curCal = Calendar.getInstance();
+        Calendar lastCal = Calendar.getInstance();
         Boolean beforeEnd = true;
         int days = 0;
         Double yDays;
@@ -250,9 +255,16 @@ public class Habit {
         int remaindays;
         this.fakeAddDays = days;
 
+        if(this.lastComplete != null){
+            lastCal.setTime(this.lastComplete);
+            lastCal.add(Calendar.DATE, 1);
+        }
+        else{
+            lastCal.setTime(start);
+        }
         endCal.setTime(end);
-        //Choose user inpued start from previous login
-        curCal.setTime(max(start,this.startDate, this.lastComplete));
+        //Choose user inputed start from previous login
+        curCal.setTime(max(start,this.startDate, lastCal.getTime()));
         beforeEnd = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
                 curCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
                 || curCal.get(Calendar.YEAR) < endCal.get(Calendar.YEAR);

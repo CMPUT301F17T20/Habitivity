@@ -101,7 +101,7 @@ public class JustHabitDetails extends BaseActivity {
         statusChart.setHoleRadius(10f);
         statusChart.setTransparentCircleAlpha(0);
         statusChart.setCenterText("On Time and Missed Events");
-        statusChart.setCenterTextSize(10);
+        statusChart.setCenterTextSize(0);
         //statusChart.setDrawEntryLabels(true);
         //statusChart.setEntryLabelTextSize(10);
 
@@ -118,11 +118,7 @@ public class JustHabitDetails extends BaseActivity {
         Log.d(TAG, "data Chart" + completed + " " + uncompleted); //Checking
         ArrayList<PieEntry> sEntries = new ArrayList<>();
         ArrayList<String> sNames = new ArrayList<>();
-        int[] statusEntries = {completed, uncompleted};
-
-        //TESTING
-        statusEntries[0] = 15;
-        statusEntries[1] = 25;
+        int[] statusEntries = {completed, uncompleted}; /*TESTING: statusEntries[0] = 15; statusEntries[1] = 25;*/
 
         for(int i = 0; i < statusEntries.length; i++) {
             sEntries.add(new PieEntry(statusEntries[i], i));
