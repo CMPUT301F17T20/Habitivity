@@ -4,10 +4,12 @@
 package main.habitivity.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,8 +20,10 @@ import java.util.Date;
 import java.util.List;
 
 import main.habitivity.R;
+import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitRepository;
+import main.habitivity.habits.HabitSingletonContainer;
 
 /**
  * This activity displays the habits scheduled for the current day
@@ -33,9 +37,11 @@ import main.habitivity.habits.HabitRepository;
 public class TodaysHabits extends BaseActivity {
 
     private HabitListAdapter adapter;
+    public ListView habitListDisplay;
     private ArrayList<Habit> habitList;
     private ArrayList<Habit> habitListToday;
     private HabitRepository repository;
+    private HabitListController habitListController;
 
     /**
      * Fetch habits from HabitRepository, filter for today's habits.
@@ -47,7 +53,7 @@ public class TodaysHabits extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_habits);
         resolveDependencies();
-        habitList = repository.getHabits();
+        habitList = (ArrayList<Habit>) habitListController.getHabits();
         habitListToday = new ArrayList<Habit>();
 
         Calendar calendar = Calendar.getInstance();
@@ -60,15 +66,25 @@ public class TodaysHabits extends BaseActivity {
                 System.out.print(i);
             }
             System.out.println();
-            if (habit.checkDay(today)){
+            if (habit.checkDay(today) && habit.afterStartDate(calendar.getTime())){
                 habitListToday.add(habit);
             }
         }
 
+        habitListDisplay = (ListView) findViewById(R.id.todays_habits);
         adapter = new HabitListAdapter(this, R.layout.list_item_habit_today, habitListToday);
-        ListView habitListDisplay = (ListView) findViewById(R.id.todays_habits);
 
         habitListDisplay.setAdapter(adapter);
+
+        //Listens for when a record in the list is pressed
+        habitListDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), AddEvent.class);
+                HabitSingletonContainer.getInstance().setHabit((Habit)habitListDisplay.getAdapter().getItem(position));
+                startActivity(intent);
+            }
+        });
 
         //setEnabled(false)
 
@@ -76,7 +92,7 @@ public class TodaysHabits extends BaseActivity {
 
     private void resolveDependencies() {
         HabitApplication app = getHabitApplication();
-        repository = app.getHabitRepository();
+        habitListController = app.getHabitListController();
     }
 
     /**

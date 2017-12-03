@@ -40,6 +40,8 @@ public class JustHabitDetails extends BaseActivity {
     /**
      * import added to gradle MPAndroid chart by PhilJay
      * https://github.com/PhilJay/MPAndroidChart
+     * For visualizing the count of all the scheduled days of the week passed and those done on time
+     * via pie chart.
      */
     PieChart statusChart;
     private HabitListController habitListController;
@@ -114,6 +116,14 @@ public class JustHabitDetails extends BaseActivity {
 
     }
 
+    /**
+     * Visualizes the count of all the scheduled days of the week passed and those done on time via
+     * pie chart.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
     private void addDataSet(int completed, int uncompleted) {
         Log.d(TAG, "data Chart" + completed + " " + uncompleted); //Checking
         ArrayList<PieEntry> sEntries = new ArrayList<>();
