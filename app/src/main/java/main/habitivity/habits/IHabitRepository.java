@@ -18,6 +18,8 @@ public interface IHabitRepository {
     List<Habit> getHabits();
     List<HabitEvent> getHabitEvents();
     List<Location> getHabitLocations();
+    List<Location> getListOfMyHabitLocations();
+    List<Location> getListOfFriendsHabitLocations();
 
     void removeHabit(Habit habit);
     void addHabit(Habit habit);

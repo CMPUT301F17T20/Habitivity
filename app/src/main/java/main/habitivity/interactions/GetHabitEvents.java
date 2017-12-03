@@ -39,10 +39,10 @@ public class GetHabitEvents {
     }
 
     public List<Location> getListOfFriendsHabitLocations(){
-        return habitRepository.getHabitLocations();
+        return habitRepository.getListOfFriendsHabitLocations();
     }
 
     public List<Location> getListOfMyHabitLocations(){
-        return habitRepository.getHabitLocations();
+        return habitRepository.getListOfMyHabitLocations();
     }
 }
