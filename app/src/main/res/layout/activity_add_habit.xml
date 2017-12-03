@@ -69,7 +69,7 @@
                 <EditText
                     android:id="@+id/habitInput"
                     android:layout_width="351dp"
-                    android:layout_height="44dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="start|top"
                     android:layout_margin="8dp"
                     android:hint="@string/habitName"

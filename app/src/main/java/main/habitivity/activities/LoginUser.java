@@ -28,7 +28,6 @@ import main.habitivity.users.UserContainer;
 import main.habitivity.controllers.AddHabitController;
 import main.habitivity.habits.Habit;
 import main.habitivity.users.User;
-import main.habitivity.profiles.CurrentUser;
 
 
 @SuppressLint("ParcelCreator")
@@ -105,7 +104,7 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         if(currentUserName == null){
             emptyUsernameDialog();
         }
-        CurrentUser.getInstance().setCurrentUser(currentUserName.getText().toString());
+
         String username = currentUserName.getText().toString();
 
         UserContainer.getInstance().setAllUsersExcludingUser(allUsers);
