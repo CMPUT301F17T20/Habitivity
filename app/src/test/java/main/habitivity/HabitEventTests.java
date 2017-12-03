@@ -1,6 +1,6 @@
 package main.habitivity;
-
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.media.Image;
 
 import org.junit.Before;
@@ -10,39 +10,59 @@ import static org.mockito.Mockito.mock;
 
 import java.util.Date;
 
+import main.habitivity.exceptions.ImageTooLargeException;
 import main.habitivity.habits.HabitEvent;
+import main.habitivity.interactions.Clock;
 
 
 public class HabitEventTests {
 
-    private String id;
-    private Date completionDateInitial;
-    private Date completionDateReplacement;
-    private String comment;
-    private Bitmap photograph;
-
-    private HabitEvent habitEvent;
-
     @Before
     public void set_up(){
-        id = "1234";
-        completionDateInitial = new Date();
-        completionDateReplacement = new Date();
-        comment = "This is a habit event";
-        photograph = mock(Bitmap.class);
-        habitEvent = new HabitEvent(completionDateInitial);
-
-        habitEvent.setId(id);
-        habitEvent.setCompletionDate(completionDateReplacement);
-        habitEvent.setComment(comment);
-        //habitEvent.setPhoto(photograph);
     }
 
     @Test
-    public void test(){
-        assertEquals(habitEvent.getId(), id);
-        assertEquals(habitEvent.getCompletionDate(), completionDateReplacement);
-        assertEquals(habitEvent.getComment(), comment);
-        assertEquals(habitEvent.getPhoto(), photograph);
+    public void test_habitId(){
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        habitEvent.setId("test id");
+        assertEquals(habitEvent.getId(), "test id");
     }
+
+    @Test
+    public void test_habitEventComment(){
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        habitEvent.setComment("comment");
+        assertEquals(habitEvent.getComment(), "comment");
+    }
+
+    @Test
+    public void test_completionDate(){
+        Clock time = new Clock();
+        HabitEvent habitEvent = new HabitEvent(time.getCurrentDate());
+        habitEvent.setCompletionDate(time.getCurrentDate());
+        assertEquals(habitEvent.getCompletionDate(), time.getCurrentDate());
+    }
+
+    @Test
+    public void test_location(){
+        Location loc = new Location("dummy");
+        loc.setLatitude(20.3);
+        loc.setLongitude(52.6);
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        habitEvent.setLocation(loc);
+        assertEquals(habitEvent.getLocation(), loc);
+    }
+
+    @Test
+    public void test_Photo(){
+        Bitmap dummyPhoto = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888);
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        try {
+            habitEvent.setPhoto(dummyPhoto);
+        } catch (ImageTooLargeException e) {
+            e.printStackTrace();
+        }
+        assertEquals(habitEvent.getPhoto(), dummyPhoto);
+    }
+
 }
