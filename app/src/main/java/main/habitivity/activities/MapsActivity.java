@@ -172,9 +172,6 @@ public class MapsActivity extends BaseActivity
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
                                 }
                             }
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(mLastKnownLocation.getLatitude() +5, mLastKnownLocation.getLongitude() + 5))
-                                .title("stub title")
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.2f));
                         }
                     }else{
                         mMap.clear();
