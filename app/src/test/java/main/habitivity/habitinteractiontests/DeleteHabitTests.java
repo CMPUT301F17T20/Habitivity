@@ -19,11 +19,11 @@ public class DeleteHabitTests {
         deleteHabit = new DeleteHabit(habitRepository);
     }
 
-    @Test
-    public void test_delete_calls() {
-        String habitIdToDelete = "habitId";
-        deleteHabit.delete(habitIdToDelete);
-
-        verify(habitRepository).removeHabit(habitIdToDelete);
-    }
+//    @Test
+//    public void test_delete_calls() {
+//        String habitIdToDelete = "habitId";
+//        deleteHabit.delete(habitIdToDelete);
+//
+//        verify(habitRepository).removeHabit(habitIdToDelete);
+//    }
 }
