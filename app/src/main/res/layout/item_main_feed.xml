@@ -15,19 +15,6 @@
             android:id="@+id/habitTitle"
             android:layout_width="182dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:layout_margin="8dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:text="SampleUser :" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="8dp"
             android:fontFamily="sans-serif-smallcaps"
@@ -35,7 +22,20 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            tools:text="Habit Title :" />
+            tools:text="Habit Title" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:text="Sample User" />
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

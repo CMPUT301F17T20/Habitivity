@@ -10,6 +10,7 @@
 
     <ListView
         android:id="@+id/list"
+        android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
         android:layout_height="422dp"
         android:layout_weight="1"
         android:layout_width="match_parent">
