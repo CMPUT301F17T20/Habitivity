@@ -29,9 +29,6 @@ public class HabitEvent {
     private Boolean onSched = false;
 
     public HabitEvent(Date completionDate) {
-        /* This path is going to need testing. I couldn't find the assumed source file online so I
-        had to take a blind guess.*/
-        photograph = BitmapFactory.decodeFile("main\\res\\drawable\\habit_event_default.png");
     }
 
     /**
