@@ -33,7 +33,6 @@ import main.habitivity.controllers.ElasticsearchController;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
-import main.habitivity.profiles.CurrentUser;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
 
@@ -65,7 +64,7 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         resolveDependencies();
 
         userName = (TextView) findViewById(R.id.User);
-        String welcomeUser = "Welcome User: " + CurrentUser.getInstance().getCurrentUser();
+        String welcomeUser = "Welcome User: " + UserContainer.getInstance().getUser();
         userName.setText(welcomeUser);
 
         recyclerView = (RecyclerView) findViewById(R.id.listRecyclerView);
