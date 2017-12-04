@@ -309,6 +309,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             }
         }
 
+
         addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap);
 
         curHabit.incrementTimesCompleted();
