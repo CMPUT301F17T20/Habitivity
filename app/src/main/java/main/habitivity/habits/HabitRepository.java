@@ -166,8 +166,8 @@ public class HabitRepository implements IHabitRepository{
      */
     public void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent){
         //ensureHabitEvents();
-        //Use this to set on schedule variables in the event and it's habit
-        newHabitEvent = this.setOnSchedule(newHabitEvent);
+
+        //Use this to set on schedule variables in the event and it's habit //******newHabitEvent = this.setOnSchedule(newHabitEvent);
         habitService.updateHabitEventRequest(oldHabitEvent, newHabitEvent);
         int index = habitEvents.indexOf(oldHabitEvent);
         habitEvents.set(index, newHabitEvent);
@@ -180,8 +180,8 @@ public class HabitRepository implements IHabitRepository{
      */
     public void addHabitEvent(HabitEvent habitEvent){
        // ensureHabitEvents();
-        // Use this to set on schedule variables in the event and it's habit
-        habitEvent = this.setOnSchedule(habitEvent);
+
+        // Use this to set on schedule variables in the event and it's habit //********habitEvent = this.setOnSchedule(habitEvent);
         habitService.addHabitEventRequest(habitEvent);
         habitEvents.add(habitEvent);
     }
@@ -207,7 +207,16 @@ public class HabitRepository implements IHabitRepository{
         }
     }
 
-
+    /**
+     * Updates the event as 'on schedule', habit on schedule count,
+     * and last completed on schedule for habit
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     * @param addupdate
+     * @return addupdate with true parameter for variable onSched if on schedule
+     */
     private HabitEvent setOnSchedule(HabitEvent addupdate){
         Habit eventHabit;
         Calendar compCal = Calendar.getInstance();

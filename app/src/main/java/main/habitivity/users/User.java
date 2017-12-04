@@ -153,7 +153,7 @@ public class User implements Serializable, Parcelable{
         habitEvents.removeIf(new Predicate<HabitEvent>() {
             @Override
             public boolean test(HabitEvent habitEvent) {
-                return habitEvent.getId().equals(habitEventToRemove.getId());
+                return (habitEvent.getId().equals(habitEventToRemove.getId()) && habitEvent.getCompletionDate().equals(habitEventToRemove.getCompletionDate()));
             }
         });
     }
