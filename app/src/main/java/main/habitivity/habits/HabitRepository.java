@@ -74,12 +74,20 @@ public class HabitRepository implements IHabitRepository{
         return getSortedHabits();
     }
 
+    /**
+     * Sets habits to be assoicated with the habit repository
+     * @param habits
+     */
     public void setHabits(ArrayList<Habit> habits){
         for(Habit habit: habits){
             this.habits.add(habit);
         }
     }
 
+    /**
+     * Set habit events to be associated with the habit repository
+     * @param habitEvents
+     */
     public void setHabitEvents(ArrayList<HabitEvent> habitEvents){
         for(HabitEvent habitEvent: habitEvents){
             this.habitEvents.add(habitEvent);
@@ -96,6 +104,10 @@ public class HabitRepository implements IHabitRepository{
         return events;
     }
 
+    /**
+     * Ensure friends locations are up to date
+     * @return - locations of friends habit events
+     */
     public Map<String, Location> ensureFriendsLocations(){
         Map<String, Location> friendsLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
@@ -111,6 +123,10 @@ public class HabitRepository implements IHabitRepository{
         return friendsLocations;
     }
 
+    /**
+     * Ensures that the locations are up to date
+     * @return - locations of my habit events
+     */
     public Map<String, Location> ensureMyLocations(){
         Map<String, Location> myLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
@@ -131,11 +147,20 @@ public class HabitRepository implements IHabitRepository{
         ensureFriendsLocations();
     }
 
+    /**
+     * Get a list of locations associated with habit events created by the user
+     *
+     * @return - a list of location associated with habit events created by the user
+     */
     public List<Location> getListOfMyHabitLocations(){
         List<Location> location = new ArrayList<>( ensureMyLocations().values());
         return location;
     }
 
+    /**
+     * Get a list of locations associated with habit events created by friends of the user
+     * @return - a list of locations with habit events associated with friends of the user
+     */
     public List<Location> getListOfFriendsHabitLocations(){
         List<Location> location = new ArrayList<>( ensureFriendsLocations().values());
         return location;
@@ -273,8 +298,6 @@ public class HabitRepository implements IHabitRepository{
      *
      * @param[in] - the habit to update in our local disk/server
      *
-     * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
-     * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void updateHabit(Habit oldHabit, Habit newHabit) {
         //ensureHabits();
@@ -288,8 +311,6 @@ public class HabitRepository implements IHabitRepository{
      *
      * @param[in] - the habit to add in our local disk/server
      *
-     * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
-     * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void addHabit(Habit habit) {
         //ensureHabits();
@@ -303,8 +324,6 @@ public class HabitRepository implements IHabitRepository{
      *
      * @param[in] - id of the habit to remove
      *
-     * NOTE: YOU'RE GONNA NEED THE WHICHSERVICE CLASS TO BE COMPLETED SO IGNORE THIS FOR NOW
-     * AND I'LL TAKE CARE OF IT WHEN I FINISH SERVER/LOCAL DISK CLASSES
      */
     public void removeHabit(Habit habit) {
         //ensureHabits();
@@ -326,6 +345,10 @@ public class HabitRepository implements IHabitRepository{
         return sortedHabits;
     }
 
+    /**
+     * Sorts the habit events
+     * @return - a list of sorted habit events
+     */
     public ArrayList<HabitEvent> getSortedEvents() {
         ArrayList<HabitEvent> sortedEvents = new ArrayList<>(habitEvents);
 
@@ -337,7 +360,6 @@ public class HabitRepository implements IHabitRepository{
     /**
      * Helper function to compare habits and sort them
      *
-     * TODO LATER
      */
     private static Comparator<Habit> reverseChronologicalHabitComparator  = new Comparator<Habit>() {
         @Override
@@ -346,6 +368,9 @@ public class HabitRepository implements IHabitRepository{
         }
     };
 
+    /**
+     * Helper function to sort habit events
+     */
     private static Comparator<HabitEvent> reverseChronologicalEventComparator  = new Comparator<HabitEvent>() {
         @Override
         public int compare(HabitEvent lhs, HabitEvent rhs) {

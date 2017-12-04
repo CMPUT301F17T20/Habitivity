@@ -137,9 +137,6 @@ public class HabitEvent {
     *
     * @return photograph - photo associated with the HabitEvent
     */
-
-
-
     public Bitmap getPhoto() {
         if (this.photograph == null && thumbnail == null) {
             return null;
