@@ -281,6 +281,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         comment = (EditText) findViewById(R.id.addComment);
 
         addHabitEventController.addHabitEvent(eventTitle.getText().toString(), comment.getText().toString(), location, compDate, bitmap);
+        curHabit.incrementTimesCompleted();
 
         startActivity(intent);
     }
