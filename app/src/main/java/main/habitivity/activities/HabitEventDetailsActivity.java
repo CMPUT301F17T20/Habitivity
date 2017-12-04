@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
@@ -39,7 +41,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
     private Button addDate;
     private TextView viewDate;
     private TextView habitEventTitle;
-    private TextView completionDate;
+    private TextView locationText;
     private TextView comment;
     private HabitEvent curHabitEvent;
     private Calendar cal = Calendar.getInstance();
@@ -65,15 +67,21 @@ public class HabitEventDetailsActivity extends BaseActivity {
         resolveDependencies();
 
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
-        completionDate = (TextView) findViewById(R.id.dateChoice);
         comment = (TextView) findViewById(R.id.addComment);
         userImage = (ImageView) findViewById(R.id.userImage);
+        locationText = (TextView) findViewById(R.id.location);
+
 
         curHabitEvent = HabitSingletonContainer.getInstance().getHabitEvent();
+        Location loc = curHabitEvent.getLocation();
 
         String commentString = curHabitEvent.getComment();
         comment.setText(commentString);
         habitEventTitle.setText(curHabitEvent.getId());
+
+        if (loc != null) {
+            locationText.setText(String.format(Locale.CANADA, "Latitude: %f  Longitude: %f", loc.getLatitude(), loc.getLongitude()));
+        }
 
         addDate = (Button) findViewById(R.id.chooseDate);
         viewDate = (TextView) findViewById(R.id.dateChoice);
@@ -193,7 +201,6 @@ public class HabitEventDetailsActivity extends BaseActivity {
     public void onEdit(View view){
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
-        completionDate = (TextView) findViewById(R.id.dateChoice);
         comment = (TextView) findViewById(R.id.addComment);
 
         UpdateHabitEventRequest updateHabitEventRequest = new UpdateHabitEventRequest();
