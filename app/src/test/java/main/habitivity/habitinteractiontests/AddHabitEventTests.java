@@ -4,14 +4,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.IHabitRepository;
+import main.habitivity.interactions.AddHabit;
 import main.habitivity.interactions.AddHabitEvent;
 import main.habitivity.interactions.IClock;
 
@@ -23,6 +26,7 @@ public class AddHabitEventTests {
     private IClock clock;
     private IHabitRepository habitRepository;
     private AddHabitEvent completeHabit;
+    private AddHabitEvent addHabitEvent;
 
     private Habit habitWithoutCompletion;
     private Habit habitWithCompletion;
@@ -51,23 +55,20 @@ public class AddHabitEventTests {
     }
 
     @Test
-    public void test_ifHabitExists_thenUpdateIsCalledWithCompletionAdded() {
-        when(habitRepository.getHabit("Habit-ID")).thenReturn(habitWithoutCompletion);
-        when(clock.getCurrentDate()).thenReturn(new Date(1));
+    public void test_addHabitEvent() {
+        clock = mock(IClock.class);
+        habitRepository = mock(IHabitRepository.class);
+        addHabitEvent = new AddHabitEvent(habitRepository, clock);
 
-        completeHabit.complete("Habit-ID");
+        HabitEvent habitEvent = new HabitEvent(new Date());
+        String comment = "comment";
 
-        ArgumentCaptor<Habit> habitCaptor = ArgumentCaptor.forClass(Habit.class);
-        //verify(habitRepository).updateHabit(habitCaptor.capture());
+        habitEvent.setComment(comment);
+        habitEvent.setId(comment);
 
-        Habit habit = habitCaptor.getValue();
+        addHabitEvent.add(habitEvent.getId(), habitEvent.getComment(), null, null, null, Boolean.FALSE);
+        ArgumentCaptor<HabitEvent> habitCaptor = ArgumentCaptor.forClass(HabitEvent.class);
+        verify(habitRepository).addHabitEvent(habitCaptor.capture());
 
-        HabitEvent expectedCompletion = habitWithCompletion.getCompletedEvents().get(0);
-        HabitEvent actualCompletion = habit.getCompletedEvents().get(0);
-
-        assertEquals(habit.getTitle(), habitWithCompletion.getTitle());
-        assertEquals(habit.getStartDate(), habitWithCompletion.getStartDate());
-
-        assertEquals(expectedCompletion.getCompletionDate(), actualCompletion.getCompletionDate());
     }
 }
