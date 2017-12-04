@@ -145,24 +145,24 @@
                             android:id="@+id/add_habit"
                             android:layout_width="214dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
                             android:text="@string/title_activity_add_habit"
-                            tools:layout_editor_absoluteX="-7dp" />
+                            app:layout_constraintEnd_toEndOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/settingsButtonConstraint"
-                        android:layout_width="52dp"
+                        android:layout_width="51dp"
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="199dp">
+                        tools:layout_editor_absoluteX="200dp">
 
                         <Button
                             android:id="@+id/settingsButton"
-                            android:layout_width="43dp"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            tools:layout_editor_absoluteX="9dp" />
+                            android:background="@android:color/transparent" />
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
