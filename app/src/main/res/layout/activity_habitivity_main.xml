@@ -106,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:text="@string/history"
-                            android:textAlignment="textEnd" />
+                            android:textAlignment="center" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -253,7 +253,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_habitivity_main"
-        app:menu="@menu/activity_habitivity_main_drawer" >
+        app:menu="@menu/activity_habitivity_main_drawer">
 
     </android.support.design.widget.NavigationView>
 
