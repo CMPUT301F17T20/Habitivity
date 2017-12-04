@@ -108,12 +108,12 @@ public class HabitRepository implements IHabitRepository{
      * Ensure friends locations are up to date
      * @return - locations of friends habit events
      */
-    public Map<String, Location> ensureFriendsLocations(){
+    public Map<String, Location> ensureFriendsLocations(ArrayList<HabitEvent> eventsToCheck){
         Map<String, Location> friendsLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
         //add habit events of other users
         for(User user: currentUser.getFollowing()){
-            for(HabitEvent habitEvent: user.getHabitEvents()){
+            for(HabitEvent habitEvent: eventsToCheck){
                 if(habitEvent.getLocation() != null){
                     friendsLocations.put(habitEvent.getId(), habitEvent.getLocation());
                     habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
@@ -127,11 +127,11 @@ public class HabitRepository implements IHabitRepository{
      * Ensures that the locations are up to date
      * @return - locations of my habit events
      */
-    public Map<String, Location> ensureMyLocations(){
+    public Map<String, Location> ensureMyLocations(ArrayList<HabitEvent> eventsToCheck){
         Map<String, Location> myLocations = new HashMap<>();
         User currentUser = UserContainer.getInstance().getUser();
         //add habit events of other users
-        for(HabitEvent habitEvent: currentUser.getHabitEvents()){
+        for(HabitEvent habitEvent: eventsToCheck){
             if(habitEvent.getLocation() != null){
                 myLocations.put(habitEvent.getId(), habitEvent.getLocation());
                 habitLocations.put(habitEvent.getId(), habitEvent.getLocation());
@@ -143,8 +143,8 @@ public class HabitRepository implements IHabitRepository{
      * Grabs habit events locations that are saved locally since we don't have elastic search yet
      */
     public void ensureHabitLocations(){
-        ensureMyLocations();
-        ensureFriendsLocations();
+        ensureMyLocations(UserContainer.getInstance().getUser().getHabitEvents());
+        ensureFriendsLocations(UserContainer.getInstance().getUser().getHabitEvents());
     }
 
     /**
@@ -152,18 +152,20 @@ public class HabitRepository implements IHabitRepository{
      *
      * @return - a list of location associated with habit events created by the user
      */
-    public List<Location> getListOfMyHabitLocations(){
-        List<Location> location = new ArrayList<>( ensureMyLocations().values());
-        return location;
+    @Override
+    public Map<String, Location> getListOfMyHabitLocations(ArrayList<HabitEvent> habitEventsToFilter){
+        Map<String, Location> myLocation = new HashMap<>(ensureMyLocations(habitEventsToFilter));
+        return myLocation;
     }
 
     /**
      * Get a list of locations associated with habit events created by friends of the user
      * @return - a list of locations with habit events associated with friends of the user
      */
-    public List<Location> getListOfFriendsHabitLocations(){
-        List<Location> location = new ArrayList<>( ensureFriendsLocations().values());
-        return location;
+    @Override
+    public Map<String, Location> getListOfFriendsHabitLocations(ArrayList<HabitEvent> habitEventsToFilter){
+        Map<String, Location> friendsLocation = new HashMap<>(ensureFriendsLocations(habitEventsToFilter));
+        return friendsLocation;
     }
     /**
      * Get a list of habit locations

@@ -8,6 +8,7 @@ import android.location.Location;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /** 
  * IHabitRepository provides access to habits in memory and abstracts away
@@ -18,8 +19,8 @@ public interface IHabitRepository {
     List<Habit> getHabits();
     List<HabitEvent> getHabitEvents();
     List<Location> getHabitLocations();
-    List<Location> getListOfMyHabitLocations();
-    List<Location> getListOfFriendsHabitLocations();
+    Map<String, Location> getListOfMyHabitLocations(ArrayList<HabitEvent> habitEventsToFilter);
+    Map<String, Location> getListOfFriendsHabitLocations(ArrayList<HabitEvent> habitEventsToFilter);
 
     void removeHabit(Habit habit);
     void addHabit(Habit habit);

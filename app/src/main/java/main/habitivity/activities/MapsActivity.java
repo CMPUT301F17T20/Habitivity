@@ -1,5 +1,6 @@
 package main.habitivity.activities;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -9,7 +10,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -30,6 +34,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import main.habitivity.R;
 import main.habitivity.controllers.LocationsController;
@@ -45,8 +51,8 @@ public class MapsActivity extends BaseActivity
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
-    private ArrayList<Location> myLocations = new ArrayList<>();
-    private ArrayList<Location> friendsLocations = new ArrayList<>();
+    private Map<String, Location> myLocations = new HashMap<>();
+    private Map<String, Location> friendsLocations = new HashMap<>();
     private CheckBox friendsLocationBox;
     private CheckBox myLocationsBox;
     private LatLng curLocation = new LatLng(0.0, 0.0);
@@ -89,33 +95,82 @@ public class MapsActivity extends BaseActivity
         myLocationsBox = (CheckBox)findViewById(R.id.displayMyLocation);
         friendsLocationBox = (CheckBox)findViewById(R.id.displayFollowingLocation);
 
+        Button filter = (Button) findViewById(R.id.settingsButton2);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText searchText = (EditText) findViewById(R.id.searchTerm);
+                String search = searchText.getText().toString();
+                myLocations = locationsController.getMyLocations(search);
+                friendsLocations = locationsController.getFriendsLocations(search);
+
+                //reload the map
+                mMap.clear();
+                if(myLocationsBox.isChecked()) {
+                    for (Map.Entry<String, Location> entry : myLocations.entrySet()) {
+                        Location location = entry.getValue();
+                        String title = entry.getKey();
+                        if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title(title)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        } else {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title(title)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.4f));
+                        }
+                    }
+                }
+                if(friendsLocationBox.isChecked()){
+                    for(Map.Entry<String, Location> entry : friendsLocations.entrySet()) {
+                        Location location = entry.getValue();
+                        String title = entry.getKey();
+                        if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title(title)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        }
+                        else{
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title(title)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.4f));
+                        }
+                    }
+                }
+            }
+        });
+
         myLocationsBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(myLocationsBox.isChecked()){
                     mMap.clear();
-                    for(Location location: myLocations) {
+                    for (Map.Entry<String, Location> entry : myLocations.entrySet()) {
+                        Location location = entry.getValue();
+                        String title = entry.getKey();
                         if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .title("stub title")
+                                    .title(title)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         }
                         else{
                             mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .title("stub title")
+                                    .title(title)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.4f));
                         }
                     }
                     if(friendsLocationBox.isChecked()){
-                        for(Location location: friendsLocations) {
+                        for(Map.Entry<String, Location> entry : friendsLocations.entrySet()) {
+                            Location location = entry.getValue();
+                            String title = entry.getKey();
                             if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                        .title("stub title")
+                                        .title(title)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                             }
                             else{
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                        .title("stub title")
+                                        .title(title)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.4f));
                             }
                         }
@@ -123,15 +178,17 @@ public class MapsActivity extends BaseActivity
                 }else{
                     mMap.clear();
                     if(friendsLocationBox.isChecked()){
-                        for(Location location: friendsLocations) {
+                        for(Map.Entry<String, Location> entry : friendsLocations.entrySet()) {
+                            Location location = entry.getValue();
+                            String title = entry.getKey();
                             if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                        .title("stub title")
+                                        .title(title)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                             }
                             else{
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                        .title("stub title")
+                                        .title(title)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.4f));
                             }
                         }
@@ -146,29 +203,32 @@ public class MapsActivity extends BaseActivity
                 // TODO Auto-generated method stub
                 if (friendsLocationBox.isChecked()) {
                     mMap.clear();
-                    for (Location location : friendsLocations) {
+                    for (Map.Entry<String, Location> entry : friendsLocations.entrySet()) {
+                        Location location = entry.getValue();
                         if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                             mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .title("stub title")
+                                    .title(entry.getKey())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         }
                         else{
                             mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .title("stub title")
+                                    .title(entry.getKey())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).alpha(0.4f));
                         }
                     }
 
                     if (myLocationsBox.isChecked()) {
-                            for (Location location : myLocations) {
+                            for (Map.Entry<String, Location> entry : myLocations.entrySet()) {
+                                Location location = entry.getValue();
+                                String title = entry.getKey();
                                 if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                            .title("stub title")
+                                            .title(title)
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                                 }
                                 else{
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                            .title("stub title")
+                                            .title(title)
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.4f));
                                 }
                             }
@@ -176,15 +236,17 @@ public class MapsActivity extends BaseActivity
                     }else{
                         mMap.clear();
                         if (myLocationsBox.isChecked()) {
-                            for (Location location : myLocations) {
+                            for (Map.Entry<String, Location> entry : myLocations.entrySet()) {
+                                Location location = entry.getValue();
+                                String title = entry.getKey();
                                 if (mLastKnownLocation.distanceTo(location) <= 1000 * Float.valueOf(5)) {
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                            .title("stub title")
+                                            .title(title)
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                                 }
                                 else{
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                            .title("stub title")
+                                            .title(title)
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.4f));
                                 }
                             }
@@ -222,8 +284,8 @@ public class MapsActivity extends BaseActivity
         HabitApplication app = getHabitApplication();
         locationsController = app.getLocationsController();
 
-        myLocations.addAll(locationsController.getMyLocations());
-        friendsLocations.addAll(locationsController.getFriendsLocations());
+        myLocations = locationsController.getMyLocations("");
+        friendsLocations = locationsController.getFriendsLocations("");
 
     }
 

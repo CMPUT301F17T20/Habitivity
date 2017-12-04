@@ -4,7 +4,14 @@ package main.habitivity.controllers;
  */
 
 import android.location.Location;
+import android.support.annotation.Nullable;
 
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import main.habitivity.habits.Habit;
@@ -13,6 +20,7 @@ import main.habitivity.interactions.HabitInteractionsFactory;
 
 
 import java.util.List;
+import java.util.Map;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
@@ -34,12 +42,15 @@ public class LocationsController {
         return habitInteractionsFactory.getHabitEvents().getListOfHabitLocations();
     }
 
-    public List<Location> getMyLocations() {
-        return habitInteractionsFactory.getHabitEvents().getListOfMyHabitLocations();
+
+    public Map<String, Location> getMyLocations(final String filter) {
+        ArrayList<HabitEvent> habitEventsToFilter = habitInteractionsFactory.getHabitEvents().getSortedEventsForMaps(filter);
+        return habitInteractionsFactory.getHabitEvents().getListOfMyHabitLocations(habitEventsToFilter);
     }
 
-    public List<Location> getFriendsLocations() {
-        return habitInteractionsFactory.getHabitEvents().getListOfFriendsHabitLocations();
+    public Map<String, Location> getFriendsLocations(final String filter) {
+        ArrayList<HabitEvent> habitEventsToFilter = habitInteractionsFactory.getHabitEvents().getSortedEventsForMaps(filter);
+        return habitInteractionsFactory.getHabitEvents().getListOfFriendsHabitLocations(habitEventsToFilter);
     }
 
 }

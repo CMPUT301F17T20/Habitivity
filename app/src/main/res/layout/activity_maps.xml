@@ -11,14 +11,17 @@ tools:context="main.habitivity.activities.MapsActivity">
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         tools:context="main.habitivity.activities.MapsActivity" />
 
     <CheckBox
         android:id="@+id/displayMyLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/displayFollowingLocation"
         android:layout_alignStart="@+id/displayFollowingLocation"
+        android:layout_marginBottom="39dp"
         android:background="@android:color/transparent"
         android:text="Display My\n Locations" />
 
@@ -26,10 +29,33 @@ tools:context="main.habitivity.activities.MapsActivity">
         android:id="@+id/displayFollowingLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/displayMyLocation"
-        android:layout_marginTop="21dp"
+        android:layout_marginBottom="25dp"
         android:background="@android:color/transparent"
         android:text="Display Friends\n Locations" />
+
+    <EditText
+        android:id="@+id/searchTerm"
+        android:layout_width="231dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="@string/hint"
+        android:inputType="text"
+        android:maxLength="30" />
+
+    <Button
+        android:id="@+id/settingsButton2"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/searchTerm"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="top|end"
+        android:background="@drawable/check"
+        android:text="@string/search"
+        android:textAllCaps="false" />
+
 
 </RelativeLayout>

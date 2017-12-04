@@ -5,8 +5,16 @@
 package main.habitivity.interactions;
 
 import android.location.Location;
+import android.support.annotation.Nullable;
 
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
@@ -30,6 +38,28 @@ public class GetHabitEvents {
         return habitRepository.getHabitEvents();
     }
 
+
+    public ArrayList<HabitEvent> getSortedEventsForMaps(final String filter) {
+        List<HabitEvent> list = habitRepository.getHabitEvents();
+        Collections.sort(list, new Comparator<HabitEvent>() {
+            @Override
+            public int compare(HabitEvent habitEvent, HabitEvent t1) {
+                return t1.getCompletionDate().compareTo(habitEvent.getCompletionDate());
+            }
+        });
+        if (!filter.isEmpty()) {
+            list = Lists.newArrayList(Collections2.filter(list, new com.google.common.base.Predicate<HabitEvent>() {
+                        @Override
+                        public boolean apply(@Nullable HabitEvent habitEvent) {
+                            return (habitEvent.getComment().contains(filter) || habitEvent.getId().contains(filter));
+                        }
+                    }
+            ));
+        }
+
+        return (ArrayList<HabitEvent>)list;
+    }
+
     /**
      * Gets a list of habit event locations
      * @return a list of habit event locations
@@ -38,11 +68,11 @@ public class GetHabitEvents {
         return habitRepository.getHabitLocations();
     }
 
-    public List<Location> getListOfFriendsHabitLocations(){
-        return habitRepository.getListOfFriendsHabitLocations();
+    public Map<String, Location> getListOfFriendsHabitLocations(ArrayList<HabitEvent> habitEventsToFilter ){
+        return habitRepository.getListOfFriendsHabitLocations(habitEventsToFilter);
     }
 
-    public List<Location> getListOfMyHabitLocations(){
-        return habitRepository.getListOfMyHabitLocations();
+    public Map<String, Location> getListOfMyHabitLocations(ArrayList<HabitEvent> habitEventsToFilter ){
+        return habitRepository.getListOfMyHabitLocations(habitEventsToFilter);
     }
 }
