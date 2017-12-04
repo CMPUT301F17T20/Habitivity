@@ -11,6 +11,7 @@ import android.media.Image;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -97,6 +98,27 @@ public class HabitEvent {
     */
     public void setCompletionDate(Date completionDate) {
         this.completionDate = completionDate;
+    }
+
+    /**
+     * Returns if a date is the date of the last completed event for this habit
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     * @param curDay
+     * @return If day is the same as the completion date
+     */
+    public Boolean checkIfCompletionDay(Date curDay){
+        Calendar curCal = Calendar.getInstance();
+        Calendar completionCal = Calendar.getInstance();
+        if (this.completionDate == null){return false;}
+
+        curCal.setTime(curDay);
+        completionCal.setTime(this.completionDate);
+        boolean sameDay = completionCal.get(Calendar.YEAR) == curCal.get(Calendar.YEAR) &&
+                completionCal.get(Calendar.DAY_OF_YEAR) == curCal.get(Calendar.DAY_OF_YEAR);
+        return sameDay;
     }
 
     /**

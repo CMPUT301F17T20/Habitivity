@@ -48,6 +48,7 @@ import java.util.Date;
 import main.habitivity.R;
 import main.habitivity.controllers.AddHabitEventController;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
@@ -65,6 +66,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     private EditText comment;
     private Habit curHabit;
     private ToggleButton addLocation;
+    private String titleID;
     private Date compDate;
     private Location location = null;
     private Date startingDate = new Date();
@@ -276,11 +278,38 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         addHabitEventController = app.getAddHabitEventsController();
     }
 
+    /**
+     * Set the habit event, but iterates over existing habit events.
+     * If completion date is the same it does not create the event.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     * @param view
+     *
+     */
     public void onAdd(View view){
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         comment = (EditText) findViewById(R.id.addComment);
+        titleID = eventTitle.getText().toString();
 
-        addHabitEventController.addHabitEvent(eventTitle.getText().toString(), comment.getText().toString(), location, compDate, bitmap);
+        for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
+            if (event.checkIfCompletionDay(compDate) && (event.getId().equals(titleID))) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setMessage("An event for that date already exists! Pick another date")
+                        .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setTitle("Duplicate Date");
+                builder.show();
+                return;
+            }
+        }
+
+        addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap);
 
         startActivity(intent);
     }

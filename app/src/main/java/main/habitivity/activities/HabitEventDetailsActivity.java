@@ -33,6 +33,7 @@ import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.exceptions.ImageTooLargeException;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
+import main.habitivity.users.UserContainer;
 
 public class HabitEventDetailsActivity extends BaseActivity {
 
@@ -203,6 +204,22 @@ public class HabitEventDetailsActivity extends BaseActivity {
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
         comment = (TextView) findViewById(R.id.addComment);
+
+        for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
+            if (event.checkIfCompletionDay(compDate) && !curHabitEvent.checkIfCompletionDay(compDate) && (event.getId().equals(habitEventTitle.getText().toString()))) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setMessage("An event for that date already exists! Pick another date")
+                        .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setTitle("Duplicate Date");
+                builder.show();
+                return;
+            }
+        }
 
         UpdateHabitEventRequest updateHabitEventRequest = new UpdateHabitEventRequest();
         updateHabitEventRequest.setLocation(curHabitEvent.getLocation());
