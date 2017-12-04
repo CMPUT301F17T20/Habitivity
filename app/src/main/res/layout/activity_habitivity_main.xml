@@ -143,9 +143,9 @@
 
                         <Button
                             android:id="@+id/add_habit"
-                            android:layout_width="214dp"
+                            android:layout_width="190dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginEnd="12dp"
                             android:text="@string/title_activity_add_habit"
                             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -155,8 +155,8 @@
                         android:id="@+id/settingsButtonConstraint"
                         android:layout_width="51dp"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="200dp">
+                        app:layout_constraintStart_toEndOf="@+id/searchBox"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <Button
                             android:id="@+id/settingsButton"

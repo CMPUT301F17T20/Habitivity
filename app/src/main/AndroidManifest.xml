@@ -51,8 +51,7 @@
         <activity
             android:name=".activities.AddHabitActivity"
             android:label="@string/title_activity_add_habit"
-            android:parentActivityName=".activities.HabitivityMain"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".activities.HabitivityMain">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="main.habitivity.activities.HabitivityMain" />
@@ -61,18 +60,19 @@
             android:name=".activities.AddEvent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_add_event"
-            android:parentActivityName=".activities.HabitivityMain"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".activities.JustHabitDetails"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="main.habitivity.activities.HabitivityMain" />
         </activity>
-        <activity android:name=".activities.TodaysHabits" />
+        <activity android:name=".activities.TodaysHabits"
+            android:parentActivityName=".activities.HabitivityMain"/>
         <activity
             android:name=".activities.FollowRequest"
             android:label="@string/title_activity_follow_request"
+            android:parentActivityName=".activities.HabitivityMain"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -83,18 +83,21 @@
             android:name=".activities.LoginUser"
             android:label="@string/title_activity_login_user"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.EditHabit" />
+        <activity android:name=".activities.EditHabit"
+            android:parentActivityName=".activities.JustHabitDetails"/>
         <activity
             android:name=".activities.HabitListActivity"
             android:parentActivityName=".activities.HabitivityMain"
             android:label="All Habits" />
-        <activity android:name=".activities.JustHabitDetails" />
+        <activity android:name=".activities.JustHabitDetails"
+            android:parentActivityName=".activities.HabitListActivity"/>
         <activity
             android:name=".activities.HabitHistoryActivity"
             android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".activities.HabitivityMain"
             android:label="Habit History" />
-        <activity android:name=".activities.HabitEventDetailsActivity" />
+        <activity android:name=".activities.HabitEventDetailsActivity"
+            android:parentActivityName=".activities.HabitHistoryActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -111,11 +114,15 @@
 
         <activity
             android:name=".activities.MapsActivity"
+            android:parentActivityName=".activities.HabitivityMain"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.FindFriendsActivity" />
+        <activity android:name=".activities.FindFriendsActivity"
+            android:parentActivityName=".activities.HabitivityMain"/>
         <activity android:name=".activities.UserInformationActivity" />
-        <activity android:name=".activities.Following" />
-        <activity android:name=".activities.Followers" />
+        <activity android:name=".activities.Following"
+            android:parentActivityName=".activities.HabitivityMain"/>
+        <activity android:name=".activities.Followers"
+            android:parentActivityName=".activities.HabitivityMain"/>
         <activity android:name=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -123,8 +130,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RequestList" />
-        <activity android:name=".activities.EventDetailsNonEditable"></activity>
+        <activity android:name=".activities.RequestList"
+            android:parentActivityName=".activities.HabitivityMain"/>
+        <activity android:name=".activities.EventDetailsNonEditable"
+            android:parentActivityName=".activities.HabitivityMain"></activity>
     </application>
 
 </manifest>
