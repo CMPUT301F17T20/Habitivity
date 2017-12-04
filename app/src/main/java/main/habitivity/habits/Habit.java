@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
+import main.habitivity.R;
 
 import static org.apache.commons.lang3.ObjectUtils.max;
 
@@ -38,8 +39,10 @@ public class Habit {
     private int passedDayCount = 0;
     private int fakeAddDays = 0;
     private static String TAG = "addEvent"; //testing
+    private int timesCompleted;
 
     public Habit() {
+        timesCompleted = 0;
     }
 
     /**
@@ -56,6 +59,28 @@ public class Habit {
      */
     public void setUserName(String name){
         this.userName = name;
+    }
+
+    public int getTimesCompleted(){
+        return timesCompleted;
+    }
+
+    public void setTimesCompleted(int times){
+        timesCompleted = times;
+    }
+
+    public void incrementTimesCompleted(){
+        timesCompleted++;
+    }
+
+    public int getLevelIcon(){
+        if (timesCompleted < 5){
+            return R.drawable.level_icon_bronze;
+        }else if (timesCompleted < 15){
+            return R.drawable.level_icon_silver;
+        }else{
+            return R.drawable.level_icon_gold;
+        }
     }
 
     /**
