@@ -89,12 +89,22 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        Button searchButton = (Button) findViewById(R.id.searchButton);
+        /**Button searchButton = (Button) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 Intent intent = new Intent(HabitivityMain.this, AddHabitActivity.class);
                 startActivity(intent);
+            }
+        });**/
+
+        Button buttonLogo = (Button) findViewById(R.id.logobutton);
+        buttonLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(Gravity.START);
             }
         });
 
@@ -110,7 +120,7 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                Intent intent = new Intent(HabitivityMain.this, AddHabitActivity.class);
+                Intent intent = new Intent(HabitivityMain.this, TodaysHabits.class );
                 startActivity(intent);
             }
         });
@@ -126,11 +136,19 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
 
         Button buttonRight = (Button) findViewById(R.id.buttonRight);
         buttonRight.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawerLayout.openDrawer(Gravity.START);
+                Intent intent = new Intent(HabitivityMain.this, HabitListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonAdd = (Button) findViewById(R.id.add_habit);
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                Intent intent = new Intent(HabitivityMain.this, AddHabitActivity.class);
+                startActivity(intent);
             }
         });
     }

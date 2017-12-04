@@ -218,7 +218,7 @@ public class HabitRepository implements IHabitRepository{
      * @return addupdate with true parameter for variable onSched if on schedule
      */
     private HabitEvent setOnSchedule(HabitEvent addupdate){
-        Habit eventHabit;
+        /*Habit eventHabit;
         Calendar compCal = Calendar.getInstance();
         Calendar todayCal = Calendar.getInstance();
         Calendar startCal = Calendar.getInstance();
@@ -247,13 +247,13 @@ public class HabitRepository implements IHabitRepository{
                     addupdate.setOnSched(true);
                     //On Schedule days Count increased by today and the habits last complete set
                     eventHabit.setLastComplete(compCal.getTime());
-                    eventHabit.addOnSchedCount();
+                    eventHabit.incrementOnSchedCount();
                     //Update this Habit's values
                     updateHabit(habit, eventHabit);
                 }
                 break;
             }
-        }
+        }*/
         return addupdate;
     }
 

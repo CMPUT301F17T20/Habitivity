@@ -34,15 +34,18 @@ public class Habit {
     private List<Integer> daysOfTheWeekToComplete = new ArrayList<>();
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
-    private Date lastComplete = null;
-    private int onSchedCount = 0;
-    private int passedDayCount = 0;
-    private int fakeAddDays = 0;
-    private static String TAG = "addEvent"; //testing
+//    private Date lastComplete = null;
+    //DECREMENT ON EVENT DELETE:
+    private int onSchedCount;
+    private int passedDayCount;
+    private int fakeAddDays;
     private int timesCompleted;
 
     public Habit() {
         timesCompleted = 0;
+        onSchedCount = 0;
+        passedDayCount = 0;
+        fakeAddDays = 0;
     }
 
     /**
@@ -314,27 +317,28 @@ public class Habit {
      * @version 1.0
      * @since 1.0
      */
-    public void addPassedDayCount(Date start, Date end, Boolean real){
+    public void addPassedDayCount(Date start, Date end, Boolean real, ArrayList<Date> skipDays){
         Calendar endCal = Calendar.getInstance();
         Calendar curCal = Calendar.getInstance();
-        Calendar lastCal = Calendar.getInstance();
-        Boolean beforeEnd = true;
+        Calendar skipCal = Calendar.getInstance();
+        Boolean beforeEnd;
+        Boolean afterStart;
         int days = 0;
         Double yDays;
         int weeks;
         int remaindays;
         this.fakeAddDays = days;
 
-        if(this.lastComplete != null){
+        /*if(this.lastComplete != null){
             lastCal.setTime(this.lastComplete);
             lastCal.add(Calendar.DATE, 1);
         }
         else{
             lastCal.setTime(start);
-        }
+        }*/
         endCal.setTime(end);
 
-        curCal.setTime(max(start,this.startDate, lastCal.getTime()));
+        curCal.setTime(max(start,this.startDate));
         beforeEnd = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
                 curCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
                 || curCal.get(Calendar.YEAR) < endCal.get(Calendar.YEAR);
@@ -348,6 +352,18 @@ public class Habit {
             for ( int i = 0; i < this.daysOfTheWeekToComplete.size(); i++){
                 if ( ((this.daysOfTheWeekToComplete.get(i)-curCal.DAY_OF_WEEK)%7) < remaindays){
                     days += 1;
+                }
+            }
+            for (Date date: skipDays){
+                skipCal.setTime(date);
+                beforeEnd = skipCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
+                        skipCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
+                        || skipCal.get(Calendar.YEAR) < endCal.get(Calendar.YEAR);
+                afterStart = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
+                        curCal.get(Calendar.DAY_OF_YEAR) >= endCal.get(Calendar.DAY_OF_YEAR)
+                        || curCal.get(Calendar.YEAR) > endCal.get(Calendar.YEAR);
+                if (afterStart && beforeEnd && this.checkDay(skipCal.DAY_OF_WEEK)){
+                    days -= 1;
                 }
             }
 
@@ -389,17 +405,18 @@ public class Habit {
      * Get last completed event
      * @return last completed event
      */
-    public Date getLastComplete() {
-        return lastComplete;
-    }
+//    public Date getLastComplete() {
+//        return lastComplete;
+//    }
 
     /**
      * Set the date of the last completed event
      * @param lastComplete data of last completed event
      */
-    public void setLastComplete(Date lastComplete) {
-        this.lastComplete = lastComplete;
-    }
+
+//    public void setLastComplete(Date lastComplete) {
+//        this.lastComplete = lastComplete;
+//    }
 
     /**
      * Returns if a date is the date of the last completed event for this habit
@@ -408,7 +425,8 @@ public class Habit {
      * @version 1.0
      * @since 1.0
      */
-    public Boolean isLastCompleteDay(Date curr){
+
+/*    public Boolean isLastCompleteDay(Date curr){
         Calendar curCal = Calendar.getInstance();
         Calendar lastCompleteCal = Calendar.getInstance();
         if (this.lastComplete == null){return false;}
@@ -418,10 +436,14 @@ public class Habit {
         boolean sameDay = lastCompleteCal.get(Calendar.YEAR) == curCal.get(Calendar.YEAR) &&
                 lastCompleteCal.get(Calendar.DAY_OF_YEAR) == curCal.get(Calendar.DAY_OF_YEAR);
         return sameDay;
+    }*/
+
+    public void incrementOnSchedCount() {
+        onSchedCount += 1;
     }
 
-    public void addOnSchedCount() {
-        onSchedCount += 1;
+    public void decrementOnSchedCount() {
+        onSchedCount -= 1;
     }
 
     public int getOnSchedCount() {

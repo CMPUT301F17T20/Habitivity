@@ -51,11 +51,12 @@ public class AddHabitEvent {
      * @param comment of habit event
      * @param location of habit event
      */
-    public void add(String id, String comment, Location location, Date completionDate, Bitmap image){
+    public void add(String id, String comment, Location location, Date completionDate, Bitmap image, Boolean onSched){
         HabitEvent habitEvent = generateHabitEvent();
         habitEvent.setComment(comment);
         habitEvent.setLocation(location);
         habitEvent.setId(id);
+        habitEvent.setOnSched(onSched);
         try{
             habitEvent.setPhoto(image);
         }

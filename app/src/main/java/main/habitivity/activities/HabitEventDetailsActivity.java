@@ -31,6 +31,7 @@ import main.habitivity.controllers.UpdateHabitController;
 import main.habitivity.controllers.UpdateHabitEventRequest;
 import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.exceptions.ImageTooLargeException;
+import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.UserContainer;
@@ -45,8 +46,10 @@ public class HabitEventDetailsActivity extends BaseActivity {
     private TextView locationText;
     private TextView comment;
     private HabitEvent curHabitEvent;
+    private Habit curHabit;
     private Calendar cal = Calendar.getInstance();
     private Date compDate;
+    private Boolean onSched;
 
     private static final int CAMERA_REQUEST = 1888;
     private ImageView userImage;
@@ -215,6 +218,9 @@ public class HabitEventDetailsActivity extends BaseActivity {
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
         comment = (TextView) findViewById(R.id.addComment);
+        Calendar compCal = Calendar.getInstance();
+        HabitEvent testEvent = new HabitEvent(new Date());
+        compCal.setTime(compDate);
 
         for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
             if (event.checkIfCompletionDay(compDate) && !curHabitEvent.checkIfCompletionDay(compDate) && (event.getId().equals(habitEventTitle.getText().toString()))) {
@@ -239,6 +245,25 @@ public class HabitEventDetailsActivity extends BaseActivity {
         updateHabitEventRequest.setCompletionDate(compDate);
         updateHabitEventRequest.setId(habitEventTitle.getText().toString());
         updateHabitEventRequest.setComment(comment.getText().toString());
+
+        onSched = false;
+        for(Habit habit: UserContainer.getInstance().getUser().getHabits()) {
+            if (habit.getId().equals(curHabitEvent.getId())) {
+                curHabit = habit;
+                break;
+            }
+        }
+        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.DAY_OF_WEEK) &&
+                testEvent.checkIfCompletionDay(compDate)){
+            onSched = true;
+            if (!curHabitEvent.checkIfCompletionDay(compDate)) {
+                curHabit.incrementOnSchedCount();
+            }
+        }
+        if (!onSched && curHabitEvent.getOnSched() && testEvent.checkIfCompletionDay(compDate)){
+            curHabit.decrementOnSchedCount();
+        }
+        updateHabitEventRequest.setOnSched(onSched);
 
         try {
             updateHabitController.updateHabitEvent(updateHabitEventRequest);

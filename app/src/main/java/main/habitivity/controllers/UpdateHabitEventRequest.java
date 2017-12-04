@@ -22,6 +22,7 @@ public class UpdateHabitEventRequest {
     private String comment;
     private transient Bitmap photograph;
     private Location location;
+    private Boolean onSched;
 
     public void setOldHabitEvent(HabitEvent habitEvent){
         this.oldHabitEvent = habitEvent;
@@ -115,6 +116,15 @@ public class UpdateHabitEventRequest {
      */
     public void setPhoto(Bitmap photograph) {
         this.photograph = photograph;
+    }
+
+    /**
+     * Sets the onSched associated with the HabitEvent
+     *
+     * @param[in] photograph - photo associated with the HabitEvent
+     */
+    public void setOnSched(Boolean onSched) {
+        this.onSched = onSched;
     }
 
 }

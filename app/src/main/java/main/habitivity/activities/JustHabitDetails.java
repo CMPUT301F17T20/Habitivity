@@ -25,20 +25,23 @@ import java.util.Locale;
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitSingletonContainer;
 import main.habitivity.users.User;
 import main.habitivity.users.UserContainer;
 
 public class JustHabitDetails extends BaseActivity {
 
+    private static String TAG = "JustHabitDetails";//testing
     private TextView habitName;
     private TextView reason;
     private TextView startDate;
     private Habit curHabit;
     private TextView dayToOccur;
-    private static String TAG = "JustHabitDetails"; //testing
     private User loggedInUser;
     private Date today = new Date();
+    private ArrayList<Date> skipDay = new ArrayList<>();
+    private Integer completedOnSched = 0;
     private final String[] statusNames = {"Completed", "Uncompleted"};
     /**
      * import added to gradle MPAndroid chart by PhilJay
@@ -113,10 +116,18 @@ public class JustHabitDetails extends BaseActivity {
 
         //Setup data
         loggedInUser = UserContainer.getInstance().getUser();
-        if ( loggedInUser.getLastLogin() != null ) {
-            curHabit.addPassedDayCount(loggedInUser.getLastLogin(), today, false);
+        for(HabitEvent event: loggedInUser.getHabitEvents() ){
+            if (event.getId().equals(curHabit.getId()) && event.getOnSched()){
+                skipDay.add(event.getCompletionDate());
+                completedOnSched += 1;
+            }
         }
-        addDataSet(curHabit.getOnSchedCount(), curHabit.getPassedDayCount() + curHabit.getFakeAddDays());
+        if ( loggedInUser.getLastLogin() != null ) {
+            curHabit.addPassedDayCount(loggedInUser.getLastLogin(), today, false, skipDay);
+        }
+        System.out.print(completedOnSched);
+        System.out.print(completedOnSched);
+        addDataSet(completedOnSched/*curHabit.getOnSchedCount()*/, curHabit.getPassedDayCount() /*+ curHabit.getFakeAddDays()*/);
 
     }
 

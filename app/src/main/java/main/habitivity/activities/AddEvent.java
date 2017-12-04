@@ -60,6 +60,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final int SELECTED_PICTURE = 0;
+    private static String TAG = "JustHabitDetails";//testing
     private TextView eventTitle;
     private Bitmap bitmap = null;
     private Calendar cal = Calendar.getInstance();
@@ -74,6 +75,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     private TextView viewDate;
     private static final int CAMERA_REQUEST = 1888; 
     private ImageView userImage;
+    private Boolean onSched;
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -281,6 +283,8 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
     /**
      * Set the habit event, but iterates over existing habit events.
      * If completion date is the same as in event the user cannot create that event
+     * If completion day is today, the it was scheduled,
+     * the onSchedCount for the current habit increased and the event is onSched.
      *
      * @author Nicolas Parada
      * @version 1.0
@@ -292,6 +296,10 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         comment = (EditText) findViewById(R.id.addComment);
         titleID = eventTitle.getText().toString();
+        Calendar compCal = Calendar.getInstance();
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.setTime(new Date());
+        compCal.setTime(compDate);
 
         for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
             if (event.checkIfCompletionDay(compDate) && (event.getId().equals(titleID))) {
@@ -309,10 +317,17 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             }
         }
 
-
-        addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap);
-
+        onSched = false;
+        boolean sameDay = compCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
+                compCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
+        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.DAY_OF_WEEK) && sameDay){
+            onSched = true;
+            Log.d(TAG, "OnSchedule"); //Checking
+            curHabit.incrementOnSchedCount();
+        }
+        Log.d(TAG, "NOTOnSchedule" + curHabit.afterStartDate(compDate) + curHabit.checkDay(compCal.DAY_OF_WEEK) + sameDay + compCal.DAY_OF_WEEK + curHabit.getDaysOfTheWeekToComplete()); //Checking
         curHabit.incrementTimesCompleted();
+        addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap, onSched);
 
         startActivity(intent);
     }

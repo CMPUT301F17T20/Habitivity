@@ -33,8 +33,8 @@ public class AddHabitEventController {
      * @param location - location of habitevent
      * @param image - the image of the habit event (optional) null otherwise
      */
-    public void addHabitEvent(String title, String comment, Location location, Date compDate, Bitmap image) {
-        habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate, image);
+    public void addHabitEvent(String title, String comment, Location location, Date compDate, Bitmap image, Boolean onSched) {
+        habitInteractionsFactory.addHabitEvent().add(title, comment, location, compDate, image, onSched);
     }
 
     /**

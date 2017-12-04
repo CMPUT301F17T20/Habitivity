@@ -69,8 +69,6 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
         }
         UserContainer.getInstance().setAllUsersExcludingUser(copyOfAllUsers);
 
-        //for all habits add to habits days missed while offline
-        user.updateOfflineDays();
         if(user.getHabits().size() != 0) {
 
             addHabitController.setHabits(user.getHabits());
@@ -79,6 +77,8 @@ public class LoginUser extends BaseActivity implements Serializable, Parcelable 
             addHabitEventController.setHabitEvents(user.getHabitEvents());
 
         }
+        //for all habits add to habits days missed while offline
+        user.updateOfflineDays();
         startActivity(intent);
         finish();
     }

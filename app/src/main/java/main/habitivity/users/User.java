@@ -330,8 +330,15 @@ public class User implements Serializable, Parcelable{
 
     public void updateOfflineDays(){
         Date today = new Date();
-        for(int i = 0; i < this.habits.size(); i++ ){
-            this.habits.get(i).addPassedDayCount(this.lastLogin, today, true);
+        ArrayList<Date> skipDay = new ArrayList<>();
+
+        for(Habit habit: this.habits ){
+            for(HabitEvent event: this.habitEvents ){
+                if (event.getId().equals(habit.getId()) && event.getOnSched()){
+                    skipDay.add(event.getCompletionDate());
+                }
+            }
+            habit.addPassedDayCount(this.lastLogin, today, true, skipDay);
         }
         this.lastLogin = today;
     }

@@ -56,4 +56,7 @@
     <string name="option_get_place">Get place</string>
     <string name="pick_place">Choose a place</string>
     <string name="todayhabit">Today\'s Habits:</string>
+    <string name="today">Today</string>
+    <string name="all">All</string>
+    <string name="history">History</string>
 </resources>

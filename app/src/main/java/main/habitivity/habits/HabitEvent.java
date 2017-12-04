@@ -27,9 +27,10 @@ public class HabitEvent {
     private transient Bitmap photograph;
     private Location location;
     private String thumbnail;
-    private Boolean onSched = false;
+    private Boolean onSched;
 
     public HabitEvent(Date completionDate) {
+        this.onSched = false;
     }
 
     /**
