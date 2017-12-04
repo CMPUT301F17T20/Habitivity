@@ -200,6 +200,17 @@ public class HabitEventDetailsActivity extends BaseActivity {
         habitListController = app.getHabitListController();
     }
 
+    /**
+     * Set the habit event, but iterates over existing habit events.
+     * If the user changes the completion date to one that is the same as another event,
+     * the user cannot create that event.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     * @param view
+     *
+     */
     public void onEdit(View view){
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);

@@ -280,7 +280,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
 
     /**
      * Set the habit event, but iterates over existing habit events.
-     * If completion date is the same it does not create the event.
+     * If completion date is the same as in event the user cannot create that event
      *
      * @author Nicolas Parada
      * @version 1.0
