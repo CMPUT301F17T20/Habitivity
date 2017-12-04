@@ -1,5 +1,6 @@
 package main.habitivity.activities;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,12 +23,39 @@ import main.habitivity.users.UserContainer;
 public class RequestList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FollowRequestViewAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayList<String> followerRequests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayoutRequests);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //pull from elastic search
+                ArrayList<User> allUsers = new ArrayList<User>();
+                ArrayList<User> allusers = UserContainer.getInstance().getAllUsers();
+                UserContainer.getInstance().setAllUsers(allusers);
+                allUsers = UserContainer.getInstance().getAllUsers();
+
+                String currentUserName =  UserContainer.getInstance().getUser().getUserName();
+                ArrayList<User> copyOfAllUsers = new ArrayList<>(allUsers);
+                for(User users: copyOfAllUsers){
+                    if(users.getUserName().equals(currentUserName)){
+                        copyOfAllUsers.remove(users);
+                        break;
+                    }
+                }
+                UserContainer.getInstance().setAllUsersExcludingUser(copyOfAllUsers);
+                mSwipeRefreshLayout.setRefreshing(false);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewRequests);
 

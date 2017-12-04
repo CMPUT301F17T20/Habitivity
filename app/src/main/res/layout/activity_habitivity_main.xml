@@ -191,6 +191,10 @@
                     app:layout_constraintRight_toLeftOf="@+id/contentRight"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <android.support.v4.widget.SwipeRefreshLayout
+                        android:id="@+id/swipeRefreshLayoutMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/listRecyclerView"
                         android:layout_width="match_parent"
@@ -201,6 +205,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:layout_editor_absoluteX="16dp"
                         tools:listitem="@layout/item_main_feed" />
+                    </android.support.v4.widget.SwipeRefreshLayout>
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout

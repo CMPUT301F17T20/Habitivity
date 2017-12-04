@@ -107,12 +107,23 @@ public class User implements Serializable, Parcelable{
         this.habits.add(habit);
     }
 
+    /**
+     * Updates the habit in the habit list
+     * @param oldHabit - the old habit
+     * @param newHabit - the new habit to update to
+     */
     public void updateHabit(Habit oldHabit, Habit newHabit){
         if(this.habits.contains(oldHabit)){
             int index = this.habits.indexOf(oldHabit);
             this.habits.set(index, newHabit);
         }
     }
+
+    /**
+     * Updates the habit event in the habit event list
+     * @param oldHabitEvent - the old habit event
+     * @param newHabitEvent - the new habit event to update to
+     */
     public void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent){
         if(this.habitEvents.contains(oldHabitEvent)){
             int index = this.habitEvents.indexOf(oldHabitEvent);
@@ -140,6 +151,10 @@ public class User implements Serializable, Parcelable{
 
     }
 
+    /**
+     * Returns a list of potential friends
+     * @return - a list of potential friends
+     */
     public ArrayList<String> getPotentialFriends(){
         this.findAllPotentialFriends();
         return this.potentialFriends;
@@ -185,10 +200,18 @@ public class User implements Serializable, Parcelable{
 
     }
 
+    /**
+     * Adds the user to the user's list of pending requests (i.e waiting for friends to approval request to follow)
+     * @param user - user to follow
+     */
     public void addToPendingRequest(String user){
         this.pendingRequest.add(user);
     }
 
+    /**
+     * Gets a list of pending requests for the user
+     * @return - a list of pending requests
+     */
     public ArrayList<String> getPendingRequests(){
         return this.pendingRequest;
     }
@@ -200,14 +223,26 @@ public class User implements Serializable, Parcelable{
         return this.followers;
     }
 
+    /**
+     * Removes the user from our potential friends list
+     * @param pos - pos to remove from in our list
+     */
     public void removePotentialFriend(int pos){
         this.potentialFriends.remove(pos);
     }
 
+    /**
+     * Gets the users that requested to follow us
+     * @return - a list of users that requested to follow us
+     */
     public ArrayList<String> getFollowerRequests(){
         return this.followerRequests;
     }
 
+    /**
+     * Add the followers request to follow to our requests list
+     * @param follower
+     */
     public void addFollowerRequest(String follower){
         if(this.followerRequests.size() == 0){
             this.followerRequests.add(follower);
@@ -222,6 +257,10 @@ public class User implements Serializable, Parcelable{
         this.followerRequests.add(follower);
     }
 
+    /**
+     * Removes the followers request
+     * @param pos
+     */
     public void removeFollowerRequest(int pos){
         this.followerRequests.remove(pos);
     }
