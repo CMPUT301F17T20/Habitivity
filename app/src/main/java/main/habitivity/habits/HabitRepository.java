@@ -299,27 +299,6 @@ public class HabitRepository implements IHabitRepository{
         }
     };
 
-
-    /**
-     * get an ArrayList of only the habits for today
-     * @return arraylist of todays habits
-     */
-    public List<Habit> getTodaysHabits() {
-        List<Habit> Today = new ArrayList<>();
-        Calendar weekDay = Calendar.getInstance(); //is this correct
-
-        for (int i=0; i < habits.size(); i++) {
-            /**
-             * if a habit is for this day of the week add it to today's Habits
-             */
-            Habit habit = habits.get(i);
-            if ( habit.checkDay(weekDay.get(Calendar.DAY_OF_WEEK) ) && ( habit.getStartDate().compareTo(weekDay.getTime()) >= 0 ) ) {
-                Today.add(habit);
-            }
-        }
-        return Today;
-    }
-
     /**
      * Gets the number of habits in our habit repo
      * @return number of habits stored

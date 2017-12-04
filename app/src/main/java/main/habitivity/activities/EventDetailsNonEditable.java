@@ -28,7 +28,7 @@ public class EventDetailsNonEditable extends AppCompatActivity {
     private TextView dayToOccur;
     private TextView startDate;
 
-    private static String TAG = "JustHabitDetails"; //testing
+    private static String TAG = "OnlyHabitDetails"; //testing
     private User loggedInUser;
     private Date today = new Date();
     private final String[] statusNames = {"Completed", "Uncompleted"};

@@ -141,7 +141,24 @@ public class Habit {
     * @param[in] startDate - startDate of the Habit
     */
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        Calendar startCal = Calendar.getInstance();
+        startCal.setTime(startDate);
+        startCal.set(Calendar.HOUR_OF_DAY, 0);
+        this.startDate = startCal.getTime();
+    }
+
+    /**
+     * This method checks if a date a user  inputs is after the designated startdate.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @see Habit
+     * @since 1.0
+     * @param inDate
+     * @return After startdate Boolean
+     */
+    public boolean afterStartDate(Date inDate){
+        return this.startDate.compareTo(inDate) <= 0;
     }
 
     /**
@@ -156,9 +173,14 @@ public class Habit {
     }
 
     /**
-     * Checks the days of week to complete
+     * Checks if a weekday is in the days of week to complete
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @see Habit
+     * @since 1.0
      * @param day
-     * @return
+     * @return if on scheduled weekday, true
      */
     public Boolean checkDay(int day){
         /** Enter 1-7 value of weekday, return true if in DaysofTheWeekToComplete
@@ -240,10 +262,33 @@ public class Habit {
         this.completions.add(habitEvent);
     }
 
+    /**
+     * Returns the scheduled days of the week passed since last login when still online
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
     public int getFakeAddDays() { return this.fakeAddDays; }
 
+    /**
+     * Returns the count of all the scheduled days of the week passed.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
     public int getPassedDayCount() { return this.passedDayCount; }
 
+    /**
+     * Adds the scheduled days of the week passed since last login,
+     * aka between two user inputed dates, and adds as missed days.
+     * Fake days is the the scheduled days of the week passed since last login when still online
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
     public void addPassedDayCount(Date start, Date end, Boolean real){
         Calendar endCal = Calendar.getInstance();
         Calendar curCal = Calendar.getInstance();
@@ -263,7 +308,7 @@ public class Habit {
             lastCal.setTime(start);
         }
         endCal.setTime(end);
-        //Choose user inputed start from previous login
+
         curCal.setTime(max(start,this.startDate, lastCal.getTime()));
         beforeEnd = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
                 curCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
