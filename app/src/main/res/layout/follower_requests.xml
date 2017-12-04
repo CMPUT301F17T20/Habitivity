@@ -36,17 +36,5 @@
             android:textColor="@android:color/holo_green_dark"
             android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/denybutton"
-            android:layout_width="178dp"
-            android:layout_height="35dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="8dp"
-            android:text="@string/deny"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteX="202dp"
-            tools:layout_editor_absoluteY="33dp" />
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>
