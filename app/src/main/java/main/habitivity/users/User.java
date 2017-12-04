@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.function.Predicate;
 
 import io.searchbox.annotations.JestId;
 import main.habitivity.habits.Habit;
@@ -148,12 +149,13 @@ public class User implements Serializable, Parcelable{
      * Removes the habit event from the user's habit event list
      * @param  - id of the habitEvent to remove
      */
-    public void removeHabitEvent(HabitEvent habitEventToRemove){
-        for(HabitEvent habitEvent: this.habitEvents){
-            if(habitEvent.getId().equals(habitEventToRemove.getId())){
-                this.habitEvents.remove(habitEvent);
+    public void removeHabitEvent(final HabitEvent habitEventToRemove){
+        habitEvents.removeIf(new Predicate<HabitEvent>() {
+            @Override
+            public boolean test(HabitEvent habitEvent) {
+                return habitEvent.getId().equals(habitEventToRemove.getId());
             }
-        }
+        });
     }
 
     /**
@@ -284,12 +286,13 @@ public class User implements Serializable, Parcelable{
      * Removes the habit from the user's habit's list
      * @param  - id of habit to remove
      */
-    public void removeHabit(Habit habitToRemove){
-        for(Habit habit: this.habits){
-            if(habit.getId().equals(habitToRemove.getId())){
-                this.habits.remove(habit);
+    public void removeHabit(final Habit habitToRemove){
+        habits.removeIf(new Predicate<Habit>() {
+            @Override
+            public boolean test(Habit habit) {
+                return habit.getId().equals(habitToRemove.getId());
             }
-        }
+        });
     }
 
     /**
