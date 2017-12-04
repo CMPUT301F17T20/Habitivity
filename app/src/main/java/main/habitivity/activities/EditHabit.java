@@ -29,6 +29,7 @@ import main.habitivity.controllers.UpdateHabitController;
 import main.habitivity.controllers.UpdateHabitRequest;
 import main.habitivity.habits.Habit;
 import main.habitivity.habits.HabitSingletonContainer;
+import main.habitivity.users.UserContainer;
 
 public class EditHabit extends BaseActivity {
 
@@ -279,7 +280,21 @@ public class EditHabit extends BaseActivity {
         Intent intent = new Intent(getApplicationContext(), HabitListActivity.class);
         title = (EditText) findViewById(R.id.habitInput);
         reason = (EditText) findViewById(R.id.addComment);
+        for(Habit habit: UserContainer.getInstance().getUser().getHabits()){
+            if(habit.getTitle().equals(title.getText().toString()) && !habit.getTitle().equals(curHabit.getTitle())){
+                AlertDialog.Builder builder =new AlertDialog.Builder(this);
 
+                builder.setMessage("A habit with that title already exists! Pick another title")
+                        .setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setTitle("Duplicate Title");
+                builder.show();
+                return;
+            }
+        }
         UpdateHabitRequest updateHabitRequest = new UpdateHabitRequest();
         updateHabitRequest.setOldHabit(curHabit);
         updateHabitRequest.setOldId(this.oldId);
