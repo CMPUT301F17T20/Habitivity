@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -51,8 +52,11 @@ public class HomeFeedViewAdapter extends RecyclerView.Adapter<HomeFeedViewAdapte
         Habit habit = mFeed.get(position);
         TextView name = holder.name;
         TextView habitTitle = holder.habitTitle;
+        ImageView level_icon = holder.level_icon;
         name.setText("UserName: " + habit.getUserName());
         habitTitle.setText("Habit Title: " + habit.getTitle());
+        //level_icon.setImageResource(R.drawable.level_icon_bronze);
+        level_icon.setImageResource(habit.getLevelIcon());
     }
 
 
@@ -67,6 +71,7 @@ public class HomeFeedViewAdapter extends RecyclerView.Adapter<HomeFeedViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView name;
         public TextView habitTitle;
+        public ImageView level_icon;
         private WeakReference<ClickListener> listenerRef;
 
         public ViewHolder(final View itemView, ClickListener listener) {
@@ -74,6 +79,7 @@ public class HomeFeedViewAdapter extends RecyclerView.Adapter<HomeFeedViewAdapte
             listenerRef = new WeakReference<>(listener);
             name = (TextView) itemView.findViewById(R.id.username);
             habitTitle = (TextView) itemView.findViewById(R.id.habitTitle);
+            level_icon = (ImageView) itemView.findViewById(R.id.level_icon);
 
             itemView.setOnClickListener(this);
 

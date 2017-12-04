@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="83dp"
         android:background="@color/colorPrimary">
 
@@ -38,4 +39,13 @@
             tools:text="Sample User" />
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:id="@+id/level_icon"
+        android:layout_width="83dp"
+        android:layout_height="83dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        app:srcCompat="?android:attr/alertDialogIcon" />
+
 </LinearLayout>
