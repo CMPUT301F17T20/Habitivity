@@ -45,7 +45,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
     private TextView comment;
     private HabitEvent curHabitEvent;
     private Calendar cal = Calendar.getInstance();
-    private Date compDate = new Date();
+    private Date compDate;
 
     private static final int CAMERA_REQUEST = 1888;
     private ImageView userImage;
@@ -78,6 +78,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
         String commentString = curHabitEvent.getComment();
         comment.setText(commentString);
         habitEventTitle.setText(curHabitEvent.getId());
+        compDate = curHabitEvent.getCompletionDate();
 
         if (loc != null) {
             locationText.setText(String.format(Locale.CANADA, "Latitude: %.2f  Longitude: %.2f", loc.getLatitude(), loc.getLongitude()));

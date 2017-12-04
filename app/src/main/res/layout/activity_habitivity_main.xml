@@ -222,6 +222,7 @@
                     <ImageView
                         android:id="@+id/contentShadowLeft"
                         android:layout_height="45dp"
+                        android:layout_width="wrap_content"
                         app:srcCompat="@drawable/content_shadowleft" />
                 </android.support.constraint.ConstraintLayout>
 
@@ -236,6 +237,7 @@
                     <ImageView
                         android:id="@+id/contentShadowRight"
                         android:layout_height="45dp"
+                        android:layout_width="wrap_content"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/content_shadowright" />
