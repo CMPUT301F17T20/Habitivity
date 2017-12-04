@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/woodbg"
+    android:layout_height="165dp"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <TextView

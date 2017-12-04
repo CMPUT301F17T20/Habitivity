@@ -96,7 +96,7 @@ public class JustHabitDetails extends BaseActivity {
         dayToOccur.setText(daysToOccur);
 
         startDate = (TextView) findViewById(R.id.start);
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.CANADA);
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
         String startingDate = "Starting Date: " + df.format(curHabit.getStartDate());
         startDate.setText(startingDate);
 
