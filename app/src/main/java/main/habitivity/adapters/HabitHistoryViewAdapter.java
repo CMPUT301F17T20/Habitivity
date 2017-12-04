@@ -50,7 +50,7 @@ public class HabitHistoryViewAdapter extends RecyclerView.Adapter<HabitHistoryVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         HabitEvent event = mFeed.get(position);
         holder.habitName.setText(event.getId());
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.CANADA);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.CANADA);
         holder.eventCompleted.setText(String.format("Completed: %s", df.format(event.getCompletionDate())));
         holder.eventComment.setText(event.getComment());
 

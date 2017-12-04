@@ -16,8 +16,11 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
@@ -88,7 +91,8 @@ public class JustHabitDetails extends BaseActivity {
         dayToOccur.setText(daysToOccur);
 
         startDate = (TextView) findViewById(R.id.start);
-        String startingDate = "Starting Date: " + curHabit.getStartDate().toString();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.CANADA);
+        String startingDate = "Starting Date: " + df.format(curHabit.getStartDate());
         startDate.setText(startingDate);
 
         Log.d(TAG, "StartChart"); //Checking
