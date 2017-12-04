@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,7 @@ import main.habitivity.users.UserContainer;
 public class FindFriendsActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private FindFriendsViewAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayList<String> friends = new ArrayList<>();
     private AlertDialog.Builder builder;
 
@@ -39,6 +41,31 @@ public class FindFriendsActivity extends BaseActivity {
         setContentView(R.layout.activity_find_friends);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewFriends);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayoutFriends);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //pull from elastic search
+                ArrayList<User> allUsers = new ArrayList<User>();
+                ArrayList<User> allusers = UserContainer.getInstance().getAllUsers();
+                UserContainer.getInstance().setAllUsers(allusers);
+                allUsers = UserContainer.getInstance().getAllUsers();
+
+                String currentUserName =  UserContainer.getInstance().getUser().getUserName();
+                ArrayList<User> copyOfAllUsers = new ArrayList<>(allUsers);
+                for(User users: copyOfAllUsers){
+                    if(users.getUserName().equals(currentUserName)){
+                        copyOfAllUsers.remove(users);
+                        break;
+                    }
+                }
+                UserContainer.getInstance().setAllUsersExcludingUser(copyOfAllUsers);
+                mSwipeRefreshLayout.setRefreshing(false);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         builder =new AlertDialog.Builder(this);
 
