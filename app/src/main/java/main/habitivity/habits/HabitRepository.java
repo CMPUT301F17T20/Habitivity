@@ -165,7 +165,9 @@ public class HabitRepository implements IHabitRepository{
      * @param[in] - the habit to update in our local disk/server
      */
     public void updateHabitEvent(HabitEvent oldHabitEvent, HabitEvent newHabitEvent){
-//        ensureHabitEvents();
+        //ensureHabitEvents();
+        //Use this to set on schedule variables in the event and it's habit
+        newHabitEvent = this.setOnSchedule(newHabitEvent);
         habitService.updateHabitEventRequest(oldHabitEvent, newHabitEvent);
         int index = habitEvents.indexOf(oldHabitEvent);
         habitEvents.set(index, newHabitEvent);
@@ -178,6 +180,8 @@ public class HabitRepository implements IHabitRepository{
      */
     public void addHabitEvent(HabitEvent habitEvent){
        // ensureHabitEvents();
+        // Use this to set on schedule variables in the event and it's habit
+        habitEvent = this.setOnSchedule(habitEvent);
         habitService.addHabitEventRequest(habitEvent);
         habitEvents.add(habitEvent);
     }
@@ -201,6 +205,47 @@ public class HabitRepository implements IHabitRepository{
                 habits.add(habit);
             }
         }
+    }
+
+
+    private HabitEvent setOnSchedule(HabitEvent addupdate){
+        Habit eventHabit;
+        Calendar compCal = Calendar.getInstance();
+        Calendar todayCal = Calendar.getInstance();
+        Calendar startCal = Calendar.getInstance();
+
+        //Getting completion date of habit event
+        compCal.setTime(addupdate.getCompletionDate());
+
+        for (Habit habit: habitService.getHabits()) {
+            if (habit.getId() == addupdate.getId()) {
+                eventHabit = habit;
+                //Getting start date of habit
+                startCal.setTime(eventHabit.getStartDate());
+
+                //Completed today? Used to check if done on schedule today with todayCal
+                boolean sameDay = compCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
+                        compCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
+
+                //Completed after the start date?
+                boolean afterStart = compCal.get(Calendar.YEAR) == startCal.get(Calendar.YEAR) &&
+                        compCal.get(Calendar.DAY_OF_YEAR) >= startCal.get(Calendar.DAY_OF_YEAR)
+                        || compCal.get(Calendar.YEAR) > startCal.get(Calendar.YEAR);
+
+                //if those and on schedule, then done on time!!!
+                if ( eventHabit.checkDay(compCal.DAY_OF_WEEK) && sameDay && afterStart){
+                    //This event is on schedule
+                    addupdate.setOnSched(true);
+                    //On Schedule days Count increased by today and the habits last complete set
+                    eventHabit.setLastComplete(compCal.getTime());
+                    eventHabit.addOnSchedCount();
+                    //Update this Habit's values
+                    updateHabit(habit, eventHabit);
+                }
+                break;
+            }
+        }
+        return addupdate;
     }
 
     /**

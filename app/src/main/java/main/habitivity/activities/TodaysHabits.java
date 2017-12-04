@@ -80,9 +80,13 @@ public class TodaysHabits extends BaseActivity {
         habitListDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), AddEvent.class);
-                HabitSingletonContainer.getInstance().setHabit((Habit)habitListDisplay.getAdapter().getItem(position));
-                startActivity(intent);
+                Habit thisHabit = (Habit) habitListDisplay.getAdapter().getItem(position);
+                if (thisHabit.isLastCompleteDay(new Date())){}
+                else {
+                    Intent intent = new Intent(getApplicationContext(), AddEvent.class);
+                    HabitSingletonContainer.getInstance().setHabit(thisHabit);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -121,7 +125,7 @@ public class TodaysHabits extends BaseActivity {
         }
 
         /**
-         * Builds a view for the list item
+         * Builds a view for the list item, states if habit complete or incomplete for Today
          *
          * @param position Index of list item
          * @param convertView View used for each list item
@@ -131,6 +135,8 @@ public class TodaysHabits extends BaseActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent){
             HabitView mainHabitView = null;
+            String complete;
+
 
             if (convertView == null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -142,7 +148,12 @@ public class TodaysHabits extends BaseActivity {
                 convertView.setTag(habitView);
             }
             mainHabitView = (HabitView) convertView.getTag();
-            mainHabitView.habitDetails.setText(habitListToday.get(position).toString());
+
+            if (habitListToday.get(position).isLastCompleteDay(new Date())){ complete = " Complete";}
+            else { complete = " Incomplete"; }
+            complete = habitListToday.get(position).toString() + complete;
+
+            mainHabitView.habitDetails.setText(complete);
 
             return convertView;
         }

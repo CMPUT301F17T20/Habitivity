@@ -235,7 +235,7 @@ public class Habit {
     * @param[in] habitEvent - event to add to our list of completed HabitEvents
     */
     public void addHabitEvent(HabitEvent habitEvent){
-        Calendar compCal = Calendar.getInstance();
+        /**Calendar compCal = Calendar.getInstance();
         Calendar todayCal = Calendar.getInstance();
         Calendar startCal = Calendar.getInstance();
 
@@ -257,7 +257,7 @@ public class Habit {
         if ( this.checkDay(compCal.DAY_OF_WEEK) && sameDay && afterStart){
             this.onSchedCount += 1;
             habitEvent.setOnSched(true);
-        }
+        }*/
 
         this.completions.add(habitEvent);
     }
@@ -374,6 +374,25 @@ public class Habit {
      */
     public void setLastComplete(Date lastComplete) {
         this.lastComplete = lastComplete;
+    }
+
+    /**
+     * Returns if a date is the date of the last completed event for this habit
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
+    public Boolean isLastCompleteDay(Date curr){
+        Calendar curCal = Calendar.getInstance();
+        Calendar lastCompleteCal = Calendar.getInstance();
+        if (this.lastComplete == null){return false;}
+
+        curCal.setTime(curr);
+        lastCompleteCal.setTime(this.lastComplete);
+        boolean sameDay = lastCompleteCal.get(Calendar.YEAR) == curCal.get(Calendar.YEAR) &&
+                lastCompleteCal.get(Calendar.DAY_OF_YEAR) == curCal.get(Calendar.DAY_OF_YEAR);
+        return sameDay;
     }
 
     public void addOnSchedCount() {
