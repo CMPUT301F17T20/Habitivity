@@ -3,7 +3,9 @@
  */
 package main.habitivity.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,8 +24,10 @@ import java.util.List;
 import main.habitivity.R;
 import main.habitivity.controllers.HabitListController;
 import main.habitivity.habits.Habit;
+import main.habitivity.habits.HabitEvent;
 import main.habitivity.habits.HabitRepository;
 import main.habitivity.habits.HabitSingletonContainer;
+import main.habitivity.users.UserContainer;
 
 /**
  * This activity displays the habits scheduled for the current day
@@ -81,8 +85,15 @@ public class TodaysHabits extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Habit thisHabit = (Habit) habitListDisplay.getAdapter().getItem(position);
-                if (thisHabit.isLastCompleteDay(new Date())){}
-                else {
+                Boolean complete = false;
+
+                for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
+                    if (event.checkIfCompletionDay(new Date()) && (event.getId().equals(thisHabit.getId()))) {
+                        complete = true;
+                        break;
+                    }
+                }
+                if (!complete){
                     Intent intent = new Intent(getApplicationContext(), AddEvent.class);
                     HabitSingletonContainer.getInstance().setHabit(thisHabit);
                     startActivity(intent);
@@ -149,10 +160,15 @@ public class TodaysHabits extends BaseActivity {
             }
             mainHabitView = (HabitView) convertView.getTag();
 
-            if (habitListToday.get(position).isLastCompleteDay(new Date())){ complete = " Complete";}
-            else { complete = " Incomplete"; }
-            complete = habitListToday.get(position).toString() + complete;
+            complete = " Incomplete";
+            for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
+                if (event.checkIfCompletionDay(new Date()) && (event.getId().equals(habitListToday.get(position).getId()))) {
+                    complete = " Complete";
+                    break;
+                }
+            }
 
+            complete = habitListToday.get(position).toString() + complete;
             mainHabitView.habitDetails.setText(complete);
 
             return convertView;
