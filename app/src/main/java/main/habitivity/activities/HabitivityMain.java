@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +43,9 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
     private ListView listView;
     private RecyclerView recyclerView;
     private HomeFeedViewAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private HabitListController habitListController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,32 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
         userName = (TextView) findViewById(R.id.User);
         String welcomeUser = "Welcome User: " + UserContainer.getInstance().getUser();
         userName.setText(welcomeUser);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayoutMain);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //pull from elastic search
+                ArrayList<User> allUsers = new ArrayList<User>();
+                ArrayList<User> allusers = UserContainer.getInstance().getAllUsers();
+                UserContainer.getInstance().setAllUsers(allusers);
+                allUsers = UserContainer.getInstance().getAllUsers();
+
+                String currentUserName =  UserContainer.getInstance().getUser().getUserName();
+                ArrayList<User> copyOfAllUsers = new ArrayList<>(allUsers);
+                for(User users: copyOfAllUsers){
+                    if(users.getUserName().equals(currentUserName)){
+                        copyOfAllUsers.remove(users);
+                        break;
+                    }
+                }
+                UserContainer.getInstance().setAllUsersExcludingUser(copyOfAllUsers);
+                mSwipeRefreshLayout.setRefreshing(false);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         recyclerView = (RecyclerView) findViewById(R.id.listRecyclerView);
         adapter = new HomeFeedViewAdapter(this, new ClickListener() {
