@@ -160,10 +160,10 @@ public class TodaysHabits extends BaseActivity {
             }
             mainHabitView = (HabitView) convertView.getTag();
 
-            complete = "| Incomplete";
+            complete = " | Incomplete";
             for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
                 if (event.checkIfCompletionDay(new Date()) && (event.getId().equals(habitListToday.get(position).getId()))) {
-                    complete = "| Complete";
+                    complete = " | Complete";
                     break;
                 }
             }
