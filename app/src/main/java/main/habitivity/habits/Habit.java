@@ -37,10 +37,8 @@ public class Habit {
     private int onSchedCount;
     private int passedDayCount;
     private int fakeAddDays;
-    private int timesCompleted;
 
     public Habit() {
-        timesCompleted = 0;
         onSchedCount = 0;
         passedDayCount = 0;
         fakeAddDays = 0;
@@ -62,22 +60,10 @@ public class Habit {
         this.userName = name;
     }
 
-    public int getTimesCompleted(){
-        return timesCompleted;
-    }
-
-    public void setTimesCompleted(int times){
-        timesCompleted = times;
-    }
-
-    public void incrementTimesCompleted(){
-        timesCompleted++;
-    }
-
     public int getLevelIcon(){
-        if (timesCompleted < 5){
+        if (onSchedCount < 5){
             return R.drawable.level_icon_bronze;
-        }else if (timesCompleted < 15){
+        }else if (onSchedCount < 15){
             return R.drawable.level_icon_silver;
         }else{
             return R.drawable.level_icon_gold;

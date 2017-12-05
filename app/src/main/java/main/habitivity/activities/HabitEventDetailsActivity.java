@@ -275,7 +275,11 @@ public class HabitEventDetailsActivity extends BaseActivity {
     }
 
     public void onDelete(View view){
+        Date today = new Date();
         Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
+        if (curHabitEvent.getOnSched() && curHabitEvent.checkIfCompletionDay(today)){
+            curHabit.decrementOnSchedCount();
+        }
         habitListController.removeHabitEvent(HabitSingletonContainer.getInstance().getHabitEvent());
         startActivity(intent);
     }

@@ -323,7 +323,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             Log.d(TAG, "OnSchedule"); //Checking
             curHabit.incrementOnSchedCount();
         }
-        curHabit.incrementTimesCompleted();
+
         addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap, onSched);
 
         startActivity(intent);
