@@ -253,7 +253,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
                 break;
             }
         }
-        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.DAY_OF_WEEK) &&
+        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.get(Calendar.DAY_OF_WEEK)) &&
                 testEvent.checkIfCompletionDay(compDate)){
             onSched = true;
             if (!curHabitEvent.checkIfCompletionDay(compDate)) {
