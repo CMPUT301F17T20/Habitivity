@@ -46,6 +46,7 @@
             android:name=".activities.HabitivityMain"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
@@ -68,7 +69,8 @@
                 android:value="main.habitivity.activities.HabitivityMain" />
         </activity>
         <activity android:name=".activities.TodaysHabits"
-            android:parentActivityName=".activities.HabitivityMain"/>
+            android:parentActivityName=".activities.HabitivityMain"
+            android:label="Today's Habits"/>
         <activity
             android:name=".activities.FollowRequest"
             android:label="@string/title_activity_follow_request"

@@ -193,7 +193,6 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 cal.set(year, month, day);
                 compDate = cal.getTime();
-                startingDate = compDate;
                 month = month + 1;
                 String showDate = month + "/" + day + "/" + year;
                 viewDate.setText(showDate);
@@ -296,10 +295,9 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
         comment = (EditText) findViewById(R.id.addComment);
         titleID = eventTitle.getText().toString();
-        Calendar compCal = Calendar.getInstance();
         Calendar todayCal = Calendar.getInstance();
+        int compWDay = cal.get(Calendar.DAY_OF_WEEK);
         todayCal.setTime(new Date());
-        compCal.setTime(compDate);
 
         for(HabitEvent event: UserContainer.getInstance().getUser().getHabitEvents()) {
             if (event.checkIfCompletionDay(compDate) && (event.getId().equals(titleID))) {
@@ -318,14 +316,14 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
         }
 
         onSched = false;
-        boolean sameDay = compCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
-                compCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
-        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.DAY_OF_WEEK) && sameDay){
+        boolean sameDay = cal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
+                cal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
+        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compWDay) && sameDay){
             onSched = true;
             Log.d(TAG, "OnSchedule"); //Checking
             curHabit.incrementOnSchedCount();
         }
-        Log.d(TAG, "NOTOnSchedule" + curHabit.afterStartDate(compDate) + curHabit.checkDay(compCal.DAY_OF_WEEK) + sameDay + compCal.DAY_OF_WEEK + curHabit.getDaysOfTheWeekToComplete()); //Checking
+        Log.d(TAG, "NOTOnSchedule" + curHabit.afterStartDate(compDate) + curHabit.checkDay(compWDay) + sameDay + todayCal.DAY_OF_WEEK + cal.DAY_OF_WEEK + compWDay + curHabit.getDaysOfTheWeekToComplete()); //Checking
         curHabit.incrementTimesCompleted();
         addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap, onSched);
 

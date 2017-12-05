@@ -118,15 +118,6 @@ public class HabitivityMain extends BaseActivity implements NavigationView.OnNav
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        /**Button searchButton = (Button) findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setResult(RESULT_OK);
-                Intent intent = new Intent(HabitivityMain.this, AddHabitActivity.class);
-                startActivity(intent);
-            }
-        });**/
-
         Button buttonLogo = (Button) findViewById(R.id.logobutton);
         buttonLogo.setOnClickListener(new View.OnClickListener() {
             @Override

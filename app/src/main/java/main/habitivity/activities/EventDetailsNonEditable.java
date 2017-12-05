@@ -40,7 +40,6 @@ public class EventDetailsNonEditable extends AppCompatActivity {
     private User loggedInUser;
     private Date today = new Date();
     private ArrayList<Date> skipDay = new ArrayList<>();
-    private Integer completedOnSched = 0;
     private final String[] statusNames = {"Completed", "Uncompleted"};
     /**
      * import added to gradle MPAndroid chart by PhilJay
@@ -155,15 +154,14 @@ public class EventDetailsNonEditable extends AppCompatActivity {
         for(HabitEvent event: loggedInUser.getHabitEvents() ){
             if (event.getId().equals(curHabit.getId()) && event.getOnSched()){
                 skipDay.add(event.getCompletionDate());
-                completedOnSched += 1;
             }
         }
         if ( loggedInUser.getLastLogin() != null ) {
             curHabit.addPassedDayCount(loggedInUser.getLastLogin(), today, false, skipDay);
         }
-        System.out.print(completedOnSched);
-        System.out.print(completedOnSched);
-        addDataSet(completedOnSched/*curHabit.getOnSchedCount()*/, curHabit.getPassedDayCount() /*+ curHabit.getFakeAddDays()*/);
+
+        System.out.print(skipDay.size());
+        addDataSet(skipDay.size(), curHabit.getPassedDayCount() + curHabit.getFakeAddDays());
 
     }
 

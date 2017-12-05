@@ -34,8 +34,6 @@ public class Habit {
     private List<Integer> daysOfTheWeekToComplete = new ArrayList<>();
     private List<HabitEvent> completions = new ArrayList<>();
     private String habitType;
-//    private Date lastComplete = null;
-    //DECREMENT ON EVENT DELETE:
     private int onSchedCount;
     private int passedDayCount;
     private int fakeAddDays;
@@ -263,30 +261,6 @@ public class Habit {
     * @param[in] habitEvent - event to add to our list of completed HabitEvents
     */
     public void addHabitEvent(HabitEvent habitEvent){
-        /**Calendar compCal = Calendar.getInstance();
-        Calendar todayCal = Calendar.getInstance();
-        Calendar startCal = Calendar.getInstance();
-
-        //Log.d(TAG, "addHabitEvent");
-        //Getting completion date and start date to check if done on schedule today with todayCal
-        compCal.setTime(habitEvent.getCompletionDate());
-        startCal.setTime(this.getStartDate());
-
-        //Completed today?
-        boolean sameDay = compCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR) &&
-                compCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
-
-        //Completed after the start date?
-        boolean afterStart = compCal.get(Calendar.YEAR) == startCal.get(Calendar.YEAR) &&
-                compCal.get(Calendar.DAY_OF_YEAR) >= startCal.get(Calendar.DAY_OF_YEAR)
-                || compCal.get(Calendar.YEAR) > startCal.get(Calendar.YEAR);
-
-        //if those and on schedule, then done on time!!!
-        if ( this.checkDay(compCal.DAY_OF_WEEK) && sameDay && afterStart){
-            this.onSchedCount += 1;
-            habitEvent.setOnSched(true);
-        }*/
-
         this.completions.add(habitEvent);
     }
 
@@ -329,16 +303,9 @@ public class Habit {
         int remaindays;
         this.fakeAddDays = days;
 
-        /*if(this.lastComplete != null){
-            lastCal.setTime(this.lastComplete);
-            lastCal.add(Calendar.DATE, 1);
-        }
-        else{
-            lastCal.setTime(start);
-        }*/
         endCal.setTime(end);
-
         curCal.setTime(max(start,this.startDate));
+
         beforeEnd = curCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
                 curCal.get(Calendar.DAY_OF_YEAR) < endCal.get(Calendar.DAY_OF_YEAR)
                 || curCal.get(Calendar.YEAR) < endCal.get(Calendar.YEAR);
@@ -402,50 +369,35 @@ public class Habit {
     }
 
     /**
-     * Get last completed event
-     * @return last completed event
-     */
-//    public Date getLastComplete() {
-//        return lastComplete;
-//    }
-
-    /**
-     * Set the date of the last completed event
-     * @param lastComplete data of last completed event
-     */
-
-//    public void setLastComplete(Date lastComplete) {
-//        this.lastComplete = lastComplete;
-//    }
-
-    /**
-     * Returns if a date is the date of the last completed event for this habit
+     * Decrement or increment by one the onSchedule habit events count for this habit.
      *
      * @author Nicolas Parada
      * @version 1.0
      * @since 1.0
      */
-
-/*    public Boolean isLastCompleteDay(Date curr){
-        Calendar curCal = Calendar.getInstance();
-        Calendar lastCompleteCal = Calendar.getInstance();
-        if (this.lastComplete == null){return false;}
-
-        curCal.setTime(curr);
-        lastCompleteCal.setTime(this.lastComplete);
-        boolean sameDay = lastCompleteCal.get(Calendar.YEAR) == curCal.get(Calendar.YEAR) &&
-                lastCompleteCal.get(Calendar.DAY_OF_YEAR) == curCal.get(Calendar.DAY_OF_YEAR);
-        return sameDay;
-    }*/
-
     public void incrementOnSchedCount() {
         onSchedCount += 1;
     }
 
+    /**
+     * Decrement or increment by one the onSchedule habit events count for this habit.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     */
     public void decrementOnSchedCount() {
         onSchedCount -= 1;
     }
 
+    /**
+     * Return the onSchedule habit events count for this habit.
+     *
+     * @author Nicolas Parada
+     * @version 1.0
+     * @since 1.0
+     * @return int onSchedCount
+     */
     public int getOnSchedCount() {
         return onSchedCount;
     }
