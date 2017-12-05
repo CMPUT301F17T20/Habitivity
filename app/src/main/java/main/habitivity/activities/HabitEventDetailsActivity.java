@@ -215,7 +215,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
      *
      */
     public void onEdit(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
         comment = (TextView) findViewById(R.id.addComment);
         Calendar compCal = Calendar.getInstance();
@@ -253,7 +253,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
                 break;
             }
         }
-        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.DAY_OF_WEEK) &&
+        if (curHabit.afterStartDate(compDate) && curHabit.checkDay(compCal.get(Calendar.DAY_OF_WEEK)) &&
                 testEvent.checkIfCompletionDay(compDate)){
             onSched = true;
             if (!curHabitEvent.checkIfCompletionDay(compDate)) {
@@ -275,7 +275,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
     }
 
     public void onDelete(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
         habitListController.removeHabitEvent(HabitSingletonContainer.getInstance().getHabitEvent());
         startActivity(intent);
     }
