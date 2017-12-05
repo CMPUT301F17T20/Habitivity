@@ -323,7 +323,6 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
             Log.d(TAG, "OnSchedule"); //Checking
             curHabit.incrementOnSchedCount();
         }
-        Log.d(TAG, "NOTOnSchedule" + curHabit.afterStartDate(compDate) + curHabit.checkDay(compWDay) + sameDay + todayCal.DAY_OF_WEEK + cal.DAY_OF_WEEK + compWDay + curHabit.getDaysOfTheWeekToComplete()); //Checking
         curHabit.incrementTimesCompleted();
         addHabitEventController.addHabitEvent(titleID, comment.getText().toString(), location, compDate, bitmap, onSched);
 
