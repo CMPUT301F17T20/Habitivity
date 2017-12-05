@@ -230,7 +230,7 @@ public class AddHabitActivity extends BaseActivity {
     }
 
     public void onAdd(View view) {
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitListActivity.class);
         title = (EditText) findViewById(R.id.habitInput);
         for(Habit habit: UserContainer.getInstance().getUser().getHabits()){
             if(habit.getTitle().equals(title.getText().toString())){

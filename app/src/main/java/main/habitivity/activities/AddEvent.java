@@ -293,7 +293,7 @@ public class AddEvent extends BaseActivity implements OnMapReadyCallback,
      *
      */
     public void onAdd(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
         comment = (EditText) findViewById(R.id.addComment);
         titleID = eventTitle.getText().toString();
         Calendar compCal = Calendar.getInstance();

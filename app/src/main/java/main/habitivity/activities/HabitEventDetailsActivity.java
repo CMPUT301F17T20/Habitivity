@@ -215,7 +215,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
      *
      */
     public void onEdit(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
         habitEventTitle = (TextView) findViewById(R.id.habitEvent);
         comment = (TextView) findViewById(R.id.addComment);
         Calendar compCal = Calendar.getInstance();
@@ -275,7 +275,7 @@ public class HabitEventDetailsActivity extends BaseActivity {
     }
 
     public void onDelete(View view){
-        Intent intent = new Intent(getApplicationContext(), HabitivityMain.class);
+        Intent intent = new Intent(getApplicationContext(), HabitHistoryActivity.class);
         habitListController.removeHabitEvent(HabitSingletonContainer.getInstance().getHabitEvent());
         startActivity(intent);
     }
