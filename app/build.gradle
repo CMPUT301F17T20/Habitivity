@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "main.habitivity"
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -59,6 +59,7 @@ dependencies {
     })
     compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.android.support:multidex:1.0.1'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     // Required -- JUnit 4 framework
